@@ -1,34 +1,46 @@
 # holo-ui
 
-这里等会儿来补充，
-0.哔哔一堆吹牛逼的东西 为啥要做，好处是啥，为啥要这样做，好处是啥。乌拉乌拉巴拉巴拉 
-1.文件说明
-2.使用说明-开发指导，我去，搞得好麻烦了
+## 项目说明
+### 1.在哪里写组件
+  组件统一放置在packages目录下。<br />
+  单个组件以文件夹存放，例如新加一个button组件，则新建一个button文件夹
 
-## Project setup
-```
-npm install
-```
+  :::  warning Note
+  .<br />
+  ├── button _(**实例展示**)_<br />
+  │   ├── `button.vue` _(**组件**)_<br />
+  │   └── `index.ts` _(**输出，命名只能使用index.ts,写法可参考demo**)_<br />
+  :::
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 2.文档在哪里写
+  文档统一在docs里面编写，这一块的内容我也还在学习，暂时不晓得写啥，先放着
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 目录结构
 
-### Run your tests
-```
-npm run test
-```
+<!-- textlint-disable terminology -->
+::: warning Note
+.<br />
+├── docs _(**文档编写**)_<br />
+│   ├── .vuepress _(**存放vurpress全局的配置、组件、静态资源等**)_<br />
+│   │   ├── `config.js` _(**配置文件的入口文件**)_<br />
+│   │ <br />
+│   └── README.md _(**文档首页**)<br />
+│ <br />
+├── example _(**实例展示**)_<br />
+│   ├── assets _(**静态资源**)_<br />
+│   ├── router _(**路由配置**)_<br />
+│   ├── views _(**存放页面**)_<br />
+│   ├── `app.vue` _(**layout页面**)_<br />
+│   └── `main.ts` _(**入口文件**)_<br />
+├── packages _(**存放组件**)_<br />
+│   └── `index.ts` _(**入口文件**)_<br />
+└── package.json<br />
+:::
+<!-- textlint-enable -->
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 开发说明
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 如何运行项目
+运行 npm run serve          以开发模式跑 example 目录
+运行 npm run docs:dev       以开发模式跑 文档
+运行 npm run build          打包packages目录，生成组件库，组件库生成在lib目录下
