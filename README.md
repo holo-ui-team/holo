@@ -14,6 +14,7 @@
 
 ### 2.文档在哪里写
   文档统一在docs里面编写，这一块的内容我也还在学习，暂时不晓得写啥，先放着
+  文档里面可以直接调用组件，所以，是否要单独写组件，后面再来看，反正example 已经准备好了
 
 ## 目录结构
 
@@ -41,6 +42,6 @@
 ## 开发说明
 
 ### 如何运行项目
-运行 npm run serve          以开发模式跑 example 目录
-运行 npm run docs:dev       以开发模式跑 文档
-运行 npm run build          打包packages目录，生成组件库，组件库生成在lib目录下
+运行 npm run serve          以开发模式跑 example 目录<br />
+运行 npm run docs:dev       以开发模式跑 文档<br />
+运行 npm run build          打包packages目录，生成组件库，组件库生成在lib目录下<br />
