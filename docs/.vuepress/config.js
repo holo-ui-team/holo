@@ -20,7 +20,12 @@ module.exports = {
     }
     // sidebar: 'auto', // 侧边栏配置
     // sidebarDepth: 2, // 侧边栏显示2级
-  }
+  },
+  plugins: [
+    [
+      'vuepress-plugin-typescript'
+    ],
+  ],
 }
 
 
