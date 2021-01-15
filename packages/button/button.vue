@@ -43,7 +43,8 @@ export default class Button extends Vue {
 // }
 </script>
 
-<style>
+<style scoped lang="less">
+@import "../style/less.less";
 .cxj-button {
   display: flex;
   background-color: #1188ff;
