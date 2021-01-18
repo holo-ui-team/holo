@@ -1,5 +1,10 @@
 # holo-ui
 
+使用vue-cli3.0的脚手架搭建的项目
+使用vue2.0
+文档编辑使用 vuepress
+引入了typescript，可以按照自己的喜好用或者不用
+
 ## 项目说明
 ### 1.在哪里写组件
   组件统一放置在packages目录下。<br />
@@ -9,13 +14,13 @@
   .<br />
   ├── button _(**实例展示**)_<br />
   │   ├── `button.vue` _(**组件**)_<br />
-  │   └── `index.ts` _(**输出，命名只能使用index.ts,写法可参考demo**)_<br />
+  │   └── `index.ts` _(**输出，命名只能使用index.ts**)_<br />
   :::
 
 ### 2.文档在哪里写
-  在 .vuepress/config.js 里面配置路由
-  在 .vuepress/enhanceApp.js 里面引入组件
-  详情参考demo, demo 的目录  docs/components/button.md
+  在 .vuepress/config.js 里面配置路由<br />
+  在 .vuepress/enhanceApp.js 里面引入组件<br />
+  详情参考demo, demo 的目录  docs/components/button.md,, 或者访问vuepress官网获取更多内容。
 
 
 ## 目录结构

@@ -31,10 +31,10 @@ module.exports = {
     }
   },
   css: {
-      sourceMap: true,
-      extract: {
-          filename: '[name]/style.css'
-      }
+    sourceMap: true,
+    extract: {
+      filename: '[name]/style.css'
+    }
   },
   chainWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
