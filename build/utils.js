@@ -10,7 +10,7 @@ module.exports = {
         const componentEntries = files.reduce((ret, item) => {
             const itemPath = join(path, item)
             const isDir = fs.statSync(itemPath).isDirectory();
-            if (isDir) {
+            if (isDir && isDir !== 'style' && isDir !== 'assets') {
                 ret[item] = resolve(join(itemPath, 'index.ts'))
             } else if (itemPath.indexOf('index.ts') >= 0) {
                 const [name] = item.split('.')
