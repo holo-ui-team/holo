@@ -52,3 +52,35 @@
 运行 npm run serve          以开发模式跑 example 目录<br />
 运行 npm run docs:dev       以开发模式跑 文档<br />
 运行 npm run build          打包packages目录，生成组件库，组件库生成在lib目录下<br />
+
+### 单元测试
+为了让组件提供的功能更加具有可信度，我们增加了单元测试的内容，推荐的文件命名为 `FileName.spec.ts`，以下命令可以帮助你很快创建一个单元测试文件，并且跑起来。
+（测试覆盖率后期会补充）
+
+1. 创建一个单元测试文件（如下，以Button为例），以下命令会在 `tests` 目录下创建 `Button.spec.ts` 文件。
+```bash
+yarn test:create button
+// or
+npm run test:create button
+```
+
+2. 运行单元测试
+```bash
+yarn test
+// or
+npm run test
+```
+
+3. 运行单个单元测试
+```bash
+yarn test --file=Button
+// or 
+npm run test --file=Button
+```
+
+4. 只运行一次单元测试（不wath），也可修改配置文件
+```bash
+yarn test --single-run=true
+// or
+npm run test --single-run=true
+```
