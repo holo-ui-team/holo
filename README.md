@@ -13,8 +13,10 @@
   :::
 
 ### 2.文档在哪里写
-  文档统一在docs里面编写，这一块的内容我也还在学习，暂时不晓得写啥，先放着
-  文档里面可以直接调用组件，所以，是否要单独写组件，后面再来看，反正example 已经准备好了
+  在 .vuepress/config.js 里面配置路由
+  在 .vuepress/enhanceApp.js 里面引入组件
+  详情参考demo, demo 的目录  docs/components/button.md
+
 
 ## 目录结构
 
