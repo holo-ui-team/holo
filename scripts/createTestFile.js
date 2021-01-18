@@ -1,8 +1,15 @@
 const fs = require('fs')
+const path = require('path')
 const testConfig = require('../config/test')
 
-const fileName = getFileName()
-createNewFile(fileName)
+
+try {
+  checkDir()
+  const fileName = getFileName()
+  createNewFile(fileName)
+} catch (error) {
+  throw new Error(error)
+}
 
 
 function createNewFile(fileName) {
@@ -17,6 +24,15 @@ function createNewFile(fileName) {
     console.info(`\n\\(^o^)/~ file【${fileName}】 is created.\n`)
   } catch (error) {
     console.error('\no(╥﹏╥)o oh, something is wrong..\n' + error + '\n')
+  }
+}
+
+function checkDir() {
+  const doesExsit = fs.existsSync(testConfig.FILE_DIR)
+  if (!doesExsit) {
+    fs.mkdirSync((
+      path.resolve(__dirname, '../', testConfig.FILE_DIR)
+    ), {})
   }
 }
 
