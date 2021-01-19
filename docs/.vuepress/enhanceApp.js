@@ -1,10 +1,12 @@
 // const Button = import('../../packages/button/button.vue')
 import Button from '../../packages/button/button.vue'
+import Switch from '../../packages/switch/switch.vue'
 
-const vueComArray = [ Button ]
+const vueComArray = [ Button, Switch ]
 
 export default ({ Vue }) => {
   vueComArray.forEach( (item) => {
-    Vue.component('oButton', item);
+    console.log(item)
+    Vue.component(item.options.name, item);
   } )
 }

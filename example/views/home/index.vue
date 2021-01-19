@@ -4,9 +4,14 @@
     <div class="main-body">
       <div class="left-body">
         <ul>
-          <li>from
+          <li>基础组件
             <ul>
               <li @click="gotoExample('button')">button</li>
+            </ul>
+          </li>
+          <li>提示
+            <ul>
+              <li @click="gotoExample('toast')">toast</li>
             </ul>
           </li>
         </ul>
@@ -23,7 +28,8 @@
 <script lang="ts">
 
 const routerData: {[key: string]: string;} = {
-  'button': 'button'
+  'button': 'button',
+  'toast': 'toast'
 }
 
 import { Component, Vue } from 'vue-property-decorator';
@@ -31,11 +37,11 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class App extends Vue {
 
-  private iframeSrc: String = 'http://192.168.2.76:8084/button'
+  private iframeSrc: String = 'http://192.168.2.76:8080/button'
 
   private gotoExample(exampleName: string) {
     // this.$router.push( { name: routerData[exampleName] } )
-    this.iframeSrc = window.location.host + '/' + routerData[exampleName];
+    this.iframeSrc = 'http://' + window.location.host + '/' + routerData[exampleName];
   }
 
 }
@@ -68,7 +74,7 @@ export default class App extends Vue {
     position: relative;
     .iframe-box {
       position: fixed; right: 20px; top: 50px; z-index: 999999;
-      width: 420px; max-height: 1000px; min-height: 700px;
+      width: 407px; height: 1200px;
     }
     #component_iframe {
       width: 100%;
