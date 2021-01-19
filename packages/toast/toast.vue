@@ -1,5 +1,5 @@
 <template>
-  <div class="toast-wapper" :class="classObj">
+  <div class="toast-wapper" :class="classObj" v-if="isShow">
     {{ msg }}
   </div>
 </template>
@@ -15,6 +15,8 @@ export default class Toast extends Vue {
   @Prop({ default: 'client' }) readonly env!: String;
   @Prop({ default: 'default' }) readonly type!: string;
 
+  private isShow: Boolean = true;
+
   private get classObj(): Array<String> {
     let classArray: Array<String> = [ this.env, this.type ];
     return classArray;
@@ -24,8 +26,9 @@ export default class Toast extends Vue {
 </script>
 
 <style lang="less" scoped>
+@import "../style/theme.less";
 .toast-wapper {
-  position: fixed; left: 0; right: 0;
+  position: fixed; left: 0; right: 0; top: 0; z-index: 1000;
   box-sizing: border-box;
   width: 100%;
   font-size: 16px; color: #fff; text-align: center; line-height: 50px; font-weight: 400;

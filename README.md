@@ -1,9 +1,9 @@
 # holo-ui
 
-使用vue-cli3.0的脚手架搭建的项目
-使用vue2.0
-文档编辑使用 vuepress
-引入了typescript，可以按照自己的喜好用或者不用
+使用vue-cli3.0的脚手架搭建的项目<br />
+使用vue2.0<br />
+文档编辑使用 vuepress<br />
+引入了typescript，可以按照自己的喜好用或者不用<br />
 
 ## 项目说明
 ### 1.在哪里写组件

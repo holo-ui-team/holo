@@ -1,2 +1,3 @@
 import oButton from './button/button.vue';
-export default { oButton };
+import Toast from './button/index'
+export default { oButton, Toast };
