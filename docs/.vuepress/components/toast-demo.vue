@@ -10,15 +10,10 @@
 </template>
 
 <script>
-// import Vue from 'vue'
-// export default Vue.extend({
-  
-// })
 
 import Vue from 'vue'
-import toast from '../../../lib/toast/toast.js'
-import '../../../lib/toast/style.css'
-Vue.use(toast)
+import Toast from '../../../packages/toast/index'
+Vue.use(Toast)
 
 export default {
   methods: {

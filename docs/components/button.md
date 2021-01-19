@@ -83,7 +83,7 @@
 
 <template>
   <div class="component_iframe">
-    <iframe src="http://192.168.2.76:8084/button"></iframe>
+    <iframe src="http://192.168.2.76:8080/button"></iframe>
   </div>
 </template>
 

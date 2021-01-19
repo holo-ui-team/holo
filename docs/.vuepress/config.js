@@ -39,7 +39,20 @@ function getPluginSidebar (pluginTitle) {
           title: '基础组件',
           collapsable: false,
           children: [
-            'button',
+            'button'
+          ]
+        },
+        {
+          title: 'From 表单',
+          collapsable: false,
+          children: [
+            'switch'
+          ]
+        },
+        {
+          title: 'Notice 提示',
+          collapsable: false,
+          children: [
             'toast'
           ]
         }
