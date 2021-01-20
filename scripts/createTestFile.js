@@ -2,15 +2,15 @@ const fs = require('fs')
 const path = require('path')
 const testConfig = require('../config/test')
 
+let fileName = ''
 
 try {
   checkDir()
-  const fileName = getFileName()
+  fileName = getFileName()
   createNewFile(fileName)
 } catch (error) {
   throw new Error(error)
 }
-
 
 function createNewFile(fileName) {
   const testPath = testConfig.getAbsolutePath(__dirname, fileName)
@@ -42,11 +42,13 @@ function getFileName() {
 }
 
 function getTemplate() {
+  const componentName = fileName.split('.')[0]
   return `import {expect} from 'chai'
+import ${componentName} from 'packages/${componentName}'
 
-describe('Test a', () => {
-  it('a to be true', () => {
-    expect(true).to.be.true
+describe('${componentName}', () => {
+  it('${componentName} exists', () => {
+    expect(${componentName}).to.exist
   })
 })`
 }
