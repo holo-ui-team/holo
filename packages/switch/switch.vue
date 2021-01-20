@@ -32,7 +32,10 @@ export default class Switch extends Vue {
   }
 
   private switchClick(): void {
-    this.nowStatus = !this.nowStatus;
+    if (!this.disabled) {
+      this.nowStatus = !this.nowStatus;
+      this.$emit('change', this.nowStatus);
+    }
   }
 
   private created():void {
@@ -54,6 +57,7 @@ export default class Switch extends Vue {
   height: 24px;
   position: relative;
   .switch-bg {
+    box-sizing: border-box;
     width: 100%; height: 100%;
     border-radius: 24px;
     transition: all 0.5s ease;
@@ -67,6 +71,7 @@ export default class Switch extends Vue {
     }
   }
   .switch-round {
+    box-sizing: border-box;
     width: 24px; height: 24px;
     border-radius: 24px;
     transition: all 0.5s ease;
