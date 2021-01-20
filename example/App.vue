@@ -15,4 +15,5 @@ export default class App extends Vue {
 </script>
 
 <style lang="less" scoped>
+body { padding: 0; margin: 0; }
 </style>

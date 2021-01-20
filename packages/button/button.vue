@@ -8,19 +8,22 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-@Component
+
+@Component({
+  name: 'oButton'
+})
 export default class Button extends Vue {
   // msg='默认的文字'; // 相当于 data() { return {} }
   @Prop({ default: 'big' }) readonly size!: string;
   @Prop({ default: 'primary' }) readonly type!: string;
   @Prop({ default: 'blue' }) readonly theme!: string;
-  @Prop({ default: true }) readonly round!: Boolean;
-  @Prop({ default: false }) readonly disabled!: Boolean;
+  @Prop({ default: true }) readonly round!: boolean;
+  @Prop({ default: false }) readonly disabled!: boolean;
   @Prop({ default: '' }) readonly icon!: string;
-  @Prop({ default: 'left' }) readonly iconPosition!: String;
+  @Prop({ default: 'left' }) readonly iconPosition!: string;
 
-  private get classObj(): Array<String> {
-    let classArray: Array<String> = [ this.size, this.type, this.theme ];
+  private get classObj(): Array<string> {
+    let classArray: Array<string> = [ this.size, this.type, this.theme ];
     if (this.round) {
       classArray.push('is-round');
     }
@@ -30,7 +33,7 @@ export default class Button extends Vue {
     return classArray;
   }
 
-  private get imgUrl(): String {
+  private get imgUrl(): string {
     let resImgUrl = '';
     if (this.icon === 'search') {
       resImgUrl = require('../assets/img/search_white.png');
@@ -51,19 +54,6 @@ export default class Button extends Vue {
       this.$emit('click');
     }
   }
-
-
-  // private created(): void {
-  //   console.log('created', this.mainText);
-  // }
-  // private mounted(): void {
-  //   console.log('mounted', this.mainText);
-  // }
-
-  // private demoClick(): void {
-  //   // methods
-  //   console.log('这个文字被惦记了')
-  // }
 }
 </script>
 

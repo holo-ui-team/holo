@@ -12,9 +12,24 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+    path: '/phoneNav',
+    name: 'phoneNav',
+    component: () => import('../views/home/phone.vue')
+  },
+  {
     path: '/button',
     name: 'button',
     component: () => import('../views/button/index.vue')
+  },
+  {
+    path: '/toast',
+    name: 'toast',
+    component: () => import('../views/toast/index.vue')
+  },
+  {
+    path: '/switch',
+    name: 'switch',
+    component: () => import('../views/switch/index.vue')
   }
 ]
 

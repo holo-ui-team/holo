@@ -17,7 +17,7 @@ module.exports = {
       return {
         entry: getComponentEntries('packages'),
         output: {
-          filename: '[name]/[name].js',
+          filename: '[name]/index.js',
           libraryTarget: 'commonjs2', // 使用 commonjs2 或者配置其他模式 umd 之类的
           libraryExport: 'default',
           library: '[name]',
@@ -31,10 +31,10 @@ module.exports = {
     }
   },
   css: {
-      sourceMap: true,
-      extract: {
-          filename: '[name]/style.css'
-      }
+    sourceMap: true,
+    extract: {
+      filename: '[name]/style.css'
+    }
   },
   chainWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
