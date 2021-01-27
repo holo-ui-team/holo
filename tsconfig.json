@@ -15,6 +15,7 @@
     "baseUrl": ".",
     "types": [
       "mocha",
+      "chai",
       "node",
       "webpack-env",
     ],

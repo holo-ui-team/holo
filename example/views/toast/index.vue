@@ -15,7 +15,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import SimulateWindow from '../../components/simulate-window.vue'
-import Toast from '../../../packages/toast/index'
+import Toast from '../../../packages/Toast/index'
 Vue.use(Toast)
 
 @Component({
