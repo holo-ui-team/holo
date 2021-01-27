@@ -1,5 +1,5 @@
-import oButton from './button/button.vue';
-import Toast from './toast/index'
+import oButton from './Button/button.vue';
+import Toast from './Toast/index'
 
 // const oButton = require('./button/button.vue');
 // const Toast = require('./toast/index.ts');

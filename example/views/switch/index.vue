@@ -10,7 +10,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import SimulateWindow from '../../components/simulate-window.vue'
-import oSwitch from '../../../packages/switch/switch.vue'
+import oSwitch from '../../../packages/Switch/switch.vue'
 
 @Component({
   components: {
