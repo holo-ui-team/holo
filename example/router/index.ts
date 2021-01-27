@@ -30,7 +30,12 @@ const routes: Array<RouteConfig> = [
     path: '/switch',
     name: 'switch',
     component: () => import('../views/switch/index.vue')
-  }
+  },
+  {
+    path: '/icon',
+    name: 'icon',
+    component: () => import('../views/icon.vue')
+  },
 ]
 
 const router = new VueRouter({
