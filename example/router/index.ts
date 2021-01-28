@@ -36,6 +36,11 @@ const routes: Array<RouteConfig> = [
     name: 'icon',
     component: () => import('../views/icon.vue')
   },
+  {
+    path: '/popup',
+    name: 'popup',
+    component: () => import('../views/popup.vue')
+  },
 ]
 
 const router = new VueRouter({

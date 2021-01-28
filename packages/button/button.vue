@@ -1,5 +1,5 @@
 <template>
-  <button class="button-wapper" :disabled="disabled || icon == 'loading'" :class="classObj" @click="btnClick" @touchstart="emptyFun" @touchend="emptyFun">
+  <button class="button-wrapper" :disabled="disabled || icon == 'loading'" :class="classObj" @click="btnClick" @touchstart="emptyFun" @touchend="emptyFun">
     <img class="icon-box left" v-if="imgUrl && iconPosition == 'left'" :src="imgUrl" />
     <span><slot></slot></span>
     <img class="icon-box right" v-if="imgUrl && iconPosition == 'right'" :src="imgUrl" />
@@ -59,7 +59,7 @@ export default class Button extends Vue {
 
 <style scoped lang="less">
 @import "../style/theme.less";
-.button-wapper {
+.button-wrapper {
   // display: inline-block;
   width: 100%;
   // 大小

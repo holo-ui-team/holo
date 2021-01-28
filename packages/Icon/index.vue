@@ -8,31 +8,12 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
-    name: {
-      type: String,
-      default: 'o-check',
-      validator: (val) => /^o-/.test(val)
-    },
-    title: {
-      type: String
-    },
-    type: {
-      type: String,
-      default: 'css',
-      validator: (val) => ['img', 'css'].indexOf(val) >= 0
-    },
-    url: {
-      type: String,
-      default: ''
-    },
-    width: {
-      type: Number,
-      default: 10
-    },
-    height: {
-      type: Number,
-      default: 10
-    }
+    name: { type: String, default: 'o-check', validator: (val) => /^o-/.test(val) },
+    title: { type: String },
+    type: { type: String, default: 'css', validator: (val) => ['img', 'css'].indexOf(val) >= 0 },
+    url: { type: String, default: '' },
+    width: { type: Number, default: 10 },
+    height: { type: Number, default: 10 }
   },
   data() {
     return {
