@@ -1,18 +1,5 @@
 <template>
   <div class="loading-wapper" :class="classObj">
-    <!-- <div class="mask"></div>
-    <div class="main-body">
-      <div class="global-loading" v-if="type == 'global'">
-        <ul>
-          <li></li><li></li><li></li>
-        </ul>
-      </div>
-      <div class="local-loading" v-if="type == 'local'">
-        <div class="loading-img">
-          <img :src="loadingImg" />
-        </div>
-      </div>
-    </div> -->
     <div v-if="type == 'global'" class="global">
       <div class="mask"></div>
       <div class="main-body">
