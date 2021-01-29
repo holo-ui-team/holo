@@ -13,16 +13,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import SimulateWindow from '../../components/simulate-window.vue'
-import Loading from '../../../packages/loading/index'
+import Loading from '../../../packages/Loading/index'
 Vue.use(Loading)
-
-// class needParams {
-//   text: string = '';
-//   type: string = 'global';
-//   theme: string = 'blue';
-//   lock: boolean = true;
-//   maskType: string = 'white'
-// }
 
 @Component({
   components: {

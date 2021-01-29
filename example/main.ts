@@ -2,15 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-// import Toast from '../packages/Toast/index'
-// import { oButton, Toast } from '../lib/index/index'
-// import Toast from '../lib/toast/index'
-// import '../lib/index/style.css'
+import '../lib/index/style.css'
+
+// import oButton from '../lib/Button/index'
+// import { oButton } from '../lib/index/index'
 
 Vue.config.productionTip = false
 
-// console.log(Toast)
-// Vue.use(Toast)
+// Vue.use(oButton);
 
 new Vue({
   router,
