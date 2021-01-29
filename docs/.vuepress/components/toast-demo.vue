@@ -12,7 +12,7 @@
 <script>
 
 import Vue from 'vue'
-import Toast from '../../../packages/toast/index'
+import Toast from '../../../packages/Toast/index'
 Vue.use(Toast)
 
 export default {

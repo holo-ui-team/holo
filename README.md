@@ -28,6 +28,7 @@
 <!-- textlint-disable terminology -->
 ::: warning Note
 .<br />
+├── config _(**配置文件**)_<br />
 ├── docs _(**文档编写**)_<br />
 │   ├── .vuepress _(**存放vurpress全局的配置、组件、静态资源等**)_<br />
 │   │   ├── `config.js` _(**配置文件的入口文件**)_<br />
@@ -42,6 +43,7 @@
 │   └── `main.ts` _(**入口文件**)_<br />
 ├── packages _(**存放组件**)_<br />
 │   └── `index.ts` _(**入口文件**)_<br />
+├── scripts_(**相关指令文件**)_<br />
 └── package.json<br />
 :::
 <!-- textlint-enable -->
@@ -54,8 +56,12 @@
 运行 npm run build          打包packages目录，生成组件库，组件库生成在lib目录下<br />
 
 ### 单元测试
+(单元测试工具调整，此处内容待更新)
 为了让组件提供的功能更加具有可信度，我们增加了单元测试的内容，推荐的文件命名为 `FileName.spec.ts`，以下命令可以帮助你很快创建一个单元测试文件，并且跑起来。
 （测试覆盖率后期会补充）
+
+采用的技术：karma, mocha, chai, sinion, typescript
+相关配置：karma.config.js
 
 1. 创建一个单元测试文件（如下，以Button为例），以下命令会在 `tests` 目录下创建 `Button.spec.ts` 文件。
 ```bash

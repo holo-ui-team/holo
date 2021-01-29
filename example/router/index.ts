@@ -35,7 +35,17 @@ const routes: Array<RouteConfig> = [
     path: '/loading',
     name: 'loading',
     component: () => import('../views/loading/index.vue')
-  }
+  },
+  {
+    path: '/icon',
+    name: 'icon',
+    component: () => import('../views/icon.vue')
+  },
+  {
+    path: '/popup',
+    name: 'popup',
+    component: () => import('../views/popup.vue')
+  },
 ]
 
 const router = new VueRouter({

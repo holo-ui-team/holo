@@ -1,6 +1,6 @@
-// const Button = import('../../packages/button/button.vue')
-import Button from '../../packages/button/button.vue'
-import Switch from '../../packages/switch/switch.vue'
+// const Button = import('../../packages/Button/button.vue')
+import Button from '../../packages/Button/button.vue'
+import Switch from '../../packages/Switch/switch.vue'
 
 const vueComArray = [ Button, Switch ]
 

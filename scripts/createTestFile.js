@@ -1,9 +1,16 @@
 const fs = require('fs')
+const path = require('path')
 const testConfig = require('../config/test')
 
-const fileName = getFileName()
-createNewFile(fileName)
+let fileName = ''
 
+try {
+  checkDir()
+  fileName = getFileName()
+  createNewFile(fileName)
+} catch (error) {
+  throw new Error(error)
+}
 
 function createNewFile(fileName) {
   const testPath = testConfig.getAbsolutePath(__dirname, fileName)
@@ -20,17 +27,28 @@ function createNewFile(fileName) {
   }
 }
 
+function checkDir() {
+  const doesExsit = fs.existsSync(testConfig.FILE_DIR)
+  if (!doesExsit) {
+    fs.mkdirSync((
+      path.resolve(__dirname, '../', testConfig.FILE_DIR)
+    ), {})
+  }
+}
+
 function getFileName() {
   const randomNumber = Math.random() * 1000000
   return testConfig.formatFileName(process.argv[2] || 'random' + parseInt(`${randomNumber}`, 10))
 }
 
 function getTemplate() {
+  const componentName = fileName.split('.')[0]
   return `import {expect} from 'chai'
+import ${componentName} from 'packages/${componentName}'
 
-describe('Test a', () => {
-  it('a to be true', () => {
-    expect(true).to.be.true
+describe('${componentName}', () => {
+  it('${componentName} exists', () => {
+    expect(${componentName}).to.exist
   })
 })`
 }
