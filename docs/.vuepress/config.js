@@ -53,7 +53,8 @@ function getPluginSidebar (pluginTitle) {
           title: 'Notice 提示',
           collapsable: false,
           children: [
-            'toast'
+            'toast',
+            'loading'
           ]
         }
       ]
