@@ -30,6 +30,11 @@ const routes: Array<RouteConfig> = [
     path: '/switch',
     name: 'switch',
     component: () => import('../views/switch/index.vue')
+  },
+  {
+    path: '/loading',
+    name: 'loading',
+    component: () => import('../views/loading/index.vue')
   }
 ]
 

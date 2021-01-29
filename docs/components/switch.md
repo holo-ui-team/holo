@@ -8,7 +8,7 @@
 </template>
 
 ```html
-
+  <oSwitch :status="true"></oSwitch>
 ```
 
 ### Attributes

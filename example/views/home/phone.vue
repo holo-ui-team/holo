@@ -15,7 +15,8 @@ export default class PhoneNav extends Vue {
   private navData: Array<any> = [
     { name: 'button', path: '/button', pathname: 'button' },
     { name: 'toast', path: '/toast', pathname: 'toast' },
-    { name: 'switch', path: '/switch', pathname: 'switch' }
+    { name: 'switch', path: '/switch', pathname: 'switch' },
+    { name: 'loading', path: '/loading', pathname: 'loading' }
   ]
 
 
@@ -31,8 +32,8 @@ export default class PhoneNav extends Vue {
   ul li {
     list-style: none;
     display: inline-block; vertical-align: middle;
-    width: 33%;
-    text-align: center;
+    width: 33%; height: 40px;
+    text-align: center; line-height: 40px;
   }
 }
 </style>
