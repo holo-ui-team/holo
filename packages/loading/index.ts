@@ -5,7 +5,7 @@ const loading: any = function(Vue) {
   let isHavShow: boolean = false;
   Vue.prototype.$loading = function(params: { text: string, type?: string, theme?: string, lock?: boolean, maskType?: string }) {
     if (isHavShow) {return}
-    let { text, type = 'global', theme = 'blue', lock = true, maskType = 'white' } = params;
+    let { text, type = 'point', theme = 'blue', lock = true, maskType = 'white' } = params;
     const loadingDom = new loadingConsTructor({
       el:document.createElement('div'),
       propsData: { text, type, theme, lock, maskType },
