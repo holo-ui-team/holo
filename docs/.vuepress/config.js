@@ -44,7 +44,7 @@ function getPluginSidebar (pluginTitle) {
           ]
         },
         {
-          title: 'From 表单',
+          title: 'Form 表单',
           collapsable: false,
           children: [
             'switch'
@@ -56,6 +56,13 @@ function getPluginSidebar (pluginTitle) {
           children: [
             'toast',
             'loading'
+          ]
+        },
+        {
+          title: 'Popup 弹出层/模态框',
+          collapsable: false,
+          children: [
+            'popup',
           ]
         }
       ]
