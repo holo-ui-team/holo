@@ -33,14 +33,14 @@ export default Vue.extend({
     PopupBox, Button
   },
   props: {
-    visible: { type: Boolean },
-    maskClosable: { type: Boolean, default: true },
-    title: { type: String, },
-    content: { type: String, },
-    type: { type: String, default: 'default', validator: (val) => ['default', 'alert'].indexOf(val) >= 0 },
-    primaryButtonText: { type: String, default: '确定' },
+    visible            : { type: Boolean },
+    maskClosable       : { type: Boolean, default: true },
+    title              : { type: String, },
+    content            : { type: String, },
+    type               : { type: String, default: 'default', validator: (val) => ['default', 'alert'].indexOf(val) >= 0 },
+    primaryButtonText  : { type: String, default: '确定' },
     secondaryButtonText: { type: String },
-    lastButtonText: { type: String }
+    lastButtonText     : { type: String }
   },
   computed: {
     buttonLength() {

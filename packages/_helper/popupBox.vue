@@ -32,10 +32,10 @@ export default Vue.extend({
     BgMask
   },
   props: {
-    visible: { type: Boolean },
-    maskClosable: { type: Boolean, default: true },
-    title: { type: String },
-    desc: { type: String },
+    visible      : { type: Boolean },
+    maskClosable : { type: Boolean, default: true },
+    title        : { type: String },
+    desc         : { type: String },
     actionVisible: { type: Boolean },
     footerVisible: { type: Boolean }
   },

@@ -15,11 +15,11 @@ const body = document.querySelector('body')
 export default Vue.extend({
   props: {
     visible: {
-      type: Boolean,
+      type   : Boolean,
       default: false
     },
     maskClosable: {
-      type: Boolean,
+      type   : Boolean,
       default: true
     }
   },
