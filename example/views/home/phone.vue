@@ -16,7 +16,9 @@ export default class PhoneNav extends Vue {
     { name: 'button', path: '/button', pathname: 'button' },
     { name: 'toast', path: '/toast', pathname: 'toast' },
     { name: 'switch', path: '/switch', pathname: 'switch' },
-    { name: 'loading', path: '/loading', pathname: 'loading' }
+    { name: 'loading', path: '/loading', pathname: 'loading' },
+    { name: 'popup', path: '/popup', pathname: 'popup' },
+    { name: 'icon', path: '/icon', pathname: 'icon' },
   ]
 
 
