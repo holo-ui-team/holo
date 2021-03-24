@@ -29,13 +29,9 @@ export default class ButtonExample extends Vue {
       } else if (type == '2') {
         this.$loading({ text: '加载中...', theme: 'white' } );
       } else if (type == '3') {
-        this.$loading({ text: '加载中...', type: 'local' } );
+        this.$loading({ text: '加载中...', type: 'circle' } );
       } else if (type == '4') {
-        this.$loading({ text: '加载中...', type: 'local', theme: 'white' } );
-      } else if (type == '5') {
-        
-      } else if (type == '6') {
-        
+        this.$loading({ text: '加载中...', type: 'circle', theme: 'white' } );
       }
   }
 

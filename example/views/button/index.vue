@@ -23,12 +23,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 import SimulateWindow from '../../components/simulate-window.vue'
-// import oButton from '../../../packages/Button/button.vue'
+import oButton from '../../../packages/Button/button.vue'
 
 
 @Component({
   components: {
-    SimulateWindow
+    SimulateWindow,
+    oButton
   }
 })
 export default class ButtonExample extends Vue {
