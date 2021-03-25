@@ -1,5 +1,5 @@
 <template>
-  <div class="switch-wrapper" :style="styleObj" @click="switchClick">
+  <div class="switch-wapper" :style="styleObj" @click="switchClick">
     <div class="switch-bg" :class="classObj"></div>
     <div class="switch-round" :class="classObj"></div>
   </div>
@@ -48,7 +48,7 @@ export default class Switch extends Vue {
 
 <style lang="less" scoped>
 @import "../style/theme.less";
-.switch-wrapper {
+.switch-wapper {
   box-sizing: border-box;
   display: inline-block;
   height: 24px;
