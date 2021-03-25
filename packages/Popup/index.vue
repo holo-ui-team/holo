@@ -102,4 +102,9 @@ export default Vue.extend({
     }
   }
 }
+
+// csy:todo 需要确定是POPUP单独处理，还是在button里面需要加上
+.button-wrapper.gray {
+  border: 1px solid @borderColor;
+}
 </style>
