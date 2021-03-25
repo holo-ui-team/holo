@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({
-  name: 'PointLoading'
+  name: 'CircleLoading'
 })
 export default class PointLoading extends Vue {
   @Prop({ default: 'blue' }) readonly theme!: string;
