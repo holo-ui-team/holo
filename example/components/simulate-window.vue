@@ -1,5 +1,5 @@
 <template>
-  <div class="simulate-wapper">
+  <div class="simulate-wrapper">
     <div class="title">{{ title }}
       <div class="back-box" @click="backClick">返回</div>
     </div>
@@ -26,7 +26,7 @@ export default class SimulateWindow extends Vue {
 </script>
 
 <style lang="less" scoped>
-.simulate-wapper {
+.simulate-wrapper {
   box-sizing: border-box;
   width: 100%; max-height: 1000px; min-height: 700px;
   border: 1px solid #ccc;

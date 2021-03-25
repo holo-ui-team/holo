@@ -1,6 +1,6 @@
 <template>
   <SimulateWindow title="toast" bgColor="#ffffff">
-    <div class="toast-wapper">
+    <div class="toast-wrapper">
       <div class="tips-text" @click="showToast('1')">点击展示 客户端 默认提示</div>
       <div class="tips-text" @click="showToast('2')">点击展示 客户端 成功提示</div>
       <div class="tips-text" @click="showToast('3')">点击展示 客户端 警告提示</div>
@@ -46,7 +46,7 @@ export default class ButtonExample extends Vue {
 </script>
 
 <style lang="less" scoped>
-.toast-wapper {
+.toast-wrapper {
   .tips-text {
     margin: 16px 0;
   }

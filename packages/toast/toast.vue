@@ -1,5 +1,5 @@
 <template>
-  <div class="toast-wapper" :class="classObj" v-if="isHide">
+  <div class="toast-wrapper" :class="classObj" v-if="isHide">
     {{ msg }}
   </div>
 </template>
@@ -26,10 +26,6 @@ export default class Toast extends Vue {
     return classArray;
   }
 
-  private created(): void {
-    
-  }
-
   @Watch('isShow')
   onShowChange(val: boolean) {
     if (!val) {
@@ -44,7 +40,7 @@ export default class Toast extends Vue {
 
 <style lang="less" scoped>
 @import "../style/theme.less";
-.toast-wapper {
+.toast-wrapper {
   position: fixed; left: 0; right: 0; top: 0; z-index: 1000;
   box-sizing: border-box;
   width: 100%;

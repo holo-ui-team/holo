@@ -1,6 +1,6 @@
 <template>
   <SimulateWindow title="switch" bgColor="#ffffff">
-    <div class="switch-wapper">
+    <div class="switch-wrapper">
       <oSwitch></oSwitch>
     </div>
   </SimulateWindow>
@@ -23,7 +23,7 @@ export default class ButtonExample extends Vue {}
 </script>
 
 <style lang="less" scoped>
-.switch-wapper {
+.switch-wrapper {
   .tips-text {
     margin: 16px 0;
   }
