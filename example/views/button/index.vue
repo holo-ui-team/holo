@@ -1,6 +1,6 @@
 <template>
   <SimulateWindow title="按钮" bgColor="#ffffff">
-    <div class="button-wapper">
+    <div class="button-wrapper">
       <div class="item-box"><oButton @click="btnClick">蓝色 / 默认</oButton></div>
       <div class="item-box"><oButton :round="false">蓝色 / 非圆角</oButton></div>
       <div class="item-box"><oButton :disabled="true">蓝色 / 禁用</oButton></div>
@@ -43,7 +43,7 @@ private btnClick(): void {
 </script>
 
 <style lang="less" scoped>
-.button-wapper {
+.button-wrapper {
   .item-box {
     margin: 16px 0;
   }

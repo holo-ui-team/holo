@@ -1,5 +1,5 @@
 <template>
-  <div class="phone-nav-wapper">
+  <div class="phone-nav-wrapper">
     <ul>
       <li v-for="(item, index) in navData" :key="index" @click="gotoContent(item.pathname)">{{ item.name }}</li>
     </ul>
@@ -30,7 +30,7 @@ export default class PhoneNav extends Vue {
 </script>
 
 <style lang="less" scoped>
-.phone-nav-wapper {
+.phone-nav-wrapper {
   ul li {
     list-style: none;
     display: inline-block; vertical-align: middle;
