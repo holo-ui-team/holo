@@ -39,8 +39,9 @@ function getPluginSidebar (pluginTitle) {
           title: '基础组件',
           collapsable: false,
           children: [
+            'icon',
             'button',
-            'icon'
+            'no-data'
           ]
         },
         {

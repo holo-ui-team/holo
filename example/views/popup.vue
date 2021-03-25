@@ -54,7 +54,7 @@
     <section>
       点击mask不关闭
       <button @click="visible9 = !visible9">切换状态</button>
-      <o-popup :visible="visible9" :maskClosable="false" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible9 = false"></o-popup>
+      <o-popup :visible="visible9" :maskClosable="false" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @confirm="visible9 = false"></o-popup>
     </section>
 
     <p style="height: 2000px">content</p>

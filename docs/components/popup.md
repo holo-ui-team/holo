@@ -55,6 +55,12 @@
 |secondaryButtonText| 第二个按钮的文字  |  string  | - |  '' |
 |lastButtonText     | 第三个按钮（最后一个按钮）的文字  |  string  | - |  '' |
 
+### Events
+| 事件名称 | 说明 | 回调参数 |
+|---------|---------|---------|
+| confirm | 蓝色的，主要按钮点击后触发的事件 | - |
+| cancel  | 白色的，第二个按钮点击后触发的事件 | - |
+| cancel2 | 百色的，第三个按钮点击后触发的事件 | - |
 
 <style lang="less">
   .box {
