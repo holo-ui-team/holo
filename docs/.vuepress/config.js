@@ -22,9 +22,9 @@ module.exports = {
     ],
     sidebar: {
       '/components/': getPluginSidebar('组件'),
-    }
+    },
     // sidebar: 'auto', // 侧边栏配置
-    // sidebarDepth: 2, // 侧边栏显示2级
+    sidebarDepth: 3, // 侧边栏显示2级
   },
   plugins: [
     [
@@ -44,7 +44,6 @@ function getPluginSidebar (pluginTitle) {
           title: '基础组件',
           collapsable: false,
           children: [
-
             'icon',
             'button',
             'none'
