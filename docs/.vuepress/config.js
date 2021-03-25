@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   title: 'holo-ui',
   description: 'holo-ui',
@@ -8,6 +10,9 @@ module.exports = {
   sidebar: 'auto',
   markdown: {
     lineNumbers: false // 代码块显示行号
+  },
+  alias: {
+    '@':  path.join(__dirname, '../../packages'),
   },
   themeConfig: {
     nav:[ // 导航栏配置
@@ -39,9 +44,10 @@ function getPluginSidebar (pluginTitle) {
           title: '基础组件',
           collapsable: false,
           children: [
+
             'icon',
             'button',
-            'no-data'
+            'none'
           ]
         },
         {

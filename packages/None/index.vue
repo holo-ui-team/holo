@@ -1,10 +1,10 @@
 <template>
-  <div class="no-data-wrapper">
+  <div class="none-wrapper">
 
     <Icon type="img" :url="url" :width="sideLength"  :height="sideLength"/>
 
-    <div v-if="text" class="no-data-text-wrapper">
-      <p v-for="(program, index) in texts" :key="index" class="no-data-text">{{program}}</p>
+    <div v-if="text" class="none-text-wrapper">
+      <p v-for="(program, index) in texts" :key="index" class="none-text">{{program}}</p>
     </div>
 
     <Button v-if="buttonText" type="primary" size="medium" @click="$emit('click')">{{buttonText}}</Button>
@@ -18,7 +18,7 @@ import Icon from '../Icon/index.vue'
   import Button from '../Button/button.vue'
 
   export default Vue.extend({
-    name: 'NoData',
+    name: 'ONone',
     props: {
       name: {
         type     : String,
@@ -49,7 +49,7 @@ import Icon from '../Icon/index.vue'
         return this.size === 'default' ? 200 : 128
       },
       url() {
-        return require('../assets/img/no-data/o-' + this.name + '.png')
+        return require('../assets/img/none/o-' + this.name + '.png')
       },
       texts() {
         return this.text.split('\\n')
@@ -61,7 +61,7 @@ import Icon from '../Icon/index.vue'
 <style scoped lang="less">
 @import '~@/style/theme.less';
 
-.no-data {
+.none {
   &-wrapper {
     display: flex; justify-content: center; align-items: center;
     flex-direction: column;
@@ -72,7 +72,7 @@ import Icon from '../Icon/index.vue'
     margin: 0; padding: 0;
     color: @gray;
 
-    & + .no-data-text {
+    & + .none-text {
       margin-top: 4px;
     }
 
