@@ -20,12 +20,15 @@
 | cancel2 | 百色的，第三个按钮点击后触发的事件 | - |
 
 ## 用法
-<template>
-  例子引入有点问题，暂时空着
-  <div class="box">
-    <!-- <oIcon></oIcon> -->
-  </div>
-</template>
+
+根据通常的代码习惯，popup提供两种使用方法：
+
+1. 通过`this.$popup()`来使用
+2. 通过标签`<o-popip></o-popup>`来使用（内容过于复杂时推荐此种情况）
+
+### 基础用法
+
+<popup-demo :currentDemo="0" />
 
 此处的内容 加入具体例子后 会一对一展示，调整
 ```vue

@@ -58,12 +58,16 @@ export default Vue.extend({
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0;
   background: rgba(0, 0, 0, 0.4);
-  z-index: @zIndex;
+
+  &-wrapper {
+    position: relative;
+    z-index: @zIndex;
+  }
 
   &-content {
     overflow: hidden;
     z-index: @zIndex;
-    position: absolute; bottom: 12px; left: 50%;
+    position: fixed; bottom: 12px; left: 50%;
     transform: translateX(-50%);
   }
 }
