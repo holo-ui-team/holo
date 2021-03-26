@@ -31,6 +31,26 @@
   <OIcon /> 
 ```
 
+  可通过class自定义样式：<o-icon class="customClass"></o-icon>
+
+  ```vue
+    <o-icon class="customClass"></o-icon>
+
+    <style scoped>
+    .customClass {
+      color: red;
+      font-size: 40px;
+      font-weight: bold;
+    }
+    </style>
+  ```
+
+  可设置title（鼠标移到icon上可以看到效果）：<o-icon title="哈咯哈"></o-icon>
+
+  ```vue
+    <o-icon title="哈咯哈"></o-icon>
+  ```
+
   **使用iconfont的原因在于，对于单色图标我们可以轻松的改变他的`font-size, color等属性`，如同操作文本一样地操作icon。**（采用iconfont分为单色图标和有色图标（这里由于一些问题，暂时没有加入有色图标）。
 
   我们需要到iconfont的holo项目文档里查看当前可用的图标，然后复制图标名即可使用。下面列出一些可能常用的图标（我猜的）。
@@ -104,32 +124,34 @@
 
 ### 通过css的background引入图片
 
-### 通过img标签引入图片
+  当我们没有传入name时，说明我们即将采用css的background形式来加载图标，我们需要传入`url width height`。（也可设置type="css"）
 
-  <o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+  <div style="margin-top:20px">
+    <o-icon url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+  </div>  
 
 ```vue
-  // 默认引用
-  <o-icon></o-icon>
+  <!-- 通过background引入图片icon -->
+  <o-icon url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+```
 
-  // 使用内置的icon，请传入对应的name属性 
-  <o-icon name="o-loading"></o-icon>
+### 通过img标签引入图片
 
-  // 使用内置的icon支持字体、颜色等的设置 
-  <o-icon class="customClass"></o-icon>
-  <o-icon class="customClass" title="哈咯哈"></o-icon>
+  当我们设置`type="img"`，说明我们即将采用img标签的形式来加载图标，我们需要传入`url width height`。
 
-  // 通过默认的background引入图片icon
-  <o-icon url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" 
-  :width="26" :height="20"></o-icon>
+  <div style="margin-top:20px">
+    <o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+  </div>
 
-  // 通过配置type为img，设置为img标签引入图片
+```vue
+
+  <!-- 通过配置type为img，设置为img标签引入图片 -->
   <o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" 
   :width="26" :height="20"></o-icon>
 ```
 
 
-## Others
+## 其他
 
 现在暂时加入的内置图标如下，详情请进入iconfont的项目查看！
 
@@ -148,5 +170,10 @@ iconfont地址如下，需要加入组织的记得给我一下账号名。
   .my-wrapper {
     margin: 10px;
     text-align: center;
+  }
+  .customClass {
+    color: red;
+    font-size: 40px;
+    font-weight: bold;
   }
 </style>
