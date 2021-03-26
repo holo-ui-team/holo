@@ -65,7 +65,7 @@ function getPluginSidebar (pluginTitle) {
           ]
         },
         {
-          title: 'Popup 弹出层/模态框',
+          title: '弹出类组件',
           collapsable: false,
           children: [
             'popup',

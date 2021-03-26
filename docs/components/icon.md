@@ -55,72 +55,7 @@
 
   我们需要到iconfont的holo项目文档里查看当前可用的图标，然后复制图标名即可使用。下面列出一些可能常用的图标（我猜的）。
 
-  <div class="my-box">
-    <div class="my-wrapper">
-      <OIcon name="o-close-filled"/>
-      <p>name="o-close-filled"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-close"/>
-      <p>name="o-close"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-check-filled"/>
-      <p>name="o-check-filled"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-check"/>
-      <p>name="o-check"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-info-filled"/>
-      <p>name="o-info-filled"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-info"/>
-      <p>name="o-info"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-help-filled"/>
-      <p>name="o-help-filled"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-help"/>
-      <p>name="o-help"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-arrow-up"/>
-      <p>name="o-arrow-up"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-arrow-right"/>
-      <p>name="o-arrow-right"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-arrow-down"/>
-      <p>name="o-arrow-down"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-arrow-left"/>
-      <p>name="o-arrow-left"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-triangle-up"/>
-      <p>name="o-triangle-up"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-triangle-right"/>
-      <p>name="o-triangle-right"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-triangle-down"/>
-      <p>name="o-triangle-down"</p>
-    </div>
-    <div class="my-wrapper">
-      <OIcon name="o-triangle-left"/>
-      <p>name="o-triangle-left"</p>
-    </div>
-  </div>
+  <icon-list/>
 
 ### 通过css的background引入图片 · css
 
@@ -162,15 +97,6 @@ iconfont地址如下，需要加入组织的记得给我一下账号名。
 ![icon.png](https://i.loli.net/2021/03/24/DyjA5iZRTzHXGuq.png)
 
 <style scoped>
-  .my-box {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .my-wrapper {
-    margin: 10px;
-    text-align: center;
-  }
   .customClass {
     color: red;
     font-size: 40px;
