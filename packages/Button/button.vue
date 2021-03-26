@@ -103,7 +103,7 @@ export default class Button extends Vue {
     background: @red;
     color: #ffffff;
     &:active {
-      background: @redColorActive;
+      background: @redActive;
       span {
         opacity: 0.6;
       }

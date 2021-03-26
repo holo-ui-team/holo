@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   title: 'holo-ui',
   description: 'holo-ui',
@@ -9,6 +11,9 @@ module.exports = {
   markdown: {
     lineNumbers: false // 代码块显示行号
   },
+  alias: {
+    '@':  path.join(__dirname, '../../packages'),
+  },
   themeConfig: {
     nav:[ // 导航栏配置
       {text: 'home', link: '/' },
@@ -17,9 +22,9 @@ module.exports = {
     ],
     sidebar: {
       '/components/': getPluginSidebar('组件'),
-    }
+    },
     // sidebar: 'auto', // 侧边栏配置
-    // sidebarDepth: 2, // 侧边栏显示2级
+    sidebarDepth: 3, // 侧边栏显示2级
   },
   plugins: [
     [
@@ -39,8 +44,9 @@ function getPluginSidebar (pluginTitle) {
           title: '基础组件',
           collapsable: false,
           children: [
+            'icon',
             'button',
-            'icon'
+            'none'
           ]
         },
         {

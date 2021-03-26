@@ -14,9 +14,9 @@
       </main>
 
       <div class="popup-button-wrapper" :class="['button-length-' + buttonLength]">
-        <Button :theme="primaryButtonTheme">{{primaryButtonText}}</Button>
-        <Button v-if="secondaryButtonText" theme="gray">{{secondaryButtonText}}</Button>
-        <Button v-if="lastButtonText" theme="gray">{{lastButtonText}}</Button>
+        <Button :theme="primaryButtonTheme" @click="$emit('confirm')">{{primaryButtonText}}</Button>
+        <Button v-if="secondaryButtonText" theme="gray" @click="$emit('cancel')">{{secondaryButtonText}}</Button>
+        <Button v-if="lastButtonText" theme="gray" @click="$emit('cancel2')">{{lastButtonText}}</Button>
       </div>
     </div>
 
@@ -101,5 +101,10 @@ export default Vue.extend({
       }
     }
   }
+}
+
+// csy:todo 需要确定是POPUP单独处理，还是在button里面需要加上
+.button-wrapper.gray {
+  border: 1px solid @borderColor;
 }
 </style>

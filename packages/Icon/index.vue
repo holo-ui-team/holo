@@ -1,5 +1,5 @@
 <template>
-  <img v-if="usePattern === 'img'" :src="imgSrc" :width="width" :height="height" :alt="title">
+  <img v-if="currentPattern === 'img'" :src="imgSrc" :width="width" :height="height" :alt="title">
   <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title"></i>
 </template>
 
@@ -24,17 +24,17 @@ export default Vue.extend({
     }
   },
   computed: {
-    usePattern(): string {
+    currentPattern(): string {
       return this.url ? this.type : 'default'
     }
   },
   created() {
     const handleMap = {
       'default': 'handleDefault',
-      'css': 'handleCss',
-      'img': 'handleImg'
+      'css'    : 'handleCss',
+      'img'    : 'handleImg'
     }
-    this[handleMap[this.usePattern]]()
+    this[handleMap[this.currentPattern]]()
   },
   methods: {
     handleDefault() {
@@ -44,8 +44,8 @@ export default Vue.extend({
       this.iconClass = 'css'
       this.iconStyle = {
         backgroundImage: `url(${this.url})`,
-        width: this.width + 'px',
-        height: this.height + 'px'
+        width          : this.width + 'px',
+        height         : this.height + 'px'
       }
     },
     handleImg() {
