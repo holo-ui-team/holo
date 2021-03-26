@@ -64,6 +64,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import OPopup from '@/Popup/index.vue'
+// @ts-ignore
+import $Popup from '@/Popup/plugin.ts'
+Vue.use($Popup)
 
 export default Vue.extend({
   components: {
@@ -81,6 +84,18 @@ export default Vue.extend({
       visible8: false,
       visible9: false,
     }
+  },
+  mounted() {
+    // @ts-ignore
+    this.$popup({
+      title  : 'haha',
+      content: 'xxx'
+    })
+    // @ts-ignore
+    this.$popup({
+      title  : '22',
+      content: '22'
+    })
   },
 })
 </script>

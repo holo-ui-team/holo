@@ -1,5 +1,5 @@
 <template>
-  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
+  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel">
 
     <div class="popup">
       <header v-if="title" class="popup-title">
@@ -14,9 +14,9 @@
       </main>
 
       <div class="popup-button-wrapper" :class="['button-length-' + buttonLength]">
-        <Button :theme="primaryButtonTheme" @click="$emit('confirm')">{{primaryButtonText}}</Button>
-        <Button v-if="secondaryButtonText" theme="gray" @click="$emit('cancel')">{{secondaryButtonText}}</Button>
-        <Button v-if="lastButtonText" theme="gray" @click="$emit('cancel2')">{{lastButtonText}}</Button>
+        <Button :theme="primaryButtonTheme" @click="handleConfirm">{{primaryButtonText}}</Button>
+        <Button v-if="secondaryButtonText" theme="gray" @click="handleCancel">{{secondaryButtonText}}</Button>
+        <Button v-if="lastButtonText" theme="gray" @click="handleCancel2">{{lastButtonText}}</Button>
       </div>
     </div>
 
@@ -29,6 +29,7 @@ import PopupBox from '../_helper/popupBox.vue'
 import Button from '../Button/button.vue'
 
 export default Vue.extend({
+  name      : 'OPopup',
   components: {
     PopupBox, Button
   },
@@ -40,7 +41,10 @@ export default Vue.extend({
     type               : { type: String, default: 'default', validator: (val) => ['default', 'alert'].indexOf(val) >= 0 },
     primaryButtonText  : { type: String, default: '确定' },
     secondaryButtonText: { type: String },
-    lastButtonText     : { type: String }
+    lastButtonText     : { type: String },
+    confirm            : { type: Function },
+    cancel             : { type: Function },
+    cancel2            : { type: Function },
   },
   computed: {
     buttonLength() {
@@ -55,6 +59,29 @@ export default Vue.extend({
     },
     primaryButtonTheme() {
       return this.type === 'alert' ? 'red' : 'blue'
+    }
+  },
+  methods: {
+    handleConfirm() {
+      if (this.confirm) {
+        this.confirm()
+      } else {
+        this.$emit('confirm')
+      }
+    },
+    handleCancel() {
+      if (this.cancel) {
+        this.cancel()
+      } else {
+        this.$emit('cancel')
+      }
+    },
+    handleCancel2() {
+      if (this.cancel2) {
+        this.cancel()
+      } else {
+        this.$emit('cancel2')
+      }
     }
   },
 })
