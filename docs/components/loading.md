@@ -10,5 +10,5 @@
 | type    |  类型 point 三个小点   circle 圆圈    petal 菊花  |   string   |   point / circle / petal   |     point    |
 | theme   |  主题色    | string   |  blue / white  | blue   |
 | lock    |  是否加锁    | boolean   |  true / false  | true   |
-| maskType    |  遮罩类型,只有lock:true时生效    | string   |  transparent / white / black  | white   |
+| maskType    |  遮罩类型,只有lock:true时生效    | string   |  transparent / white / black  | - |
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="head-wapper"></div>
+    <div class="head-wrapper"></div>
     <div class="main-body">
       <div class="left-body">
         <ul>

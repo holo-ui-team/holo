@@ -122,7 +122,7 @@
     </div>
   </div>
 
-### 通过css的background引入图片
+### 通过css的background引入图片 · css
 
   当我们没有传入name时，说明我们即将采用css的background形式来加载图标，我们需要传入`url width height`。（也可设置type="css"）
 
@@ -135,7 +135,7 @@
   <o-icon url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
 ```
 
-### 通过img标签引入图片
+### 通过img标签引入图片 · img
 
   当我们设置`type="img"`，说明我们即将采用img标签的形式来加载图标，我们需要传入`url width height`。
 
