@@ -2,12 +2,17 @@
   <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel">
 
     <div class="popup">
+      <div v-if="icon" class="popup-icon">
+        <Icon v-if="isIconDefaultPattern" :name="icon" :color="iconColor" />
+        <Icon v-else :url="icon" :width="54" :height="54"/>
+      </div>
+
       <header v-if="title" class="popup-title">
         {{title}}
       </header>
 
       <main class="popup-content" :class="{'without-title': !title}">
-        {{content}}
+        <p v-for="(text, index) in contents" :key="index">{{text}}</p>
         <div class="popup-custom-content">
           <slot/>
         </div>
@@ -27,16 +32,19 @@
 import Vue from 'vue'
 import PopupBox from '../_helper/popupBox.vue'
 import Button from '../Button/button.vue'
+import Icon from '../Icon/index.vue'
 
 export default Vue.extend({
   name      : 'OPopup',
   components: {
-    PopupBox, Button
+    PopupBox, Button, Icon
   },
   props: {
     visible            : { type: Boolean },
     maskClosable       : { type: Boolean, default: true },
     title              : { type: String, },
+    icon               : { type: String, },
+    iconColor          : { type: String, },
     content            : { type: String, },
     type               : { type: String, default: 'default', validator: (val) => ['default', 'alert'].indexOf(val) >= 0 },
     primaryButtonText  : { type: String, default: '确定' },
@@ -59,6 +67,12 @@ export default Vue.extend({
     },
     primaryButtonTheme() {
       return this.type === 'alert' ? 'red' : 'blue'
+    },
+    contents() {
+      return this.content.split('\\n')
+    },
+    isIconDefaultPattern() {
+      return this.icon.indexOf('o-') === 0
     }
   },
   methods: {
@@ -93,6 +107,15 @@ export default Vue.extend({
 @buttonGap: 10px;
 .popup {
   padding: 20px 16px 16px;
+
+  &-icon {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .holo-icon {      
+      font-size: 54px;
+    }
+  }
 
   &-title {
     margin-bottom: 12px;
