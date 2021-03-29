@@ -53,7 +53,8 @@ function getPluginSidebar (pluginTitle) {
           title: 'Form 表单',
           collapsable: false,
           children: [
-            'switch'
+            'switch',
+            'radio'
           ]
         },
         {
@@ -69,6 +70,7 @@ function getPluginSidebar (pluginTitle) {
           collapsable: false,
           children: [
             'popup',
+            'popup-option',
           ]
         }
       ]
