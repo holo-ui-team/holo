@@ -5,7 +5,7 @@
     </section>
     
     <section>
-      使用内置的icon，请传入对应的name属性 <o-icon name="o-loading"></o-icon>
+      使用内置的icon，请传入对应的name属性 <o-icon name="o-loading-circle"></o-icon>
     </section>
 
     <section>

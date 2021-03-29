@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-import Icon from '../Icon/index.vue'
+  import Icon from '../Icon/index.vue'
   import Button from '../Button/button.vue'
 
   export default Vue.extend({

@@ -10,6 +10,7 @@ export default Vue.extend({
   name: 'OIcon',
   props: {
     name  : { type: String, default: 'o-check', validator: (val) => /^o-/.test(val) },
+    color : { type: String },
     title : { type: String },
     type  : { type: String, default: 'css', validator: (val) => ['img', 'css'].indexOf(val) >= 0 },
     url   : { type: String, default: '' },
@@ -39,6 +40,9 @@ export default Vue.extend({
   methods: {
     handleDefault() {
       this.iconClass = this.name
+      this.iconStyle = {
+        color: this.color
+      }
     },
     handleCss() {
       this.iconClass = 'css'

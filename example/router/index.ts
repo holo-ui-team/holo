@@ -32,6 +32,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/switch/index.vue')
   },
   {
+    path: '/radio',
+    name: 'radio',
+    component: () => import('../views/radio.vue')
+  },
+  {
     path: '/loading',
     name: 'loading',
     component: () => import('../views/loading/index.vue')
@@ -50,6 +55,11 @@ const routes: Array<RouteConfig> = [
     path: '/popup',
     name: 'popup',
     component: () => import('../views/popup.vue')
+  },
+  {
+    path: '/popup-option',
+    name: 'popup-option',
+    component: () => import('../views/popup-option.vue')
   },
 ]
 

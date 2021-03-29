@@ -1,22 +1,27 @@
 <template>
-  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
+  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel">
 
     <div class="popup">
+      <div v-if="icon" class="popup-icon">
+        <Icon v-if="isIconDefaultPattern" :name="icon" :color="iconColor" />
+        <Icon v-else :url="icon" :width="54" :height="54"/>
+      </div>
+
       <header v-if="title" class="popup-title">
         {{title}}
       </header>
 
       <main class="popup-content" :class="{'without-title': !title}">
-        {{content}}
+        <p v-for="(text, index) in contents" :key="index">{{text}}</p>
         <div class="popup-custom-content">
           <slot/>
         </div>
       </main>
 
       <div class="popup-button-wrapper" :class="['button-length-' + buttonLength]">
-        <Button :theme="primaryButtonTheme" @click="$emit('confirm')">{{primaryButtonText}}</Button>
-        <Button v-if="secondaryButtonText" theme="gray" @click="$emit('cancel')">{{secondaryButtonText}}</Button>
-        <Button v-if="lastButtonText" theme="gray" @click="$emit('cancel2')">{{lastButtonText}}</Button>
+        <Button :theme="primaryButtonTheme" @click="handleConfirm">{{primaryButtonText}}</Button>
+        <Button v-if="secondaryButtonText" theme="gray" @click="handleCancel">{{secondaryButtonText}}</Button>
+        <Button v-if="lastButtonText" theme="gray" @click="handleCancel2">{{lastButtonText}}</Button>
       </div>
     </div>
 
@@ -27,20 +32,27 @@
 import Vue from 'vue'
 import PopupBox from '../_helper/popupBox.vue'
 import Button from '../Button/button.vue'
+import Icon from '../Icon/index.vue'
 
 export default Vue.extend({
+  name      : 'OPopup',
   components: {
-    PopupBox, Button
+    PopupBox, Button, Icon
   },
   props: {
     visible            : { type: Boolean },
     maskClosable       : { type: Boolean, default: true },
     title              : { type: String, },
+    icon               : { type: String, },
+    iconColor          : { type: String, },
     content            : { type: String, },
     type               : { type: String, default: 'default', validator: (val) => ['default', 'alert'].indexOf(val) >= 0 },
     primaryButtonText  : { type: String, default: '确定' },
     secondaryButtonText: { type: String },
-    lastButtonText     : { type: String }
+    lastButtonText     : { type: String },
+    confirm            : { type: Function },
+    cancel             : { type: Function },
+    cancel2            : { type: Function },
   },
   computed: {
     buttonLength() {
@@ -55,6 +67,35 @@ export default Vue.extend({
     },
     primaryButtonTheme() {
       return this.type === 'alert' ? 'red' : 'blue'
+    },
+    contents() {
+      return this.content.split('\\n')
+    },
+    isIconDefaultPattern() {
+      return this.icon.indexOf('o-') === 0
+    }
+  },
+  methods: {
+    handleConfirm() {
+      if (this.confirm) {
+        this.confirm()
+      } else {
+        this.$emit('confirm')
+      }
+    },
+    handleCancel() {
+      if (this.cancel) {
+        this.cancel()
+      } else {
+        this.$emit('cancel')
+      }
+    },
+    handleCancel2() {
+      if (this.cancel2) {
+        this.cancel()
+      } else {
+        this.$emit('cancel2')
+      }
     }
   },
 })
@@ -66,6 +107,15 @@ export default Vue.extend({
 @buttonGap: 10px;
 .popup {
   padding: 20px 16px 16px;
+
+  &-icon {
+    margin-bottom: 20px;
+    text-align: center;
+
+    .holo-icon {      
+      font-size: 54px;
+    }
+  }
 
   &-title {
     margin-bottom: 12px;
