@@ -56,6 +56,11 @@ const routes: Array<RouteConfig> = [
     name: 'popup',
     component: () => import('../views/popup.vue')
   },
+  {
+    path: '/popup-option',
+    name: 'popup-option',
+    component: () => import('../views/popup-option.vue')
+  },
 ]
 
 const router = new VueRouter({
