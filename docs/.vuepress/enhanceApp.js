@@ -4,8 +4,9 @@ import Switch from '../../packages/Switch/switch.vue'
 import Icon from '@/Icon/index.vue'
 import None from '@/None/index.vue'
 import Popup from '@/Popup/index.vue'
+import Radio from '@/Radio/index.vue'
 
-const vueComArray = [ Button, Switch, Icon, None, Popup ]
+const vueComArray = [ Button, Switch, Icon, None, Popup, Radio ]
 
 export default ({ Vue }) => {
   vueComArray.forEach( (item) => {

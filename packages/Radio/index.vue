@@ -1,20 +1,17 @@
 <template>
-  <div class="radio-wrapper" :class="[size, {disabled}]">
+  <label class="radio-wrapper" :class="[size, {disabled}]" @click="handleChecked">
 
-    <label class="radio-label" @click="handleChecked">
-      <span v-show="!checked" class="radio-unchecked"></span>
-      <Icon v-show="checked" class="radio-checked" name="o-check-filled" />
-      <span class="radio-text" :style="{marginLeft: gap + 'px'}">
-        <slot>{{label}}</slot>
-      </span>
-    </label>
-
-  </div>
+    <span v-show="!checked" class="radio-unchecked"></span>
+    <Icon v-show="checked" class="radio-checked" name="o-check-filled" />
+    <span class="radio-text" :style="{marginLeft: gap + 'px'}">
+      <slot>{{label}}</slot>
+    </span>
+    
+  </label>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
-  // @ts-ignore
   import Icon from '../Icon/index.vue'
 
   export default Vue.extend({
@@ -42,7 +39,7 @@
         if (this.disabled) return
 
         this.checked = !this.checked 
-        this.$emit('checked', this.checked)
+        this.$emit('click', this.checked)
       }
     },
   })
@@ -52,21 +49,20 @@
 @import '~@/style/theme.less';
 
 .radio-wrapper {
+  display: inline-flex; align-items: center;
+  user-select: none;
   font-size: 0;
 
   &.large {
-
     .radio-checked { font-size: 24px; }
     .radio-unchecked { width: 24px; height: 24px; }
   }
 
   &.medium {
-
     .radio-checked { font-size: 20px; }
   }
 
   &.small {
-
     .radio-checked { font-size: 16px; }
     .radio-unchecked { width: 16px; height: 16px; }
   }
@@ -76,11 +72,6 @@
     .radio-checked { color: @borderColor; }
   }
   
-}
-
-.radio-label {
-  display: inline-flex; align-items: center;
-  user-select: none;
 }
 
 .radio-text {

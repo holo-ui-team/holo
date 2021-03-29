@@ -3,16 +3,24 @@
     <section>
       基础用法
       <Radio />
+    </section>
 
+    <section>
       带有文字的Radio
       <Radio>西瓜</Radio>
+    </section>
 
-      默认勾选
+    <section>
+       默认勾选
       <Radio default label="我是被默认勾选的" />
+    </section>
 
+    <section>
       置灰，不可选择
       <Radio disabled>西瓜</Radio>
+    </section>
 
+    <section>
       默认勾选，且不可撤销
       <Radio default disabled label="我是被默认勾选的" />
     </section>
@@ -31,5 +39,7 @@
 </script>
 
 <style scoped>
-
+section {
+  display: flex;
+}
 </style>
