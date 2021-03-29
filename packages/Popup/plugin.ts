@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import renderComponent from '../_helper/renderHelper'
+import renderComponent from '../_helper/render-helper'
 import component from './index.vue';
 
 type PopupProps = {

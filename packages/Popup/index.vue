@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PopupBox from '../_helper/popupBox.vue'
+import PopupBox from '../_helper/popup-box.vue'
 import Button from '../Button/button.vue'
 import Icon from '../Icon/index.vue'
 

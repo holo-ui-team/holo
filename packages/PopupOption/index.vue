@@ -21,7 +21,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Radio from '../Radio/index.vue'
-  import PopupBox from '../_helper/popupBox.vue'
+  import PopupBox from '../_helper/popup-box.vue'
 
   type Option = { name: string } | string | number
 
@@ -68,10 +68,9 @@
         let result = true
 
         if (typeof option === 'object') {
-          // @ts-ignore
-          result = !!( this.selected.filter((item) => item.name === option.name)?.[0] )
+          result = Object.values(this.selected).includes(option.name)
         } else {
-          result = this.selected.indexOf(option) >= 0
+          result = this.selected.includes(option)
         }
 
         return result
@@ -93,12 +92,7 @@
         let index = -1
 
         if (typeof option === 'object') {
-          this.selected.forEach((item, currentIndex) => {
-            // @ts-ignore
-            if (item.name === option.name) {
-              index = currentIndex
-            }
-          })
+          index= Object.values(this.selected).indexOf(option.name)
         } else {
           index = this.selected.indexOf(option)
         }

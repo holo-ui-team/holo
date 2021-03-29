@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import BgMask from './bgMask.vue'
+import BgMask from './bg-mask.vue'
 
 export default Vue.extend({
   name: 'PopupBox',
