@@ -40,12 +40,12 @@ export default Vue.extend({
     PopupBox, Button, Icon
   },
   props: {
-    visible            : { type: Boolean },
+    visible            : { type: Boolean, required: true },
     maskClosable       : { type: Boolean, default: true },
     title              : { type: String, },
     icon               : { type: String, },
     iconColor          : { type: String, },
-    content            : { type: String, },
+    content            : { type: String, required: true },
     type               : { type: String, default: 'default', validator: (val) => ['default', 'alert'].indexOf(val) >= 0 },
     primaryButtonText  : { type: String, default: '确定' },
     secondaryButtonText: { type: String },
@@ -69,10 +69,10 @@ export default Vue.extend({
       return this.type === 'alert' ? 'red' : 'blue'
     },
     contents() {
-      return this.content.split('\\n')
+      return this.content?.split('\\n')
     },
     isIconDefaultPattern() {
-      return this.icon.indexOf('o-') === 0
+      return this.icon?.indexOf('o-') === 0
     }
   },
   methods: {

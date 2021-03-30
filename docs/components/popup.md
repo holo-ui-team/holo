@@ -3,14 +3,14 @@
 
 | 参数       | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-|visible（必填）            | 弹窗是否显示  |  boolean  | [true, false] | -  |
+|visible（必填）     | 弹窗是否显示  |  boolean  | [true, false] | -  |
 |maskClosable       | 点击黑色背景/幕布是否可以关闭  |  boolean  | [true, false] |  true |
 |icon               | 图标  |  string  | - |  '' |
 |iconColor          | 图标颜色  |  string  | - |  '' |
 |title              | 标题  |  string  | - |  '' |
-|content（必填）            | 内容  |  string  | - |  '' |
+|content（必填）     | 内容  |  string  | - |  '' |
 |type               | 表示弹窗的危险程度，主要是按钮颜色的区分，默认的蓝色和紧急的橙色  |  string  | ['default', 'alert'] |  'default' |
-|primaryButtonText（必填）  | 主要的按钮文字  |  string  | - |  '' |
+|primaryButtonText  | 主要的按钮文字  |  string  | - |  '' |
 |secondaryButtonText| 第二个按钮的文字  |  string  | - |  '' |
 |lastButtonText     | 第三个按钮（最后一个按钮）的文字  |  string  | - |  '' |
 

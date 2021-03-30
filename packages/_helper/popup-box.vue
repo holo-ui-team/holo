@@ -33,7 +33,7 @@ export default Vue.extend({
     OMask
   },
   props: {
-    visible      : { type: Boolean },
+    visible      : { type: Boolean, required: true },
     maskClosable : { type: Boolean, default: true },
     title        : { type: String },
     subTitle     : { type: String },

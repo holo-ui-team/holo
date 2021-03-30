@@ -20,8 +20,9 @@ export default Vue.extend({
   name: 'OMask',
   props: {
     visible: {
-      type   : Boolean,
-      default: false
+      type    : Boolean,
+      default : false,
+      required: true
     },
     maskClosable: {
       type   : Boolean,
