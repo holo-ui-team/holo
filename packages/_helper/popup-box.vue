@@ -52,22 +52,23 @@ export default Vue.extend({
   border-radius: 12px;
 
   &-header {
-    padding: 14px 0 12px;
+    padding: 15px 0 15px;
     background: #F4F4F4;
     text-align: center;
     border-radius: 12px 12px 0 0;
 
     &.with-subtitle {
-      padding: 15px 0 15px;
+      padding: 14px 0 12px;
     }
 
     h1 {
       font-size: 16px; line-height: 16px;
+      margin: 0;
       color: @color;
     }
 
     p {
-      margin-top: 10px;
+      margin: 10px 0 0 0;
       color: @gray;
       font-size: 14px; line-height: 14px;
     }

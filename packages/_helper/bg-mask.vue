@@ -72,10 +72,6 @@ export default Vue.extend({
   }
 }
 
-main {
-  overflow: auto;
-}
-
 .slide-fade-enter-active {
   transition: all .3s ease;
 }
