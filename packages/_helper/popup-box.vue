@@ -1,5 +1,5 @@
 <template>
-  <BgMask :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
+  <OMask :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
 
     <div class="popup-box">
       <header v-if="title" class="popup-box-header" :class="{'with-subtitle': subTitle}">
@@ -20,17 +20,17 @@
       </footer>
     </div>
 
-  </BgMask>
+  </OMask>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import BgMask from './bg-mask.vue'
+import OMask from '../Mask/index.vue'
 
 export default Vue.extend({
   name: 'PopupBox',
   components: {
-    BgMask
+    OMask
   },
   props: {
     visible      : { type: Boolean },

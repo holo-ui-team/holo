@@ -69,6 +69,7 @@ function getPluginSidebar (pluginTitle) {
           title: '弹出类组件',
           collapsable: false,
           children: [
+            'mask',
             'popup',
             'popup-option',
           ]

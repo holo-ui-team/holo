@@ -17,6 +17,7 @@ import Vue from 'vue'
 const body = document.querySelector('body')
 
 export default Vue.extend({
+  name: 'OMask',
   props: {
     visible: {
       type   : Boolean,
