@@ -30,9 +30,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PopupBox from '../_helper/popup-box.vue'
-import Button from '../Button/button.vue'
-import Icon from '../Icon/index.vue'
+import PopupBox from '@/_helper/popup-box.vue'
+import Button from '@/Button/button.vue'
+import Icon from '@/Icon/index.vue'
 
 export default Vue.extend({
   name      : 'OPopup',
@@ -70,7 +70,16 @@ export default Vue.extend({
       return this.type === 'alert' ? 'red' : 'blue'
     },
     contents(): string[] {
-      return this.content && this.content.split('\\n') || []
+      let result: string[] = []
+      
+      if (this.content) {
+        if (this.content.includes('\n')) {
+          result = this.content.split('\n')
+        } else {
+          result = this.content.split('\\n')
+        }
+      }
+      return result
     },
     isIconDefaultPattern(): boolean {
       return this.icon && this.icon.indexOf('o-') === 0 || false
@@ -80,7 +89,7 @@ export default Vue.extend({
     validate() {
       let result = true
 
-      if (this.beforeConfirm) {
+      if (this.beforeConfirm && typeof this.beforeConfirm === 'function') {
         result = this.beforeConfirm()
       }
 

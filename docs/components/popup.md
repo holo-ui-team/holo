@@ -3,17 +3,17 @@
 
 | 参数       | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-|visible（必填）     | 弹窗是否显示  |  boolean  | [true, false] | -  |
-|maskClosable       | 点击黑色背景/幕布是否可以关闭  |  boolean  | [true, false] |  true |
+|**【必填】visible**     | 弹窗是否显示  |  boolean  | [true, false] | false  |
+|**【必填】content**     | 内容  |  string  | - |  '' |
 |icon               | 图标  |  string  | - |  '' |
 |iconColor          | 图标颜色  |  string  | - |  '' |
 |title              | 标题  |  string  | - |  '' |
-|content（必填）     | 内容  |  string  | - |  '' |
-|type               | 表示弹窗的危险程度，主要是按钮颜色的区分，默认的蓝色和紧急的橙色  |  string  | ['default', 'alert'] |  'default' |
+|type               | 表示弹窗的危险程度，默认的蓝色和紧急的橙色  |  string  | ['default', 'alert'] |  'default' |
 |primaryButtonText  | 主要的按钮文字  |  string  | - |  '' |
 |secondaryButtonText| 第二个按钮的文字  |  string  | - |  '' |
 |lastButtonText     | 第三个按钮（最后一个按钮）的文字  |  string  | - |  '' |
 |beforeConfirm      | 确认前的验证函数，需要返回true/false|function  |  -  | - |  () => true |
+|maskClosable       | 点击黑色背景/幕布是否可以关闭  |  boolean  | [true, false] |  true |
 
 ## 事件
 | 事件名称 | 说明 | 回调参数 |
@@ -37,11 +37,6 @@
 <popup-demo :currentDemo="4" />
 
 写法一：
-```vue
-  <o-popup :visible="visible" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible = false"></o-popup>
-```
-
-写法二：
 ```js
   this.$popup({
     title            : '我是标题',
@@ -50,16 +45,15 @@
   })
 ```
 
+写法二：
+```vue
+  <o-popup :visible="visible" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible = false"></o-popup>
+```
+
 ### 可最多支持三个按钮
 
 <popup-demo :currentDemo="1" />
 
-写法一：
-```vue
-  <o-popup :visible="visible2" title="我是标题" content="我是内容" primaryButtonText="主要按钮" secondaryButtonText="第二个按钮" @cancel="visible2 = false"></o-popup>
-```
-
-写法二：
 ```js
   this.$popup({
     title              : '我是标题',
@@ -69,21 +63,14 @@
   })
 ```
 
-
 <popup-demo :currentDemo="2" />
 
-写法一：
-```vue
-  <o-popup :visible="visible3" title="我是标题" content="我是内容" primaryButtonText="主要按钮" secondaryButtonText="第二个按钮" lastButtonText="第三个按钮" @cancel="visible3 = false"></o-popup>
-```
-
-写法二：
 ```js
   this.$popup({
     title              : '我是标题',
     content            : '我是内容',
     primaryButtonText  : '主要按钮',
-    secondaryButtonText: '第二个按钮'
+    secondaryButtonText: '第二个按钮',
     lastButtonText     : '第三个按钮' // 新增内容
   })
 ```
@@ -93,11 +80,6 @@
 
 <popup-demo :currentDemo="3" />
 
-```vue
-  <o-popup :visible="visible4" title="我是标题" content="我是内容" primaryButtonText="主要按钮" secondaryButtonText="第二个按钮" type="alert" @cancel="visible4 = false"></o-popup>
-```
-
-写法二：
 ```js
   this.$popup({
     title              : '我是标题',
@@ -120,7 +102,7 @@
     <br />
     <p>你好，我是个蓬头垢面的input框</p>
     <input type="text" />
-  </o-popup
+  </o-popup>
 ```
 
 ### 可支持多行文本
@@ -129,12 +111,6 @@
 
 <popup-demo :currentDemo="6" />
 
-写法一：
-```vue
-  <o-popup :visible="visible7" title="我是标题" content="我是内容,我是好多好多内容，\n我是换了行的好多好多好多好好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多多" primaryButtonText="主要按钮" @cancel="visible7 = false"></o-popup>
-```
-
-写法二：
 ```js
   this.$popup({
     title              : '我是标题',
@@ -149,14 +125,6 @@ icon分为内置Icon和其他，具体可参考Icon章节。
 
 <popup-demo :currentDemo="7" />
 
-内置Icon可选填颜色值，`iconColor`。
-
-写法一：
-```vue
-  <o-popup :visible="visible8" icon="o-info-filled" iconColor="#FF6347" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible8 = false"></o-popup>
-```
-
-写法二：
 ```js
   this.$popup({
     title              : '我是标题',
@@ -178,27 +146,6 @@ icon分为内置Icon和其他，具体可参考Icon章节。
     title              : '我是标题',
     content            : '我是内容',
     icon               : 'https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png', // 新增内容
-    primaryButtonText  : '主要按钮',
-    secondaryButtonText: '第二个按钮'
-  })
-```
-
-
-### 可点击背景不关闭弹窗
-
-<popup-demo :currentDemo="8" />
-
-写法一：
-```vue
-  <o-popup :visible="visible9" :maskClosable="false" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible9 = false"></o-popup>
-```
-
-写法二：
-```js
-  this.$popup({
-    title              : '我是标题',
-    maskClosable       : false, // 新增内容
-    content            : '我是内容',
     primaryButtonText  : '主要按钮',
     secondaryButtonText: '第二个按钮'
   })

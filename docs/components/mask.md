@@ -6,7 +6,7 @@
 
 | 参数       | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-|visible（必填）            | 弹窗是否显示  |  boolean  | [true, false] | -  |
+|**【必填】visible**            | 弹窗是否显示  |  boolean  | [true, false] | false  |
 |maskClosable       | 点击黑色背景/幕布是否可以关闭  |  boolean  | [true, false] |  true |
 
 

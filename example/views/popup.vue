@@ -41,20 +41,19 @@
     <section>
       多行文本
       <button @click="visible7 = !visible7">切换状态</button>
-      <o-popup :visible="visible7" title="我是标题" content="我是内容,我是好多好多内容，/n\n我是换了行的好多好多好多好好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多多" primaryButtonText="主要按钮" @cancel="visible7 = false"></o-popup>
-    </section>
-
-
-    <section>
-      带有icon
-      <button @click="visible8 = !visible8">切换状态</button>
-      <o-popup :visible="visible8" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible8 = false"></o-popup>
+      <o-popup :visible="visible7" title="我是标题" content="我是内容,我是好多好多内容，\n我是换了行的好多好多好多好好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多多" primaryButtonText="主要按钮" @cancel="visible7 = false"></o-popup>
     </section>
 
     <section>
-      点击mask不关闭
-      <button @click="visible9 = !visible9">切换状态</button>
-      <o-popup :visible="visible9" :maskClosable="false" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @confirm="visible9 = false"></o-popup>
+      带有icon (内置Icon)
+      <button size="small" @click="visible8 = !visible8">点击</button>
+      <o-popup :visible="visible8" icon="o-info-filled" iconColor="#FF6347" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible8 = false"></o-popup>
+    </section>
+
+    <section>
+      带有icon(图片Icon)
+      <button size="small" @click="visible10 = !visible10">点击</button>
+      <o-popup :visible="visible10" icon="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible10 = false"></o-popup>
     </section>
 
     <p style="height: 2000px">content</p>
@@ -64,9 +63,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import OPopup from '@/Popup/index.vue'
-// @ts-ignore
-import $Popup from '@/Popup/plugin.ts'
-Vue.use($Popup)
 
 export default Vue.extend({
   components: {
@@ -83,19 +79,8 @@ export default Vue.extend({
       visible7: false,
       visible8: false,
       visible9: false,
+      visible10: false,
     }
-  },
-  mounted() {
-    // @ts-ignore
-    this.$popup({
-      title  : 'haha',
-      content: 'xxx'
-    })
-    // @ts-ignore
-    this.$popup({
-      title  : '22',
-      content: '22'
-    })
   },
 })
 </script>

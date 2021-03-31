@@ -34,35 +34,12 @@ const plugin: PluginObject<PopupProps> = {
     Vue.prototype.$popup = function (props: PopupProps) {
       _popup.props = {
 
+        beforeConfirm: () => { return props.beforeConfirm || ( () => true ) },
+        confirm: () => { props.confirm && props.confirm() },
+        cancel: () => { hidePopup() },
+        cancel2: () => { hidePopup() },
         ...props,
         visible: true,
-        
-        beforeConfirm: () => {
-          let result = true
-
-          if (props.beforeConfirm) {
-            result = props.beforeConfirm()
-          }
-
-          return result
-        },
-
-        confirm: () => {
-          if (!this.beforeConfirm()) return
-          
-          hidePopup()
-          props.confirm && props.confirm()
-        },
-
-        cancel: () => {
-          hidePopup()
-          props.cancel && props.cancel()
-        },
-
-        cancel2: () => {
-          hidePopup()
-          props.cancel2 && props.cancel2()
-        }
   
       }
     }
