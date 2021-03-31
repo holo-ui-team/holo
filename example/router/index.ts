@@ -66,6 +66,11 @@ const routes: Array<RouteConfig> = [
     name: 'popup-option',
     component: () => import('../views/popup-option.vue')
   },
+  {
+    path: '/picker',
+    name: 'picker',
+    component: () => import('../views/picker.vue')
+  },
 ]
 
 const router = new VueRouter({
