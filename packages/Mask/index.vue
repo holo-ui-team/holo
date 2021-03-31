@@ -17,10 +17,12 @@ import Vue from 'vue'
 const body = document.querySelector('body')
 
 export default Vue.extend({
+  name: 'OMask',
   props: {
     visible: {
-      type   : Boolean,
-      default: false
+      type    : Boolean,
+      default : false,
+      required: true
     },
     maskClosable: {
       type   : Boolean,
@@ -70,10 +72,6 @@ export default Vue.extend({
     position: fixed; bottom: 12px; left: 50%;
     transform: translateX(-50%);
   }
-}
-
-main {
-  overflow: auto;
 }
 
 .slide-fade-enter-active {

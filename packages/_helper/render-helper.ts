@@ -1,7 +1,7 @@
 import Vue, { Component } from 'vue'
-import { CreateElement } from 'vue/types/umd'
+import { CreateElement, VNodeData } from 'vue/types/umd'
 
-export default function renderHelper(component: Component): Vue {
+export default function renderHelper(component: Component): VNodeData {
   // @ts-ignore
   const componentName = component.options.name
   const wrapper = _getWrapper(componentName)

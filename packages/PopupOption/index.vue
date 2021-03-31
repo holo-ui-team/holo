@@ -2,16 +2,22 @@
   <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')"
     :title="title" :subTitle="subTitle">
 
-    <div class="popup-option-wrapper">
+    <div class="popup-options-wrapper" :class="{'multi-wrapper' : !single}">
 
-      <div class="popup-option" v-for="(option, index) in options" :key="index" :class="{single}" @click="handleSelected(option)">
+      <div class="popup-option" v-for="(option, index) in options" :key="index" 
+          :class="optionsClass" @click="handleSelected(option)">
 
         <div v-if="single" class="single-option holo-icon" :class="{active: isSelected(option)}">
           <div class="text"> {{getOptionName(option)}} </div>
         </div>
-        <Radio v-else :label="getOptionName(option)" />
+        <div v-else class="multi-option">
+          <Radio :label="getOptionName(option)" :size="radioStyle.size" :gap="radioStyle.gap" />
+          <p v-if="!multiColumn && option.desc" class="desc">{{option.desc}}</p>
+        </div>
 
       </div>
+      
+      <Button v-if="!single" @click="handleConfirm">确定</Button>
 
     </div>
 
@@ -21,20 +27,20 @@
 <script lang="ts">
   import Vue from 'vue'
   import Radio from '../Radio/index.vue'
-  import PopupBox from '../_helper/popupBox.vue'
+  import PopupBox from '../_helper/popup-box.vue'
+  import Button from '../Button/button.vue'
 
   type Option = { name: string } | string | number
 
   export default Vue.extend({
     name: 'OPopupOption',
-    components: { Radio, PopupBox },
+    components: { Radio, PopupBox, Button },
     props: {
       visible      : { type: Boolean },
       maskClosable : { type: Boolean, default: true },
       title        : { type: String },
       subTitle     : { type: String },
       single       : { type: Boolean },
-      usingIndex   : { type: Boolean },
       multiColumn  : { type: Boolean },
       default      : { type: Array },
       options      : { type: Array, validator: (val: Option[]) => {
@@ -55,12 +61,39 @@
         this.selected = this.default as Option[]
       }
     },
+    computed: {
+      selectedValues(): Array<string| number> {
+        // @ts-ignore
+        return this.selected.map((item: Option) => item?.name || item) 
+      },
+      optionsClass(): object {
+        return { 
+          single       : this.single,
+          multiple     : !this.single && !this.multiColumn, 
+          'multi-lines': !this.single && this.multiColumn
+        }
+      },
+      radioStyle(): object {
+        const result = { size: 'medium', gap : 12 }
+
+        if (this.multiColumn) {
+          result.size = 'large'
+          result.gap  = 16
+        }
+
+        return result
+      }
+    },
     data() {
       return {
         selected: [] as Option[]
       }
     },
     methods: {
+      handleConfirm() {
+        this.$emit('cancel')
+        this.$emit('confirm', this.selected)
+      },
       getOptionName(option) {
         return option?.name || option
       },
@@ -68,15 +101,14 @@
         let result = true
 
         if (typeof option === 'object') {
-          // @ts-ignore
-          result = !!( this.selected.filter((item) => item.name === option.name)?.[0] )
+          result = Object.values(this.selectedValues).includes(option.name)
         } else {
-          result = this.selected.indexOf(option) >= 0
+          result = this.selected.includes(option)
         }
 
         return result
       },
-      handleSelected(option) {
+      handleSelected(option: Option) {
         if (this.isSelected(option)) {
           this.cancelSelected(option)
         } else {
@@ -89,27 +121,22 @@
           this.$emit('cancel')
         }
       },
-      getSelectedIndex(option) {
+      getSelectedIndex(option: Option) {
         let index = -1
 
         if (typeof option === 'object') {
-          this.selected.forEach((item, currentIndex) => {
-            // @ts-ignore
-            if (item.name === option.name) {
-              index = currentIndex
-            }
-          })
+          index= Object.values(this.selectedValues).indexOf(option.name)
         } else {
           index = this.selected.indexOf(option)
         }
 
         return index
       },
-      cancelSelected(option) {
+      cancelSelected(option: Option) {
         const index = this.getSelectedIndex(option)
-        this.selected.splice(index, 1)
+        index >= 0 && this.selected.splice(index, 1)
       },
-      addSelected(option) {
+      addSelected(option: Option) {
         if (this.single) {
           this.selected = [option]
         } else {
@@ -126,9 +153,7 @@
 .popup-option {
   display: flex; align-items: center;
 
-  &.single {
-    margin-left: 20px;
-  }
+  &.single { margin-left: 20px; }
 
   &.single +.single {
     border-top: 1px solid @borderColor;
@@ -136,8 +161,7 @@
 
   .single-option {
     padding: 19px 22px 19px 0;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 18px; line-height: 18px;
     display: flex; align-items: center; justify-content: space-between;
     width: 100%;
 
@@ -148,6 +172,41 @@
     }
   }
 
+  &s-wrapper.multi-wrapper {
+    padding: 0 16px 16px 16px;
+    display: flex; flex-wrap: wrap;
+  }
+
+  &.multiple {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%;
+
+    .radio-wrapper { padding: 12px 0; }
+
+    .multi-option {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .desc {
+      position: absolute; right: 0;
+      font-size: 16px; line-height: 16px;
+      color: @gray;
+    }
+  }
+
+  &.multi-lines {
+    width: 50%;
+    display: inline-flex;
+
+    .radio-wrapper { padding: 18px 0; }
+  }
+
+  .button-wrapper { margin-top: 16px; }
+
 }
+
+.radio-wrapper { width: 100%; z-index: 1; }
 
 </style>

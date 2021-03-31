@@ -1,5 +1,5 @@
 <template>
-  <BgMask :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
+  <OMask :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
 
     <div class="popup-box">
       <header v-if="title" class="popup-box-header" :class="{'with-subtitle': subTitle}">
@@ -20,20 +20,20 @@
       </footer>
     </div>
 
-  </BgMask>
+  </OMask>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import BgMask from './bgMask.vue'
+import OMask from '../Mask/index.vue'
 
 export default Vue.extend({
   name: 'PopupBox',
   components: {
-    BgMask
+    OMask
   },
   props: {
-    visible      : { type: Boolean },
+    visible      : { type: Boolean, required: true },
     maskClosable : { type: Boolean, default: true },
     title        : { type: String },
     subTitle     : { type: String },
@@ -52,22 +52,23 @@ export default Vue.extend({
   border-radius: 12px;
 
   &-header {
-    padding: 14px 0 12px;
+    padding: 15px 0 15px;
     background: #F4F4F4;
     text-align: center;
     border-radius: 12px 12px 0 0;
 
     &.with-subtitle {
-      padding: 15px 0 15px;
+      padding: 14px 0 12px;
     }
 
     h1 {
       font-size: 16px; line-height: 16px;
+      margin: 0;
       color: @color;
     }
 
     p {
-      margin-top: 10px;
+      margin: 10px 0 0 0;
       color: @gray;
       font-size: 14px; line-height: 14px;
     }
