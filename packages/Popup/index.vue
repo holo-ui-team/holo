@@ -69,10 +69,10 @@ export default Vue.extend({
       return this.type === 'alert' ? 'red' : 'blue'
     },
     contents() {
-      return this.content?.split('\\n')
+      return this.content && this.content.split('\\n')
     },
     isIconDefaultPattern() {
-      return this.icon?.indexOf('o-') === 0
+      return this.icon && this.icon.indexOf('o-') === 0
     }
   },
   methods: {
