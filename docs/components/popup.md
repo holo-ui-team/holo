@@ -13,6 +13,7 @@
 |primaryButtonText  | 主要的按钮文字  |  string  | - |  '' |
 |secondaryButtonText| 第二个按钮的文字  |  string  | - |  '' |
 |lastButtonText     | 第三个按钮（最后一个按钮）的文字  |  string  | - |  '' |
+|beforeConfirm      | 确认前的验证函数，需要返回true/false|function  |  -  | - |  () => true |
 
 ## 事件
 | 事件名称 | 说明 | 回调参数 |

@@ -40,6 +40,9 @@
 
         this.checked = !this.checked 
         this.$emit('click', this.checked)
+      },
+      clear() {
+        this.checked = false
       }
     },
   })

@@ -1,7 +1,7 @@
 import Vue, { Component } from 'vue'
 import { CreateElement, VNodeData } from 'vue/types/umd'
 
-export default function renderHelper(component: Component): VNodeData {
+export default function renderHelper(component: Component, requiredOption?: object): VNodeData {
   // @ts-ignore
   const componentName = component.options.name
   const wrapper = _getWrapper(componentName)
@@ -15,7 +15,7 @@ export default function renderHelper(component: Component): VNodeData {
     },
     render(h: CreateElement) {
       return ( h('div', { class: componentName }, [
-        h(component, { props: { ...this.$data.props } })
+        h(component, { props: { ...requiredOption, ...this.$data.props } })
        ] ) )
     }
   })
@@ -29,7 +29,11 @@ function _getWrapper(className: string): HTMLDivElement {
   } else {
     const wrapper = document.createElement('div')
     wrapper.className = className
-    document.querySelector('#app')?.appendChild(wrapper)
+
+    const root = document.querySelector('#app') || document.querySelector('body')
+    if (root) {
+      root.appendChild(wrapper)
+    }
   
     return wrapper
   }

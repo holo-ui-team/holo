@@ -50,12 +50,13 @@ export default Vue.extend({
     primaryButtonText  : { type: String, default: '确定' },
     secondaryButtonText: { type: String },
     lastButtonText     : { type: String },
+    beforeConfirm      : { type: Function, default: () => () => true },
     confirm            : { type: Function },
     cancel             : { type: Function },
     cancel2            : { type: Function },
   },
   computed: {
-    buttonLength() {
+    buttonLength(): number {
       let baseLength = 1
       if (this.secondaryButtonText) {
         baseLength += 1
@@ -65,18 +66,30 @@ export default Vue.extend({
       }
       return baseLength
     },
-    primaryButtonTheme() {
+    primaryButtonTheme(): string {
       return this.type === 'alert' ? 'red' : 'blue'
     },
-    contents() {
-      return this.content && this.content.split('\\n')
+    contents(): string[] {
+      return this.content && this.content.split('\\n') || []
     },
-    isIconDefaultPattern() {
-      return this.icon && this.icon.indexOf('o-') === 0
+    isIconDefaultPattern(): boolean {
+      return this.icon && this.icon.indexOf('o-') === 0 || false
     }
   },
   methods: {
+    validate() {
+      let result = true
+
+      if (this.beforeConfirm) {
+        result = this.beforeConfirm()
+      }
+
+      return result
+    },
     handleConfirm() {
+      if (!this.validate()) return
+
+      this.handleCancel()
       if (this.confirm) {
         this.confirm()
       } else {
