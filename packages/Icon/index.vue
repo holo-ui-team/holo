@@ -30,14 +30,17 @@ export default Vue.extend({
     }
   },
   created() {
-    const handleMap = {
-      'default': 'handleDefault',
-      'css'    : 'handleCss',
-      'img'    : 'handleImg'
-    }
-    this[handleMap[this.currentPattern]]()
+    this.init()
   },
   methods: {
+    init() {
+      const handleMap = {
+        'default': 'handleDefault',
+        'css'    : 'handleCss',
+        'img'    : 'handleImg'
+      }
+      this[handleMap[this.currentPattern]]()
+    },
     handleDefault() {
       this.iconClass = this.name
       this.iconStyle = {
@@ -54,6 +57,18 @@ export default Vue.extend({
     },
     handleImg() {
       this.imgSrc = this.url
+    }
+  },
+  watch: {
+    name(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.init()
+      }
+    },
+    url(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.init()
+      }
     }
   },
 })

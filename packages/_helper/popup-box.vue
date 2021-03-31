@@ -2,14 +2,20 @@
   <OMask :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
 
     <div class="popup-box">
-      <header v-if="title" class="popup-box-header" :class="{'with-subtitle': subTitle}">
-        <h1>{{title}}</h1>
-        <p v-if="subTitle">{{subTitle}}</p>
+      <header class="popup-box-header">
+
+        <div v-if="title" class="title" :class="{'with-subtitle': subTitle}">
+          <h1>{{title}}</h1>
+          <p v-if="subTitle">{{subTitle}}</p>
+        </div>
+
+        <div v-if="actionVisible" class="top-action">
+          <span class="text-button cancel" @click="$emit('cancel')">取消</span>
+          <span class="text-button confirm" @click="handleConfirm('confirm')">确定</span>
+        </div>
+
       </header>
 
-      <div v-if="actionVisible" class="popup-box-top-action">
-        action
-      </div>
 
       <div class="popup-box-content">
         <slot/>
@@ -52,26 +58,52 @@ export default Vue.extend({
   border-radius: 12px;
 
   &-header {
-    padding: 15px 0 15px;
     background: #F4F4F4;
     text-align: center;
     border-radius: 12px 12px 0 0;
 
-    &.with-subtitle {
-      padding: 14px 0 12px;
+    .title {
+      padding: 15px 0 15px;
+
+      &.with-subtitle {
+        padding: 14px 0 12px;
+      }
+
+      h1 {
+        font-size: 16px; line-height: 16px;
+        margin: 0;
+        color: @color;
+      }
+
+      p {
+        margin: 10px 0 0 0;
+        color: @gray;
+        font-size: 14px; line-height: 14px;
+      }
     }
 
-    h1 {
-      font-size: 16px; line-height: 16px;
-      margin: 0;
-      color: @color;
+    .top-action {
+      display: flex; justify-content: space-between; align-items: center;
+
+      .text-button {        
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 16px; line-height: 22px;
+        cursor: default; user-select: none;
+
+        &.cancel {
+          color: @color;
+        }
+
+        &.confirm {
+          color: @themeColor;
+          font-weight: bold;
+        }
+      }
     }
 
-    p {
-      margin: 10px 0 0 0;
-      color: @gray;
-      font-size: 14px; line-height: 14px;
-    }
   }
+
+
 }
 </style>

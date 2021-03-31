@@ -42,6 +42,10 @@
   import Vue from 'vue'
   import OPopupOption from '../../packages/PopupOption/index.vue'
   import OButton from '../../packages/Button/button.vue'
+  // @ts-ignore
+  import $popupOption from '@/PopupOption/plugin.ts'
+
+  Vue.use($popupOption)
 
   export default Vue.extend({
     components: {
@@ -71,6 +75,12 @@
           {name: '选项5', desc: '我是个冇得表情的描述'},
         ]
       }
+    },
+    created () {
+      // @ts-ignore
+      this.$popupOption({
+        options: [1, 2, 3]
+      })
     },
     methods: {
       handleConfirm(val) {

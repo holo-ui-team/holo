@@ -1,5 +1,5 @@
 <template>
-  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')"
+  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel"
     :title="title" :subTitle="subTitle">
 
     <div class="popup-options-wrapper" :class="{'multi-wrapper' : !single}">
@@ -11,7 +11,7 @@
           <div class="text"> {{getOptionName(option)}} </div>
         </div>
         <div v-else class="multi-option">
-          <Radio :label="getOptionName(option)" :size="radioStyle.size" :gap="radioStyle.gap" />
+          <Radio ref="radio" :label="getOptionName(option)" :size="radioStyle.size" :gap="radioStyle.gap" :default="isSelected(option)" />
           <p v-if="!multiColumn && option.desc" class="desc">{{option.desc}}</p>
         </div>
 
@@ -29,21 +29,20 @@
   import Radio from '../Radio/index.vue'
   import PopupBox from '../_helper/popup-box.vue'
   import Button from '../Button/button.vue'
-
-  type Option = { name: string } | string | number
+  import {Option} from './type'
 
   export default Vue.extend({
     name: 'OPopupOption',
     components: { Radio, PopupBox, Button },
     props: {
-      visible      : { type: Boolean },
+      visible      : { type: Boolean, required: true },
       maskClosable : { type: Boolean, default: true },
-      title        : { type: String },
+      title        : { type: String, required: true, default: '标题' },
       subTitle     : { type: String },
       single       : { type: Boolean },
       multiColumn  : { type: Boolean },
-      default      : { type: Array },
-      options      : { type: Array, validator: (val: Option[]) => {
+      default      : { type: Array, default: () => [] },
+      options      : { type: Array, required: true, validator: (val: Option[]) => {
         let result = true
 
         val.forEach((item) => {
@@ -55,16 +54,21 @@
 
         return result
       } },
+      confirm            : { type: Function },
+      cancel             : { type: Function },
     },
     created() {
-      if (this.default?.length) {
+      if (this.default.length) {
         this.selected = this.default as Option[]
       }
     },
     computed: {
       selectedValues(): Array<string| number> {
-        // @ts-ignore
-        return this.selected.map((item: Option) => item?.name || item) 
+        return this.selected.map((item: Option) => {
+          if (typeof item === 'object') return item.name
+
+          return item
+        }) 
       },
       optionsClass(): object {
         return { 
@@ -76,7 +80,7 @@
       radioStyle(): object {
         const result = { size: 'medium', gap : 12 }
 
-        if (this.multiColumn) {
+        if (!this.multiColumn) {
           result.size = 'large'
           result.gap  = 16
         }
@@ -91,11 +95,29 @@
     },
     methods: {
       handleConfirm() {
-        this.$emit('cancel')
-        this.$emit('confirm', this.selected)
+        this.handleCancel()
+
+        if (this.confirm) {
+          this.confirm(this.selected)
+        } else {
+          this.$emit('confirm', this.selected)
+        }
+
+        this.clear()
       },
-      getOptionName(option) {
-        return option?.name || option
+      handleCancel() {
+        if (this.cancel) {
+          this.cancel()
+        } else {
+          this.$emit('cancel')
+        }
+      },
+      getOptionName(option: Option) {
+        if (typeof option === 'object') {
+          return option.name.toString()
+        }
+
+        return option.toString()
       },
       isSelected(option: Option) {
         let result = true
@@ -118,7 +140,7 @@
         this.$emit('click', this.selected)
 
         if (this.single) {
-          this.$emit('cancel')
+          this.handleConfirm()
         }
       },
       getSelectedIndex(option: Option) {
@@ -142,6 +164,16 @@
         } else {
           this.selected.push(option)
         }
+      },
+      clear() {
+        this.selected = []
+
+        if (!this.single) {
+          for (const index in this.$refs.radio) {
+            this.$refs.radio[index].clear()
+          }
+        }
+
       }
     },
   })

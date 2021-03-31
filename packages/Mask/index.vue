@@ -36,6 +36,10 @@ export default Vue.extend({
     handleVisible() {
       if (body) {
         body.style.overflow = this.visible ? 'hidden' : ''
+
+        if (!/(iPhone|iPad|iPod|iOS|ANDROID)/i.test(navigator.userAgent)) {
+          body.style.marginRight = this.visible ? 17 + 'px' : ''
+        }
       }
     },
     handleCancel() {

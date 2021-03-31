@@ -30,9 +30,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PopupBox from '../_helper/popup-box.vue'
-import Button from '../Button/button.vue'
-import Icon from '../Icon/index.vue'
+import PopupBox from '@/_helper/popup-box.vue'
+import Button from '@/Button/button.vue'
+import Icon from '@/Icon/index.vue'
 
 export default Vue.extend({
   name      : 'OPopup',
@@ -50,12 +50,13 @@ export default Vue.extend({
     primaryButtonText  : { type: String, default: '确定' },
     secondaryButtonText: { type: String },
     lastButtonText     : { type: String },
+    beforeConfirm      : { type: Function, default: () => () => true },
     confirm            : { type: Function },
     cancel             : { type: Function },
     cancel2            : { type: Function },
   },
   computed: {
-    buttonLength() {
+    buttonLength(): number {
       let baseLength = 1
       if (this.secondaryButtonText) {
         baseLength += 1
@@ -65,18 +66,39 @@ export default Vue.extend({
       }
       return baseLength
     },
-    primaryButtonTheme() {
+    primaryButtonTheme(): string {
       return this.type === 'alert' ? 'red' : 'blue'
     },
-    contents() {
-      return this.content && this.content.split('\\n')
+    contents(): string[] {
+      let result: string[] = []
+      
+      if (this.content) {
+        if (this.content.includes('\n')) {
+          result = this.content.split('\n')
+        } else {
+          result = this.content.split('\\n')
+        }
+      }
+      return result
     },
-    isIconDefaultPattern() {
-      return this.icon && this.icon.indexOf('o-') === 0
+    isIconDefaultPattern(): boolean {
+      return this.icon && this.icon.indexOf('o-') === 0 || false
     }
   },
   methods: {
+    validate() {
+      let result = true
+
+      if (this.beforeConfirm && typeof this.beforeConfirm === 'function') {
+        result = this.beforeConfirm()
+      }
+
+      return result
+    },
     handleConfirm() {
+      if (!this.validate()) return
+
+      this.handleCancel()
       if (this.confirm) {
         this.confirm()
       } else {

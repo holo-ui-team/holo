@@ -72,6 +72,7 @@ function getPluginSidebar (pluginTitle) {
             'mask',
             'popup',
             'popup-option',
+            'picker'
           ]
         }
       ]
