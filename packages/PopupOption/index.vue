@@ -47,7 +47,7 @@
 
         val.forEach((item) => {
 
-          if (typeof item === 'object' && !item.name) {
+          if (typeof item === 'object' && typeof item.name === 'undefined') {
               result = false
           }
         })

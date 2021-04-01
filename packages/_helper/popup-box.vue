@@ -11,7 +11,7 @@
 
         <div v-if="actionVisible" class="top-action">
           <span class="text-button cancel" @click="$emit('cancel')">取消</span>
-          <span class="text-button confirm" @click="handleConfirm('confirm')">确定</span>
+          <span class="text-button confirm" @click="$emit('confirm')">确定</span>
         </div>
 
       </header>
@@ -56,6 +56,7 @@ export default Vue.extend({
   min-width: 351px;
   background: #fafafa;
   border-radius: 12px;
+  overflow: hidden;
 
   &-header {
     background: #F4F4F4;
