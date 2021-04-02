@@ -32,7 +32,7 @@
 ### 单选
 
 1. 其中`title`标题为`必选项`。
-2. 另外`options`可包含以下三种情形`type Options = { name: string }[] | string[] | number[]`
+2. 另外`options`可包含以下三种情形`type Options = { name: string, desc?: string }[] | string[] | number[]`
 
 <popup-option-demo :currentDemo="0" />
 
