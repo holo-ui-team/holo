@@ -44,6 +44,20 @@
       })">点击</OButton>
     </section>
 
+     <section v-if="currentDemo === 3">
+      日期选择器
+
+      <OButton size="small" @click="handleDatePicker">点击</OButton>
+    </section>
+
+     <section v-if="currentDemo === 4">
+      可选填默认值
+
+      <OButton size="small" @click="handleDatePicker({
+        default: [1996, 11, 15]
+      })">点击</OButton>
+    </section>
+
   </div>
 </template>
 
@@ -78,6 +92,15 @@
           confirm(val) {
             console.log('selected', val)
           }
+        })
+      },
+      handleDatePicker(props) {
+        // @ts-ignore
+        this.$datePicker({
+          confirm: (val) => {
+            console.log('val', val)
+          },
+          ...props
         })
       }
     },

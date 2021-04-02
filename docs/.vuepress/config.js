@@ -66,15 +66,22 @@ function getPluginSidebar (pluginTitle) {
           ]
         },
         {
-          title: '弹出类组件',
+          title: 'Popup 弹出提示',
           collapsable: false,
           children: [
             'mask',
             'popup',
             'popup-option',
-            'picker'
           ]
-        }
+        },
+        {
+          title: 'Picker 选择器',
+          collapsable: false,
+          children: [
+            'picker',
+            'date-picker'
+          ]
+        },
       ]
     }
   ]

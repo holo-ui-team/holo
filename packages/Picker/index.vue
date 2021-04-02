@@ -20,7 +20,7 @@
   import PopupBox from '../_helper/popup-box.vue'
   import {Option} from './type'
 
-  let   wrapperWidth   : number
+  let   wrapperWidth    : number
   let   maxScrollHeights: number[]
   const minHeight = 40
 
@@ -48,6 +48,7 @@
       default      : { type: Array },
       confirm      : { type: Function },
       cancel       : { type: Function },
+      change       : { type: Function },
     },
 
     computed: {
@@ -73,8 +74,8 @@
 
     methods: {
       handleConfirm() {
-        this.handleCancel()
         const selected = this.getSelected()
+        this.handleCancel()
 
         if (this.confirm) {
           this.confirm(selected)
@@ -89,6 +90,21 @@
           this.cancel()
         } else {
           this.$emit('cancel')
+        }
+      },
+      handleChange() {
+        const selected = this.getSelected()
+        
+        const result = {
+          index      : this.currentPickerIndex,
+          value      : selected[this.currentPickerIndex],
+          allSelected: selected 
+        }
+
+        if (this.change) {
+          this.change(result)
+        } else {
+          this.$emit('change', result)
         }
       },
       getSelected() {
@@ -154,6 +170,9 @@
           this.translateY(transformValue)
         })
       },
+      initSelectedIndexes() {
+        this.selectedIndexes = new Array(this.pickerCount).fill(0)
+      },
       translateY(value: number) {
         this.scrollingElement.style.transform = `translateY(${value}px)`
       },
@@ -213,6 +232,7 @@
       },
       setSelectedIndex(index: number) {
         this.selectedIndexes[this.currentPickerIndex] = index
+        this.handleChange()
       },
       setScrollingElementIndex(clientX: number) {
         if (this.pickerCount < 1) return
@@ -242,6 +262,10 @@
         } else {
           return 0
         }
+      },
+      init() {
+        this.setWrapperWidth()
+        this.setMaxScrollHeight()
       }
     },
 
@@ -249,20 +273,20 @@
       visible(newValue, oldValue) {
         if (newValue && newValue !== oldValue) {
           this.$nextTick(() => {
-            this.setWrapperWidth()
-            this.setMaxScrollHeight()
+            this.init()
 
             if (this.isFirst) {
               this.isFirst = false
+              this.initSelectedIndexes()
               this.setDefault()
             }
           })
         }
       },
-      options(newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.selectedIndexes = new Array(this.pickerCount)
-          this.clear()
+      options: {
+        deep: true,
+        handler() {
+          this.init()
         }
       }
     },

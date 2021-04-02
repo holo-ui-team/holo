@@ -5,6 +5,7 @@ export type PickerProps = {
   maskClosable       ?: boolean
   options             : Array<Option[]>
   default            ?: Array<Option[]>
+  change             ?: Function
   confirm            ?: Function
   cancel             ?: Function
 }
