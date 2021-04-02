@@ -45,8 +45,9 @@
 
         return result
       } },
-      confirm            : { type: Function },
-      cancel             : { type: Function },
+      default      : { type: Array },
+      confirm      : { type: Function },
+      cancel       : { type: Function },
     },
 
     computed: {
@@ -65,6 +66,7 @@
 
     data() {
       return {
+        isFirst           : true,
         currentPickerIndex: -1,
         startY            : -1,
         endY              : -1,
@@ -130,19 +132,31 @@
         this.startY             = -1
         this.endY               = -1
       },
-      move(flag?: boolean) {
-        const result    = this.startY - this.endY
-        const lastValue = this.getLastTransformValue()
-        const maxValue  = maxScrollHeights[this.currentPickerIndex]
-        let   newValue  = lastValue - result
+      setDefault() {
+        if (!this.default) return
+
+        (this.default as Array<Option>).forEach((option, index) => {
+          this.currentPickerIndex = index
+          const defaultIndex = this.getOptionIndex(option)
+          const transformValue = this.checkTransformValue( -(defaultIndex) * minHeight, true  )
+
+          this.translateY(transformValue)
+        })
+      },
+      translateY(value: number) {
+        this.scrollingElement.style.transform = `translateY(${value}px)`
+      },
+      checkTransformValue(newValue: number, flag?: boolean) {
+        const maxValue    = maxScrollHeights[this.currentPickerIndex]
+        let selectedIndex = -1
 
         if (newValue <= -maxValue) {
-          newValue           = -maxValue
-          this.setSelectedIndex( (this.options as Array<Option[]>)[this.currentPickerIndex].length - 1 )
+          newValue      = -maxValue
+          selectedIndex = (this.options as Array<Option[]>)[this.currentPickerIndex].length - 1
 
         } else if (newValue >= 0) {
-          newValue           = 0
-          this.setSelectedIndex(0)
+          newValue      = 0
+          selectedIndex = 0
 
         } else {
 
@@ -151,12 +165,39 @@
               newValue = Math.round(newValue / minHeight) * minHeight
             }
 
-            this.setSelectedIndex( Math.abs( Math.round(newValue / minHeight) ) )
+            selectedIndex = Math.abs( Math.round(newValue / minHeight) )
           }
           
         }
+
+        this.setSelectedIndex(selectedIndex)
+        return newValue
+      },
+      move(flag?: boolean) {
+        const result      = this.startY - this.endY
+        const lastValue   = this.getLastTransformValue()
+        const newValue    = this.checkTransformValue( lastValue - result, flag )
         
-        this.scrollingElement.style.transform = `translateY(${newValue}px)`
+        this.translateY(newValue)
+      },
+      getOptionIndex(option: Option) {
+        let result = -1
+        const options = ( this.options[this.currentPickerIndex] ) as Option[]
+
+        if (typeof option === 'object') {
+          for (let i = 0; i < options.length; i++) {
+            const item = options[i];
+            
+            // @ts-ignore
+            if (item.name === option.name) {
+              result = i
+            }
+          }
+        } else {
+          result = options.indexOf(option)
+        }
+
+        return result
       },
       setSelectedIndex(index: number) {
         this.selectedIndexes[this.currentPickerIndex] = index
@@ -198,6 +239,11 @@
           this.$nextTick(() => {
             this.setWrapperWidth()
             this.setMaxScrollHeight()
+
+            if (this.isFirst) {
+              this.isFirst = false
+              this.setDefault()
+            }
           })
         }
       },
