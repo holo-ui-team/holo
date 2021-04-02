@@ -59,9 +59,6 @@
 
         return this.$refs.pickerList[index]
       },
-      selectedItems(): Option[] {
-        return this.selectedIndexes.map((index, picketIndex) => (this.options as Array<Option[]>)[picketIndex][index])
-      }
     },
 
     data() {
@@ -77,14 +74,15 @@
     methods: {
       handleConfirm() {
         this.handleCancel()
+        const selected = this.getSelected()
 
         if (this.confirm) {
-          this.confirm(this.selectedItems)
+          this.confirm(selected)
         } else {
-          this.$emit('confirm', this.selectedItems)
+          this.$emit('confirm', selected)
         }
 
-        this.clear()
+        this.reset()
       },
       handleCancel() {
         if (this.cancel) {
@@ -93,17 +91,21 @@
           this.$emit('cancel')
         }
       },
+      getSelected() {
+        return this.selectedIndexes.map(
+          (index, picketIndex) => (this.options as Array<Option[]>)[picketIndex][index]
+        )
+      },
       setWrapperWidth() {
         const wrapperElement = (this.$refs.pickerWrapper) as HTMLDivElement
         wrapperWidth = wrapperElement.getBoundingClientRect().width
       },
       setMaxScrollHeight() {
-        maxScrollHeights = []
+        maxScrollHeights = [] as number[]
 
-        for (let i = 0; i < this.pickerCount; i++) {
-          const {height: maxHeight} = this.$refs.pickerList[i].getBoundingClientRect()
-          maxScrollHeights.push(maxHeight - minHeight * 4)
-        }
+        ( this.options as Option[][] ).forEach((option) => {
+          maxScrollHeights.push((option.length - 1) * minHeight)
+        })
       },
       getOptionName(option: Option) {
         if (typeof option === 'object') {
@@ -127,15 +129,24 @@
         this.move(true)
         this.clear()
       },
+      reset() {
+        this.clear()
+
+        this.isFirst            = true
+        this.selectedIndexes    = new Array(this.pickerCount)
+        const defaultValues = (this.options as Option[]).map((option) => option[0])
+        this.setDefault(defaultValues)
+      },
       clear() {
         this.currentPickerIndex = -1
         this.startY             = -1
         this.endY               = -1
       },
-      setDefault() {
-        if (!this.default) return
+      setDefault(value ?: Option[]) {
+        const defaultOptions  = value || this.default
+        if (!defaultOptions) return
 
-        (this.default as Array<Option>).forEach((option, index) => {
+        ( defaultOptions as Option[] ).forEach((option, index) => {
           this.currentPickerIndex = index
           const defaultIndex = this.getOptionIndex(option)
           const transformValue = this.checkTransformValue( -(defaultIndex) * minHeight, true  )
@@ -170,7 +181,8 @@
           
         }
 
-        this.setSelectedIndex(selectedIndex)
+        if (flag) this.setSelectedIndex(selectedIndex)
+
         return newValue
       },
       move(flag?: boolean) {
@@ -249,7 +261,7 @@
       },
       options(newValue, oldValue) {
         if (newValue !== oldValue) {
-          this.selectedIndexes = new Array(this.pickerCount, 0)
+          this.selectedIndexes = new Array(this.pickerCount)
           this.clear()
         }
       }
@@ -267,7 +279,7 @@
   }
 
   &-ul-wrapper {
-    display: flex; justify-content: center; align-items: center;
+    display: flex; justify-content: center;
     padding: 12px 0;
   }
 
@@ -283,6 +295,7 @@
     box-sizing: border-box;
     padding: 8px 32px 10px;
     width: 100%;
+    white-space: nowrap;
     text-align: center; font-weight: bold;
     list-style: none; user-select: none;
 
