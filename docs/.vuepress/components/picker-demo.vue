@@ -66,8 +66,11 @@
   import OButton from '@/Button/button.vue'
   // @ts-ignore
   import $picker from '@/Picker/plugin.ts'
+  // @ts-ignore
+  import $datePicker from '@/DatePicker/plugin.ts'
   
   Vue.use($picker)
+  Vue.use($datePicker)
 
   export default Vue.extend({
     name: 'PopupOptionDemo',
