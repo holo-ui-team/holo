@@ -47,7 +47,7 @@
 
         val.forEach((item) => {
 
-          if (typeof item === 'object' && !item.name) {
+          if (typeof item === 'object' && typeof item.name === 'undefined') {
               result = false
           }
         })
@@ -56,11 +56,6 @@
       } },
       confirm            : { type: Function },
       cancel             : { type: Function },
-    },
-    created() {
-      if (this.default.length) {
-        this.selected = this.default as Option[]
-      }
     },
     computed: {
       selectedValues(): Array<string| number> {
@@ -90,7 +85,8 @@
     },
     data() {
       return {
-        selected: [] as Option[]
+        selected: [] as Option[],
+        isFirst : true,
       }
     },
     methods: {
@@ -102,8 +98,6 @@
         } else {
           this.$emit('confirm', this.selected)
         }
-
-        this.clear()
       },
       handleCancel() {
         if (this.cancel) {
@@ -167,6 +161,7 @@
       },
       clear() {
         this.selected = []
+        this.isFirst  = true
 
         if (!this.single) {
           for (const index in this.$refs.radio) {
@@ -174,6 +169,23 @@
           }
         }
 
+      },
+      setDefault() {
+        if (this.default.length) {
+          this.selected = this.default as Option[]
+        }
+      }
+    },
+    watch: {
+      visible(newValue, oldValue) {
+        if (newValue && newValue !== oldValue) {
+          if (this.isFirst) {
+            this.$nextTick(() => {
+              this.setDefault()
+            })
+            this.isFirst = false
+          }
+        }
       }
     },
   })

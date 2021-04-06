@@ -29,11 +29,6 @@
         checked: false
       }
     },
-    created () {
-      if (this.default) {
-        this.checked = true
-      }
-    },
     methods: {
       handleChecked() {
         if (this.disabled) return
@@ -43,6 +38,13 @@
       },
       clear() {
         this.checked = false
+      }
+    },
+    watch: {
+      default(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.checked = newValue
+        }
       }
     },
   })

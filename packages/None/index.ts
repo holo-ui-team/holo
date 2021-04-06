@@ -1,8 +1,8 @@
 import { VueConstructor } from 'vue'
-import component from './index.vue';
+import component from './index.vue'
 
 const oNone = function(Vue: VueConstructor) {
-  Vue.component('oNone', component);
+  Vue.component('oNone', component)
 }
 
-export default oNone;
+export default oNone

@@ -5,11 +5,22 @@
 
       <OButton size="small" @click="handlePopupOption({single: true})">点击</OButton>
     </section>
+    <section v-if="currentDemo === 4">
+      单选（默认选中）：
+
+      <OButton size="small" @click="handlePopupOption({single: true, default: ['凤梨']})">点击</OButton>
+    </section>
 
     <section v-if="currentDemo === 3">
       多选：
 
       <OButton size="small" @click="handlePopupOption({subTitle: ''})">点击</OButton>
+    </section>
+
+    <section v-if="currentDemo === 5">
+      多选（默认选中）：
+
+      <OButton size="small" @click="handlePopupOption({subTitle: '', default: ['凤梨', '老虎']})">点击</OButton>
     </section>
 
     <section v-if="currentDemo === 1">

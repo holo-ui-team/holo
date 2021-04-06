@@ -1,9 +1,12 @@
 import Vue, { Component } from 'vue'
 import { CreateElement, VNodeData } from 'vue/types/umd'
 
+let i = 0
+
 export default function renderHelper(component: Component, requiredOption?: object): VNodeData {
+  i += 1
   // @ts-ignore
-  const componentName = component.options.name
+  const componentName = component.options.name + i
   const wrapper = _getWrapper(componentName)
 
   return new Vue({
@@ -15,7 +18,7 @@ export default function renderHelper(component: Component, requiredOption?: obje
     },
     render(h: CreateElement) {
       return ( h('div', { class: componentName }, [
-        h(component, { props: { ...requiredOption, ...this.$data.props } })
+        h(component, { props: { ...requiredOption, ...this.$data.props }, ref: 'myChild' })
        ] ) )
     }
   })

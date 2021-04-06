@@ -1,6 +1,6 @@
 import { VueConstructor } from 'vue'
 import plugin from './plugin'
-import component from './index.vue';
+import component from './index.vue'
 
 const oPopup = function(Vue: VueConstructor) {
   Vue.component('oPopup', component)
@@ -8,5 +8,5 @@ const oPopup = function(Vue: VueConstructor) {
   return plugin
 }
 
-export default oPopup;
+export default oPopup
 

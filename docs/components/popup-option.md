@@ -29,10 +29,10 @@
 1. 通过`this.$popupOption()`来使用
 2. 通过标签`<OPopupOption></OpopupOption>`来使用
 
-### 单选
+### 单选 - 基础用法
 
 1. 其中`title`标题为`必选项`。
-2. 另外`options`可包含以下三种情形`type Options = { name: string }[] | string[] | number[]`
+2. 另外`options`可包含以下三种情形`type Options = { name: string, desc?: string }[] | string[] | number[]`
 
 <popup-option-demo :currentDemo="0" />
 
@@ -65,8 +65,25 @@
 
 ```
 
+### 单选 - 可默认选中
 
-### 多选
+<br />
+
+<popup-option-demo :currentDemo="4" />
+
+```js
+  this.$popupOption({
+    title   : '请选择',                // 必填
+    single  : true,                   // 此处标记为单选
+    subTitle: '你可以不写我的',        // 副标题（可选）
+    default : ['凤梨'],              // 默认选择
+    options : ['西瓜', '凤梨', '老虎'] // 选项的集中格式请参考 参数 章节
+  })
+```
+
+<br />
+
+### 多选 - 基础用法
 
 <br />
 
@@ -79,6 +96,23 @@
     options : ['西瓜', '凤梨', '老虎'] // 选项的集中格式请参考 参数 章节
   })
 ```
+### 多选 - 可默认选中
+
+<br />
+
+<popup-option-demo :currentDemo="5" />
+
+```js
+  this.$popupOption({
+    title   : '请选择',                // 必填
+    default : ['凤梨', '老虎'],        // 默认选择
+    options : ['西瓜', '凤梨', '老虎'] // 选项的集中格式请参考 参数 章节
+  })
+```
+
+### 多选 - 可加入描述
+
+<br />
 
 <popup-option-demo :currentDemo="1" />
 
@@ -94,6 +128,10 @@
     ]                               
   })
 ```
+
+### 多选 - 可多行显示
+
+<br />
 
 <popup-option-demo :currentDemo="2" />
 

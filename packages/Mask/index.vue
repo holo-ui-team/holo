@@ -14,7 +14,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-const body = document.querySelector('body')
+const body             = document.body
+const originalOverflow = body.style.overflow
 
 export default Vue.extend({
   name: 'OMask',
@@ -35,7 +36,7 @@ export default Vue.extend({
   methods: {
     handleVisible() {
       if (body) {
-        body.style.overflow = this.visible ? 'hidden' : ''
+        body.style.overflow = this.visible ? 'hidden' : originalOverflow
 
         if (!/(iPhone|iPad|iPod|iOS|ANDROID)/i.test(navigator.userAgent)) {
           body.style.marginRight = this.visible ? 17 + 'px' : ''
