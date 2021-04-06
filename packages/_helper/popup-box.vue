@@ -64,7 +64,7 @@ export default Vue.extend({
     text-align: center;
     border-radius: 12px 12px 0 0;
 
-    .heander-title {
+    .header-title {
       padding: 15px 0 15px;
 
       &.with-subtitle {
