@@ -7,6 +7,8 @@ import {PopupOptionProps} from './type'
 const plugin: PluginObject<PopupOptionProps> = {
   install: function(Vue) {
 
+    Vue.prototype.$popupOption = function(props: PopupOptionProps) {
+    
     const _popupOption = renderHelper(component, {
       visible: false,
       options: [],
@@ -15,10 +17,9 @@ const plugin: PluginObject<PopupOptionProps> = {
     const hidePopup = () => {
       if (_popupOption.props) {
         _popupOption.props.visible = false
+        _popupOption.$el.remove()
       }
     }
-
-    Vue.prototype.$popupOption = function(props: PopupOptionProps) {
       _popupOption.props = {
         confirm: () => {},
         cancel: () => { hidePopup() },

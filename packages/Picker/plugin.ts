@@ -11,17 +11,19 @@ const DAYS   = Array.from(new Array(31), (item, index) => (1 + index))
 const plugin: PluginObject<PickerProps> = {
   install: function(Vue) {
 
-    const _picker = renderHelper(component, {
-      visible: false,
-      options: [],
-    })
-    const hidePopup = () => {
-      if (_picker.props) {
-        _picker.props.visible = false
-      }
-    }
-
+    
     Vue.prototype.$picker = function(props: PickerProps) {
+      const _picker = renderHelper(component, {
+        visible: false,
+        options: [],
+      })
+      const hidePopup = () => {
+        if (_picker.props) {
+          _picker.props.visible = false
+          _picker.$el.remove()
+        }
+      }
+
       _picker.props = {
         confirm: () => {},
         cancel: () => { hidePopup() },
@@ -31,6 +33,17 @@ const plugin: PluginObject<PickerProps> = {
     }
 
     Vue.prototype.$datePicker = function(props: PickerProps) {
+
+      const _picker = renderHelper(component, {
+        visible: false,
+        options: [],
+      })
+      const hidePopup = () => {
+        if (_picker.props) {
+          _picker.props.visible = false
+          _picker.$el.remove()
+        }
+      }
 
       _picker.props = {
         confirm: (val) => { console.log(val) },

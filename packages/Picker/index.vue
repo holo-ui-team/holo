@@ -82,8 +82,6 @@
         } else {
           this.$emit('confirm', selected)
         }
-
-        this.reset()
       },
       handleCancel() {
         if (this.cancel) {
