@@ -23,7 +23,7 @@
       </div>
 
       <footer v-if="footerVisible" class="popup-box-footer">
-        <PopupBox></PopupBox>
+        <slot name="footer" />
       </footer>
     </div>
 

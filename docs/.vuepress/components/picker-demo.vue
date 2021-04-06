@@ -10,6 +10,7 @@
       另一种Option格式，以及多个Picker选项
 
       <OButton size="small" @click="handlePicker({
+        auto: false,
         options: [
           [
             {name: '香蕉'},
