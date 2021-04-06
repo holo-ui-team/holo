@@ -58,6 +58,21 @@
       })">点击</OButton>
     </section>
 
+     <section v-if="currentDemo === 5">
+      地区选择器（默认）
+
+      <OButton size="small" @click="handleRegionPicker">点击</OButton>
+    </section>
+
+     <section v-if="currentDemo === 6">
+      地区选择器（选择国家）
+
+      <OButton size="small" @click="handleRegionPicker({
+        type: 'nation'
+      })">点击</OButton>
+    </section>
+
+
   </div>
 </template>
 
@@ -65,12 +80,15 @@
   import Vue from 'vue'
   import OButton from '@/Button/button.vue'
   // @ts-ignore
-  import $picker from '@/Picker/plugin.ts'
+  import $picker from '@/Picker/plugin'
   // @ts-ignore
   import $datePicker from '@/DatePicker/plugin.ts'
+  // @ts-ignore
+  import $regionPicker from '@/RegionPicker/plugin.ts'
   
   Vue.use($picker)
   Vue.use($datePicker)
+  Vue.use($regionPicker)
 
   export default Vue.extend({
     name: 'PopupOptionDemo',
@@ -100,6 +118,15 @@
       handleDatePicker(props) {
         // @ts-ignore
         this.$datePicker({
+          confirm: (val) => {
+            console.log('val', val)
+          },
+          ...props
+        })
+      },
+      handleRegionPicker(props) {
+         // @ts-ignore
+        this.$regionPicker({
           confirm: (val) => {
             console.log('val', val)
           },

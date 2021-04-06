@@ -27,14 +27,15 @@ const plugin: PluginObject<PickerProps> = {
 
       _picker.props = {
         confirm: (val) => { console.log(val) },
-        cancel: () => { hidePopup() },
+        cancel : () => { hidePopup() },
         default: [1990, 1, 1],
 
         ...props,
         
         visible: true,
+        auto   : false,
         options: [ YEARS, MONTHS, DAYS ],
-        change: ({index, value, allSelected}) => {
+        change : ({index, value, allSelected}) => {
           const actualDays: number[] = _getActualDays(index, value, allSelected)
 
           if (actualDays.length) {
@@ -43,10 +44,7 @@ const plugin: PluginObject<PickerProps> = {
         },
       }
     }
-
-    Vue.prototype.$districtPicker = function(props: PickerProps) {
-      
-    }
+    
   }
 }
 

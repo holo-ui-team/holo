@@ -3,9 +3,9 @@
 
     <div class="picker-wrapper" ref="pickerWrapper" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
 
-      <div class="picker-ul-wrapper">
+      <div class="picker-ul-wrapper" :class="{ multi: pickerCount >= 3 }">
         <ul class="picker-list" v-for="(option, index) in options" :key="index" ref="pickerList">
-          <li class="picker-item" v-for="(item, index) in option" :key="index">{{getOptionName(item)}}</li>
+          <li class="picker-item ellipsis" v-for="(item, index) in option" :key="index">{{getOptionName(item)}}</li>
         </ul>
       </div>
       
@@ -49,6 +49,7 @@
       confirm      : { type: Function },
       cancel       : { type: Function },
       change       : { type: Function },
+      auto         : { type: Boolean, default: true } // 默认几个选项是相关联的，如果前一个选项更新了，后面的选项会重置为该列的第一个选项
     },
 
     computed: {
@@ -107,8 +108,12 @@
       },
       getSelected() {
         return this.selectedIndexes.map(
-          (index, picketIndex) => (this.options as Array<Option[]>)[picketIndex][index]
-        )
+          (index, picketIndex) => {
+            const currentOption = ( ( this.options ) as Option[][] )[picketIndex]
+            const maxIndex      = currentOption.length - 1
+
+            return currentOption[Math.min(index, maxIndex)]
+          })
       },
       setWrapperWidth() {
         const wrapperElement = (this.$refs.pickerWrapper) as HTMLDivElement
@@ -142,14 +147,21 @@
 
         this.move(true)
         this.clear()
+
+        if (this.auto && this.pickerCount > 1) {
+          const nextPickerIndex = this.currentPickerIndex + 1
+
+          if (nextPickerIndex <= this.pickerCount - 1) {
+            this.setDefault(this.getSelected())
+          }
+        }
       },
       reset() {
-        this.clear()
+        this.isFirst = true
 
-        this.isFirst            = true
-        this.selectedIndexes    = new Array(this.pickerCount)
-        const defaultValues = (this.options as Option[]).map((option) => option[0])
-        this.setDefault(defaultValues)
+        this.clear()        
+        this.initSelectedIndexes()
+        this.setDefault(this.getSelected())
       },
       clear() {
         this.currentPickerIndex = -1
@@ -228,8 +240,17 @@
 
         return result
       },
-      setSelectedIndex(index: number) {
-        this.selectedIndexes[this.currentPickerIndex] = index
+      setSelectedIndex(currentValue: number) {
+        this.selectedIndexes.forEach((value, index) => {
+          if (this.currentPickerIndex === index) {
+
+            this.selectedIndexes[index] = currentValue
+          } else if (this.currentPickerIndex < index) {
+
+            this.selectedIndexes[index] = this.auto ? 0 : value
+          }
+        })
+        
         this.handleChange()
       },
       setScrollingElementIndex(clientX: number) {
@@ -292,6 +313,8 @@
 </script>
 
 <style lang="less" scoped>
+@import '~@/style/common.less';
+
 .picker {
   &-wrapper {
     position: relative;
@@ -303,6 +326,14 @@
   &-ul-wrapper {
     display: flex; justify-content: center;
     padding: 12px 0;
+
+    &.multi {
+      .picker-item {
+        padding-left: 10px;
+        padding-right: 10px;
+        max-width: 115px;
+      }
+    }
   }
 
   &-list {

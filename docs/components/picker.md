@@ -6,6 +6,8 @@
 |**【必填】visible**     | 弹窗是否显示  |  boolean  | [true, false] | false  |
 |**【必填】options**     | 选项  |  `Array<Options>`  | - |  [] |
 |default            | 默认选中的内容  | `Options` | - |  [] |
+|title              | 标题  | string | - |  '' |
+|auto               | 有多个选项时，默认他们是相互关联的，如果前一个选项改变，后面的相关联的选项会重置为该列的第一项  | boolean | [true, false] |  true |
 |maskClosable       | 点击黑色背景是否可以关闭  |  boolean  | [true, false] |  true |
 
 ```ts

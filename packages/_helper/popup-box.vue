@@ -4,13 +4,14 @@
     <div class="popup-box">
       <header class="popup-box-header">
 
-        <div v-if="title" class="title" :class="{'with-subtitle': subTitle}">
+        <div v-if="title" class="header-title" :class="{'with-subtitle': subTitle}">
           <h1>{{title}}</h1>
           <p v-if="subTitle">{{subTitle}}</p>
         </div>
 
         <div v-if="actionVisible" class="top-action">
           <span class="text-button cancel" @click="$emit('cancel')">取消</span>
+          <span v-if="title" class="action-title">{{title}} 请选择</span>
           <span class="text-button confirm" @click="$emit('confirm')">确定</span>
         </div>
 
@@ -63,7 +64,7 @@ export default Vue.extend({
     text-align: center;
     border-radius: 12px 12px 0 0;
 
-    .title {
+    .heander-title {
       padding: 15px 0 15px;
 
       &.with-subtitle {
@@ -85,6 +86,11 @@ export default Vue.extend({
 
     .top-action {
       display: flex; justify-content: space-between; align-items: center;
+
+      .action-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
 
       .text-button {        
         display: inline-block;

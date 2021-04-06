@@ -1,10 +1,10 @@
-# DatePicker 日期选择器
+# RegionPicker 地区选择器
 
 ## 参数
 
 | 参数       | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-|default            | 默认选中的内容  | [number, number, number] | - |  [] |
+|type               | 类型  | string | ['china', 'nation'] |  'china' |
 |title              | 标题  | string | - |  '' |
 |maskClosable       | 点击黑色背景是否可以关闭  |  boolean  | [true, false] |  true |
 
@@ -18,23 +18,24 @@
 
 <br />
 
-<picker-demo :currentDemo="3" />
+<picker-demo :currentDemo="5" />
 
 ```js
-  this.$datePicker({
+  this.$regionPicker({
+    type   : 'china', // 默认为 china，可不填
     confirm: (val) => {
       console.log('val', val)
     }
   })
 ```
 
-<picker-demo :currentDemo="4" />
+<picker-demo :currentDemo="6" />
 
 ```js
-  this.$datePicker({
-    default: [1996, 11, 15],
+  this.$regionPicker({
+    type   : 'nation',
     confirm: (val) => {
       console.log('val', val)
     }
   })
-```
+`

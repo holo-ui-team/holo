@@ -18,7 +18,7 @@ export default function renderHelper(component: Component, requiredOption?: obje
     },
     render(h: CreateElement) {
       return ( h('div', { class: componentName }, [
-        h(component, { props: { ...requiredOption, ...this.$data.props } })
+        h(component, { props: { ...requiredOption, ...this.$data.props }, ref: 'myChild' })
        ] ) )
     }
   })

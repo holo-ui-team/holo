@@ -79,7 +79,8 @@ function getPluginSidebar (pluginTitle) {
           collapsable: false,
           children: [
             'picker',
-            'date-picker'
+            'date-picker',
+            'region-picker'
           ]
         },
       ]
