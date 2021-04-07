@@ -1,4 +1,4 @@
-# Popup-Option 选项弹出框
+# PopupOption 选项弹出框
 ## 参数
 
 | 参数       | 说明    | 类型      | 可选值       | 默认值   |

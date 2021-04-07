@@ -3,7 +3,7 @@
 
     <main class="popup-action-wrapper">
       <div v-if="isShare" class="popup-action-header">
-        <Icon v-if="ad" class="ad" :url="ad" :width="351" :height="44"/>
+        <Icon v-if="ad" class="ad" type="img" :url="ad" :width="351" :height="44"/>
         <h1 v-else>分享到</h1>
       </div>
 
@@ -31,7 +31,7 @@ import Icon from '@/Icon/index.vue'
 import {Action} from './type'
 
 const ShareList = {
-  wchat  : { icon: _getIconUrl('wechat') , name: '微信'  },
+  wechat : { icon: _getIconUrl('wechat') , name: '微信'  },
   moments: { icon: _getIconUrl('moments'), name: '朋友圈' },
   qq     : { icon: _getIconUrl('qq')     , name: 'QQ'   },
   qZone  : { icon: _getIconUrl('qzone')  , name: 'QQ空间'},
@@ -104,6 +104,8 @@ export default Vue.extend({
       } else {
         result = this.actions
       }
+
+      console.log(111, result)
 
       return result
     }

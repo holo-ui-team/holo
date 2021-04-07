@@ -53,8 +53,8 @@
         visible3: false,
         visible4: false,
         visible5: false,
-        actions: [ 'wchat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', ],
-        // actions: [ 'wchat', 'moments'],
+        actions: [ 'wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', ],
+        // actions: [ 'wechat', 'moments'],
         actions4: [ '操作1', '操作2', '操作3', '操作4', '操作5', ],
         actions2: [
           {name: '操作1'},
