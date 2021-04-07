@@ -1,13 +1,21 @@
 <template>
-  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" :footerVisible="true" @cancel="handleCancel">
+  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" :footerVisible="true" @cancel="handleCancel" class="popup-action">
 
     <main class="popup-action-wrapper">
-      <div v-if="type === 'share'" class="popup-action-header">
-        <div v-if="ad" class="ad"></div>
+      <div v-if="isShare" class="popup-action-header">
+        <Icon v-if="ad" class="ad" :url="ad" :width="351" :height="44"/>
         <h1 v-else>分享到</h1>
       </div>
 
-      <div class="popup-action-content" :class="actionClasses">
+      <div class="popup-action-list" :class="actionClasses" @click="handleConfirm">
+        <div v-for="(item, index) in computedActions" :key="index" class="popup-action-item" :data-index="index">
+          <template v-if="item.icon" >
+            <Icon v-if="isIconDefaultPattern(item.icon)" :name="item.icon" :color="item.iconColor" :data-index="index" class="popup-action-icon"/>
+            <Icon v-else :url="item.icon" :width="iconSideLength" :height="iconSideLength" :data-index="index"/>
+          </template>
+
+          <span class="popup-action-text" :class="{danger: isDanger(item)}" :data-index="index">{{getActionName(item)}}</span>
+        </div>
       </div>
     </main>
 
@@ -22,6 +30,20 @@ import Button from '@/Button/button.vue'
 import Icon from '@/Icon/index.vue'
 import {Action} from './type'
 
+const ShareList = {
+  wchat  : { icon: _getIconUrl('wechat') , name: '微信'  },
+  moments: { icon: _getIconUrl('moments'), name: '朋友圈' },
+  qq     : { icon: _getIconUrl('qq')     , name: 'QQ'   },
+  qZone  : { icon: _getIconUrl('qzone')  , name: 'QQ空间'},
+  message: { icon: _getIconUrl('message'), name: '短信'  },
+  weibo  : { icon: _getIconUrl('weibo')  , name: '微博'  },
+  wallet : { icon: _getIconUrl('wallet') , name: '钱包'  }
+}
+
+function _getIconUrl(name: string): string {
+  return require('../assets/img/share/o-' + name + '.png')
+}
+
 export default Vue.extend({
   name      : 'OPopupAction',
   components: {
@@ -32,9 +54,8 @@ export default Vue.extend({
     maskClosable       : { type: Boolean, default: true },
     ad                 : { type: String, },
     type               : { type: String, validator: (val: string) => ['share'].includes(val) },
-    icon               : { type: String, },
-    iconColor          : { type: String, },
     cancel             : { type: Function },
+    confirm            : { type: Function },
     actions            : { type: Array as PropType<Action[]>, required: true, validator: (val: Action[]) => {
       let result = true
 
@@ -49,10 +70,13 @@ export default Vue.extend({
     } },
   },
   computed: {
-    isIconDefaultPattern(): boolean {
-      return this.icon && this.icon.indexOf('o-') === 0 || false
+    isShare(): boolean {
+      return this.type === 'share'
     },
-    actionClasses() {
+    iconSideLength(): number {
+      return this.isShare ? 48 : 24
+    },
+    actionClasses(): string[] {
       const result: string[] = []
 
       if (this.type) {
@@ -67,10 +91,53 @@ export default Vue.extend({
       }
 
       return result
+    },
+    computedActions(): Action[] {
+      let result: Action[] = []
+
+      if (this.type === 'share') {
+        result = this.actions.map((item) => {
+          if (typeof item === 'string') {
+            return ShareList[item]
+          }
+        })
+      } else {
+        result = this.actions
+      }
+
+      return result
     }
   },
   methods: {
-    handleConfirm() {
+    isDanger(action: Action) {
+      let result = false
+      if (typeof action === 'object') {
+        result = !!action.danger
+      }
+
+      return result
+    },
+    getActionName(action: Action) {
+      if (typeof action === 'object') {
+        return action.name.toString()
+      }
+
+      return action.toString()
+    },
+    handleConfirm(e: MouseEvent) {
+      const target      = e.target as HTMLDivElement
+      const targetIndex = Number(target.getAttribute('data-index'))
+
+      if (targetIndex === NaN) return
+
+      const targetItem = this.actions[targetIndex]
+      if (this.confirm) {
+        this.confirm(targetItem)
+      } else {
+        this.$emit('confirm', targetItem)
+      }
+
+      this.handleCancel()
     },
     handleCancel() {
       if (this.cancel) {
@@ -79,6 +146,9 @@ export default Vue.extend({
         this.$emit('cancel')
       }
     },
+    isIconDefaultPattern(icon: string) {
+      return !this.isShare && icon.includes('o-')
+    },
   },
 })
 </script>
@@ -86,56 +156,83 @@ export default Vue.extend({
 <style lang="less" scoped>
 @import '~@/style/theme.less';
 
-@buttonGap: 10px;
-.popup {
-  padding: 20px 16px 16px;
+.popup-action /deep/ .popup-box {
+  background: #F6F6F6;
+}
 
-  &-icon {
-    margin-bottom: 20px;
+.popup-action {
+
+  &-header {
     text-align: center;
 
-    .holo-icon {      
-      font-size: 54px;
+    h1 {
+      padding: 12px 20px; margin: 0;
+      font-size: 16px; line-height: 22px;
     }
+
+    .ad { margin-bottom: 20px; }
+
   }
 
-  &-title {
-    margin-bottom: 12px;
-  }
+  &-list {
+    width: 351px; box-sizing: border-box;
 
-  &-content {
-    color: @gray;
-    font-size: 16px; line-height: 22px;
-    margin-bottom: 48px;
-  }
+    &.share {
+      padding: 0 14px;
+      display: flex; flex-wrap: wrap; align-items: center;
 
-  &-title, .without-title {
-    color: @color;
-    font-weight: bold; text-align: left;
-    font-size: 18px; line-height: 25px;
-  }
-
-  &-button-wrapper {
-    &.button-length-2 {
-      display: flex; justify-content: space-between;
-
-      .button-wrapper:first-child {
-        order: 1;
-        margin-left: @buttonGap;
+      .popup-action-item {
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        margin: 0 9px;
+        width: 62px; box-sizing: border-box;
+        margin-bottom: 16px;
+        
+        .popup-action-text {
+          color: @color; text-align: center;
+          font-size: 16px; line-height: 22px;
+          margin-top: 6px;
+        }
       }
+
     }
 
-    &.button-length-3 {
-      display: flex; flex-direction: column;
+    &.default {
+      text-align: center;
 
-      .button-wrapper + .button-wrapper {
-        margin-top: @buttonGap;
+      .popup-action-item + .popup-action-item {
+        border-top: 1px solid @borderColor;
       }
+ 
+      .popup-action-item {
+        padding: 19px 0;
+       
+        .popup-action-text {
+          font-size: 18px; line-height: 18px;
+          color: @color;
+
+          &.danger { color: @red; }
+        }
+
+      }
+
     }
+
+    &.with-icon {
+
+      .popup-action-item {
+        display: flex; align-items: center;
+        padding-left: 16px;
+
+        .popup-action-text { margin-left: 20px; }
+
+        .popup-action-icon { font-size: 24px; }
+
+      }
+
+    }
+
   }
+
 }
 
-// csy:todo 需要确定是POPUP单独处理，还是在button里面需要加上
-.button-wrapper.gray {
-  border: 1px solid @borderColor;
-}
+</style>

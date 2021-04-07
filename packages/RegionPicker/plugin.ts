@@ -1,6 +1,7 @@
 // @ts-ignore
 import renderHelper from '@/_helper/render-helper.ts'
-import {PickerProps} from '@/Picker/type'
+// @ts-ignore
+import {PickerProps} from '@/Picker/type.ts'
 import { PluginObject } from 'vue/types/umd'
 import component from '@/Picker/index.vue'
 import Nation from './Data/Nation'

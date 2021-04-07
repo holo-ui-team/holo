@@ -4,35 +4,34 @@
     <section>
       分享
       <OButton size="small" @click="visible = !visible">点击</OButton>
-      <OPopupAction type="share" :visible="visible" :actions="actions" single @cancel="visible = !visible" />
+      <OPopupAction type="share" :visible="visible" :actions="actions" @cancel="visible = !visible" @confirm="handleConfirm"/>
     </section>
 
     <section>
       分享（有广告）
 
       <OButton size="small" @click="visible3 = !visible3">点击</OButton>
-      <OPopupAction title="我是标题" subTitle="我是副标题" :visible="visible3" :actions="actions2" single @cancel="visible3 = !visible3" />
+      <OPopupAction type="share" :visible="visible3" :actions="actions" :ad="ad"  @confirm="handleConfirm" @cancel="visible3 = !visible3" />
     </section>
 
     <section>
-      多选：
+      动作：（仅文字）
 
       <OButton size="small" @click="visible2 = !visible2">点击</OButton>
-      <OPopupAction title="我是标题" :visible="visible2" :actions="actions" @cancel="visible2 = !visible2" @confirm="handleConfirm"/>
+      <OPopupAction :visible="visible2" :actions="actions4" @cancel="visible2 = !visible2" @confirm="handleConfirm"/>
     </section>
 
     <section>
-      多选：（显示补充说明）
+      动作：（有危险动作）
 
       <OButton size="small" @click="visible4 = !visible4">点击</OButton>
-      <OPopupAction title="我是标题" :visible="visible4" :actions="actions3" @cancel="visible4 = !visible4" @confirm="handleConfirm"/>
+      <OPopupAction :visible="visible4" :actions="actions2" @cancel="visible4 = !visible4" @confirm="handleConfirm"/>
     </section>
     <section>
-
-      多选：（多行操作）
+      动作：（有icon）
 
       <OButton size="small" @click="visible5 = !visible5">点击</OButton>
-      <OPopupAction title="我是标题" :visible="visible5" :actions="actions3" :multiColumn="true" @cancel="visible5 = !visible5" @confirm="handleConfirm"/>
+      <OPopupAction :visible="visible5" :actions="actions3" :multiColumn="true" @cancel="visible5 = !visible5" @confirm="handleConfirm"/>
     </section>
   </div>
 </template>
@@ -54,21 +53,24 @@
         visible3: false,
         visible4: false,
         visible5: false,
-        actions: ['操作1', '操作2', '操作3', '操作4'],
+        actions: [ 'wchat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', ],
+        // actions: [ 'wchat', 'moments'],
+        actions4: [ '操作1', '操作2', '操作3', '操作4', '操作5', ],
         actions2: [
           {name: '操作1'},
           {name: '操作2'},
-          {name: '操作3'},
+          {name: '操作3', danger: true},
           {name: '操作4'},
           {name: '操作5'},
         ],
         actions3: [
-          {name: '操作1', desc: '我是个冇得表情的描述'},
-          {name: '操作2', desc: '我是个冇得表情的描述'},
-          {name: '操作3', desc: '我是个冇得表情的描述'},
-          {name: '操作4', desc: '我是个冇得表情的描述'},
-          {name: '操作5', desc: '我是个冇得表情的描述'},
-        ]
+          {name: '操作1', icon: 'o-train' },
+          {name: '操作2', icon: 'o-close' },
+          {name: '操作3', icon: 'o-help' },
+          {name: '操作4', icon: require('../../packages/assets/img/share/o-message.png') },
+          {name: '操作5', icon: require('../../packages/assets/img/share/o-qq.png') },
+        ],
+        ad: require('../../packages/assets/ad/vivo.png')
       }
     },
     methods: {

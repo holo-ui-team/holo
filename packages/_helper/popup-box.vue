@@ -20,12 +20,13 @@
 
       <div class="popup-box-content">
         <slot/>
+        </div>
+        
       </div>
 
-      <footer v-if="footerVisible" class="popup-box-footer">
-        <slot name="footer" />
-      </footer>
-    </div>
+    <footer v-if="footerVisible" class="popup-box-footer">
+      <div class="popup-box-cancel" @click="$emit('cancel')">取消</div>
+    </footer>
 
   </OMask>
 </template>
@@ -45,7 +46,7 @@ export default Vue.extend({
     title        : { type: String },
     subTitle     : { type: String },
     actionVisible: { type: Boolean },
-    footerVisible: { type: Boolean }
+    footerVisible: { type: Boolean },
   },
 })
 </script>
@@ -111,6 +112,17 @@ export default Vue.extend({
 
   }
 
+
+  &-footer {
+    text-align: center;
+    margin-top: 8px;
+    
+    .popup-box-cancel {
+      padding: 19px 0;
+      font-size: 18px; line-height: 18px;
+      color: @color; background: #ffffff; border-radius: 12px;
+    }
+  }
 
 }
 </style>
