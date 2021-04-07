@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+  import { PropType } from 'node_modules/vue/types/umd'
   import Vue from 'vue'
   import PopupBox from '../_helper/popup-box.vue'
   import {Option} from './type'
@@ -32,7 +33,7 @@
     props: {
       visible      : { type: Boolean, required: true },
       maskClosable : { type: Boolean, default: true },
-      options      : { type: Array, required: true, validator: (val: Array<Option[]>) => {
+      options      : { type: Array as PropType<Array<Array<Option>>>, required: true, validator: (val: Array<Option[]>) => {
         let result = true
 
         val.forEach((list) => {
@@ -45,7 +46,7 @@
 
         return result
       } },
-      default      : { type: Array },
+      default      : { type: Array as PropType<Option[]> },
       confirm      : { type: Function },
       cancel       : { type: Function },
       change       : { type: Function },
@@ -109,7 +110,7 @@
       getSelected() {
         return this.selectedIndexes.map(
           (index, picketIndex) => {
-            const currentOption = ( ( this.options ) as Option[][] )[picketIndex]
+            const currentOption = this.options[picketIndex]
             const maxIndex      = currentOption.length - 1
 
             return currentOption[Math.min(index, maxIndex)]
@@ -122,7 +123,7 @@
       setMaxScrollHeight() {
         maxScrollHeights = [] as number[]
 
-        ( this.options as Option[][] ).forEach((option) => {
+        this.options.forEach((option) => {
           maxScrollHeights.push((option.length - 1) * minHeight)
         })
       },
@@ -172,7 +173,7 @@
         const defaultOptions  = value || this.default
         if (!defaultOptions) return
 
-        ( defaultOptions as Option[] ).forEach((option, index) => {
+        defaultOptions.forEach((option, index) => {
           this.currentPickerIndex = index
           const defaultIndex = this.getOptionIndex(option)
           const transformValue = this.checkTransformValue( -(defaultIndex) * minHeight, true  )
@@ -192,7 +193,7 @@
 
         if (newValue <= -maxValue) {
           newValue      = -maxValue
-          selectedIndex = (this.options as Array<Option[]>)[this.currentPickerIndex].length - 1
+          selectedIndex = this.options[this.currentPickerIndex].length - 1
 
         } else if (newValue >= 0) {
           newValue      = 0
@@ -223,14 +224,13 @@
       },
       getOptionIndex(option: Option) {
         let result = -1
-        const options = ( this.options[this.currentPickerIndex] ) as Option[]
+        const options = this.options[this.currentPickerIndex]
 
         if (typeof option === 'object') {
           for (let i = 0; i < options.length; i++) {
             const item = options[i];
             
-            // @ts-ignore
-            if (item.name === option.name) {
+            if (typeof item === 'object' && item.name === option.name) {
               result = i
             }
           }

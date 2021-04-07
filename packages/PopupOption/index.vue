@@ -2,7 +2,7 @@
   <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel"
     :title="title" :subTitle="subTitle">
 
-    <div class="popup-options-wrapper" :class="{'multi-wrapper' : !single}">
+    <div class="popup-option-wrapper" :class="{'multi-wrapper' : !single}">
 
       <div class="popup-option" v-for="(option, index) in options" :key="index" 
           :class="optionsClass" @click="handleSelected(option)">
@@ -216,7 +216,7 @@
     }
   }
 
-  &s-wrapper.multi-wrapper {
+  &-wrapper.multi-wrapper {
     padding: 0 16px 16px 16px;
     display: flex; flex-wrap: wrap;
   }

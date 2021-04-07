@@ -45,6 +45,7 @@
 
 ```js
   this.$picker({
+    auto    : false, // 出现多个选项的时候，内容不关联
     options : [
       ['西瓜', '凤梨', '老虎']
     ],

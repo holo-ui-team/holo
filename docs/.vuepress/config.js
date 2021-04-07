@@ -66,12 +66,13 @@ function getPluginSidebar (pluginTitle) {
           ]
         },
         {
-          title: 'Popup 弹出提示',
+          title: 'Popup 弹出内容',
           collapsable: false,
           children: [
             'mask',
             'popup',
             'popup-option',
+            'popup-action',
           ]
         },
         {
