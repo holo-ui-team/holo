@@ -1,5 +1,5 @@
 const path = require('path');
-const {getComponentEntries} = require('./build/utils.js')
+const getEntry = require('./build/getEntry.js');
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -15,7 +15,7 @@ module.exports = {
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       return {
-        entry: getComponentEntries('packages'),
+        entry: getEntry(),
         output: {
           filename: '[name]/index.js',
           libraryTarget: 'commonjs2', // 使用 commonjs2 或者配置其他模式 umd 之类的

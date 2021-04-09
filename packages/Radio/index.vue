@@ -51,7 +51,7 @@
 </script>
 
 <style lang="less" scoped>
-@import '~@/style/theme.less';
+@import '~@/_style/theme.less';
 
 .radio-wrapper {
   display: inline-flex; align-items: center;

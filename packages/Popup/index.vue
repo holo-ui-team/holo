@@ -1,7 +1,7 @@
 <template>
   <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel">
 
-    <div class="popup">
+    <div class="popup" :class="{ 'with-icon': this.icon }">
       <div v-if="icon" class="popup-icon">
         <Icon v-if="isIconDefaultPattern" :name="icon" :color="iconColor" />
         <Icon v-else :url="icon" :width="54" :height="54"/>
@@ -11,7 +11,7 @@
         {{title}}
       </header>
 
-      <main class="popup-content" :class="{'without-title': !title}">
+      <main class="popup-content" :class="{'without-title': !title }">
         <p v-for="(text, index) in contents" :key="index">{{text}}</p>
         <div class="popup-custom-content">
           <slot/>
@@ -124,11 +124,12 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-@import '~@/style/theme.less';
+@import '~@/_style/theme.less';
 
 @buttonGap: 10px;
 .popup {
   padding: 20px 16px 16px;
+  text-align: left;
 
   &-icon {
     margin-bottom: 20px;
@@ -143,6 +144,10 @@ export default Vue.extend({
     margin-bottom: 12px;
   }
 
+  &.with-icon {
+    text-align: center;
+  }
+
   &-content {
     color: @gray;
     font-size: 16px; line-height: 22px;
@@ -151,7 +156,7 @@ export default Vue.extend({
 
   &-title, .without-title {
     color: @color;
-    font-weight: bold; text-align: left;
+    font-weight: bold; 
     font-size: 18px; line-height: 25px;
   }
 

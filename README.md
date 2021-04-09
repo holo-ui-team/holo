@@ -3,18 +3,18 @@
 使用vue-cli3.0的脚手架搭建的项目<br />
 使用vue2.0<br />
 文档编辑使用 vuepress<br />
-引入了typescript，可以按照自己的喜好用或者不用<br />
 
 ## 项目说明
-### 1.在哪里写组件
-  组件统一放置在packages目录下。<br />
-  单个组件以文件夹存放，例如新加一个button组件，则新建一个button文件夹
+### 1.组件在哪里写
+  1. 组件统一放置在packages目录下；
+  2. 单个组件以文件夹存放，并且首字母大写（例如，Icon组件、Button组件）；
+  3. 单个组件文件夹下需必须存在一个对外输出的文件，默认为`index.ts`。
 
   :::  warning Note
   .<br />
-  ├── button _(**实例展示**)_<br />
-  │   ├── `button.vue` _(**组件**)_<br />
-  │   └── `index.ts` _(**输出，命名只能使用index.ts**)_<br />
+  ├── Button _(**实例展示**)_<br />
+  │   ├── `button.vue/index.vue` _(**vue组件**)_<br />
+  │   └── `index.ts` _(**输出，命名请采用index.ts**)_<br />
   :::
 
 ### 2.文档在哪里写
@@ -42,7 +42,9 @@
 │   ├── `app.vue` _(**layout页面**)_<br />
 │   └── `main.ts` _(**入口文件**)_<br />
 ├── packages _(**存放组件**)_<br />
-│   └── `index.ts` _(**入口文件**)_<br />
+│   └── `_helper` _(**存放组件相关的帮助方法、公共组件、数据等**)_<br />
+│   └── `_style` _(**存放组件相关的公共样式内容**)_<br />
+│   └── `index.ts` _(**所有组件的入口文件**)_<br />
 ├── scripts_(**相关指令文件**)_<br />
 └── package.json<br />
 :::

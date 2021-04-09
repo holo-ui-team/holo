@@ -14,6 +14,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import {NoneImgs} from '@/_helper/cdn-img-helper'
   import Icon from '../Icon/index.vue'
   import Button from '../Button/button.vue'
 
@@ -49,7 +50,7 @@
         return this.size === 'default' ? 200 : 128
       },
       url() {
-        return require('../assets/img/none/o-' + this.name + '.png')
+        return NoneImgs.get(this.name)
       },
       texts() {
         return this.text.split('\\n')
@@ -59,7 +60,7 @@
 </script>
 
 <style scoped lang="less">
-@import '~@/style/theme.less';
+@import '~@/_style/theme.less';
 
 .none {
   &-wrapper {

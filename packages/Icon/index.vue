@@ -75,7 +75,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-@import '~@/assets/icon.css';
+@import '~@/Icon/iconfont.css';
 
 .holo-icon.css {
   display: inline-block;

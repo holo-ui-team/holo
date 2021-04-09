@@ -1,8 +1,9 @@
-import { VueConstructor } from 'vue/types/umd'
+import { PluginFunction } from 'vue/types/umd'
 import component from './index.vue'
 
-const oIcon: any = function(Vue: VueConstructor) {
-  Vue.component('oIcon', component)
+const myComponent: PluginFunction<object> = function(Vue) {
+  // @ts-ignore
+  Vue.component(component.options.name, component)
 }
 
-export default oIcon
+export default myComponent

@@ -33,8 +33,10 @@
 
 其中`title`标题为非必选项。
 
-<popup-demo :currentDemo="0" />
-<popup-demo :currentDemo="4" />
+<ClientOnly>
+  <popup-demo :currentDemo="0" />
+  <popup-demo :currentDemo="4" />
+</ClientOnly>
 
 写法一：
 ```js
@@ -52,7 +54,9 @@
 
 ### 可最多支持三个按钮
 
-<popup-demo :currentDemo="1" />
+<ClientOnly>
+  <popup-demo :currentDemo="1" />
+</ClientOnly>
 
 ```js
   this.$popup({
@@ -63,7 +67,9 @@
   })
 ```
 
-<popup-demo :currentDemo="2" />
+<ClientOnly>
+  <popup-demo :currentDemo="2" />
+</ClientOnly>
 
 ```js
   this.$popup({
@@ -78,7 +84,9 @@
 ### 可选择主要类型的按钮颜色 
 目前仅支持主题色（蓝色）和强调色（橙红色），默认为主题色`type="default"`
 
-<popup-demo :currentDemo="3" />
+<ClientOnly>
+  <popup-demo :currentDemo="3" />
+</ClientOnly>
 
 ```js
   this.$popup({
@@ -94,7 +102,9 @@
 
 请使用标签的形式来完成自定义的内容。
 
-<popup-demo :currentDemo="5" />
+<ClientOnly>
+  <popup-demo :currentDemo="5" />
+</ClientOnly>
 
 ```vue
   <o-popup :visible="visible6" title="我是标题" content="我是内容" primaryButtonText="主要按钮" @cancel="visible6 = false">
@@ -109,7 +119,9 @@
 
 多行文本请用`\n`来区分
 
-<popup-demo :currentDemo="6" />
+<ClientOnly>
+  <popup-demo :currentDemo="6" />
+</ClientOnly>
 
 ```js
   this.$popup({
@@ -123,7 +135,9 @@
 
 icon分为内置Icon和其他，具体可参考Icon章节。
 
-<popup-demo :currentDemo="7" />
+<ClientOnly>
+  <popup-demo :currentDemo="7" />
+</ClientOnly>
 
 ```js
   this.$popup({
@@ -137,7 +151,9 @@ icon分为内置Icon和其他，具体可参考Icon章节。
 ```
 
 
-<popup-demo :currentDemo="9" />
+<ClientOnly>
+  <popup-demo :currentDemo="9" />
+</ClientOnly>
 
 外置Icon需要填写Icon的图片地址
 

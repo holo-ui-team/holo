@@ -11,7 +11,6 @@ const vueComArray = [ Button, Switch, Icon, None, Popup, Radio, Mask ]
 
 export default ({ Vue }) => {
   vueComArray.forEach( (item) => {
-    console.log(item)
     Vue.component(item.options.name, item);
   } )
 }

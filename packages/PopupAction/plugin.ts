@@ -1,8 +1,8 @@
-// @ts-ignore
-import renderHelper from '@/_helper/render-helper.ts'
+import renderHelper from '@/_helper/render-helper'
+import { RenderHelperVueComponent } from '@/_helper/type'
 import { PluginObject } from 'vue/types/umd'
-import component from './index.vue'
-import {PopupActionProps} from './type'
+import component from '@/PopupAction/index.vue'
+import {PopupActionProps} from '@/PopupAction/type'
 
 const plugin: PluginObject<PopupActionProps> = {
   install: function(Vue) {
@@ -12,7 +12,8 @@ const plugin: PluginObject<PopupActionProps> = {
       const _popupAction = renderHelper(component, {
         visible: false,
         actions: [],
-      })
+      }) as RenderHelperVueComponent<PopupActionProps>
+
       const hidePopup = () => {
         if (_popupAction.props) {
           _popupAction.props.visible = false

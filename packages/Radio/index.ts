@@ -1,9 +1,9 @@
-import { VueConstructor } from 'vue'
+import { PluginFunction } from 'vue/types/umd'
 import component from './index.vue'
 
-const oRadio = function(Vue: VueConstructor) {
-  Vue.component('oRadio', component)
+const myComponent: PluginFunction<object> = function(Vue) {
+    // @ts-ignore
+  Vue.component(component.options.name, component)
 }
 
-export default oRadio
-
+export default myComponent

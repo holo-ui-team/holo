@@ -1,12 +1,13 @@
-import { VueConstructor } from 'vue'
-import plugin from './plugin'
+import { PluginFunction } from 'vue/types/umd'
 import component from './index.vue'
+import plugin from './plugin'
 
-const oPopup = function(Vue: VueConstructor) {
-  Vue.component('oPopup', component)
-
-  return plugin
+const myComponent: PluginFunction<object> = function(Vue) {
+    // @ts-ignore
+  Vue.component(component.options.name, component)
+  Vue.use(plugin)
 }
 
-export default oPopup
+export default myComponent
+
 

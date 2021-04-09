@@ -110,7 +110,7 @@
 ### 可添加操作按钮 · buttonText
   `使用@click可以捕获到按钮的click事件`
 
-  <ONone text="说明文案说明文案说明文案" buttonText="操作按钮" @click="handleClick"/>
+  <ONone text="说明文案说明文案说明文案" buttonText="操作按钮"/>
 
 ```vue
   <!-- 可添加按钮 -->

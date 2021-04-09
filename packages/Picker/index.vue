@@ -219,7 +219,7 @@
         const result      = this.startY - this.endY
         const lastValue   = this.getLastTransformValue()
         const newValue    = this.checkTransformValue( lastValue - result, flag )
-        
+
         this.translateY(newValue)
       },
       getOptionIndex(option: Option) {
@@ -274,8 +274,8 @@
 
       },
       getLastTransformValue() {
-        const regexResult = (/-?\d+(?=px)/.exec(this.scrollingElement.style.transform))
-        
+        const regexResult = (/-?[.\d]+(?=px)/.exec(this.scrollingElement.style.transform))
+
         if (regexResult) {
           return parseFloat(regexResult[0])
         } else {
@@ -313,7 +313,7 @@
 </script>
 
 <style lang="less" scoped>
-@import '~@/style/common.less';
+@import '~@/_style/common.less';
 
 .picker {
   &-wrapper {

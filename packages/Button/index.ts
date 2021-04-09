@@ -1,7 +1,9 @@
-import button from './button.vue';
+import { PluginFunction } from 'vue/types/umd'
+import component from './button.vue'
 
-const oButton: any = function(Vue) {
-  Vue.component('oButton', button);
+const myComponent: PluginFunction<object> = function(Vue) {
+    // @ts-ignore
+  Vue.component(component.options.name, component)
 }
 
-export default oButton;
+export default myComponent

@@ -192,7 +192,7 @@
 </script>
 
 <style lang="less" scoped>
-@import '~@/style/theme.less';
+@import '~@/_style/theme.less';
 
 .popup-option {
   display: flex; align-items: center;

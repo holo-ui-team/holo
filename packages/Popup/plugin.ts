@@ -1,6 +1,7 @@
+import { RenderHelperVueComponent } from '@/_helper/type'
 import { PluginObject } from 'vue/types/umd'
-import renderHelper from '../_helper/render-helper'
-import component from './index.vue';
+import renderHelper from '@/_helper/render-helper'
+import component from '@/Popup/index.vue';
 
 type PopupProps = {
   visible             : boolean
@@ -21,17 +22,20 @@ type PopupProps = {
 const plugin: PluginObject<PopupProps> = {
   install: function(Vue) {
 
-    const _popup = renderHelper(component, {
-      visible: false,
-      content: ''
-    })
-    const hidePopup = () => {
-      if (_popup.props) {
-        _popup.props.visible = false
-      }
-    }
-
     Vue.prototype.$popup = function (props: PopupProps) {
+
+      const _popup = renderHelper(component, {
+        visible: false,
+        content: ''
+      }) as RenderHelperVueComponent<PopupProps>
+
+      
+      const hidePopup = () => {
+        if (_popup.props) {
+          _popup.props.visible = false
+        }
+      }
+
       _popup.props = {
 
         beforeConfirm: () => { return props.beforeConfirm || ( () => true ) },
@@ -42,6 +46,7 @@ const plugin: PluginObject<PopupProps> = {
         visible: true,
   
       }
+
     }
   
   }

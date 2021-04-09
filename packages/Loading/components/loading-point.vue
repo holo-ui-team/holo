@@ -27,7 +27,7 @@ export default class PointLoading extends Vue {
 </script>
 
 <style lang="less" scoped>
-@import "../../style/theme.less";
+@import "../../_style/theme.less";
 
 .point-loading {
   position: absolute; top: 50%; left: 50%;
