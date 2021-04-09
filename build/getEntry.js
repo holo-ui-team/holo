@@ -22,7 +22,7 @@ function getEntry() {
       // todo 这里如何改为相对路径？
       const currentPath = path.join(packagesDir, item.name)
 
-      entry.index = currentPath.split(path.sep).join('/')
+      entry.Index = currentPath.split(path.sep).join('/')
 
     }
 

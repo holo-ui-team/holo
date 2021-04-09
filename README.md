@@ -20,10 +20,22 @@
 ### 2.文档在哪里写
   在 .vuepress/config.js 里面配置路由<br />
   在 .vuepress/enhanceApp.js 里面引入组件<br />
-  详情参考demo, demo 的目录  docs/components/button.md,, 或者访问vuepress官网获取更多内容。
-
+  详情参考已有的例子，例如`docs/components/button.md`, 或者访问vuepress官网获取更多内容。
 
 ## 目录结构
+
+由于项目内的文件名单数、复数等都不太统一，所以专门来定一下规则，让代码结构更加美观一些。
+
+1. 文件（夹）名统一用单数；
+2. packages下的**组件相关的文件夹，统一为大驼峰**（首字母大写的驼峰）；
+3. 除组件文件夹外的**其他文件夹，统一为小驼峰**（首字母小写的驼峰）；
+4. **文件统一用小写，多个字母之间用`-`中划线隔开；**
+
+待调整：
+
+- [x] tests、scripts文件夹单复数调整
+- [] packages和docs文件夹单复数调整
+- [] tests和scripts子文件单复数调整
 
 <!-- textlint-disable terminology -->
 ::: warning Note
@@ -45,7 +57,7 @@
 │   └── `_helper` _(**存放组件相关的帮助方法、公共组件、数据等**)_<br />
 │   └── `_style` _(**存放组件相关的公共样式内容**)_<br />
 │   └── `index.ts` _(**所有组件的入口文件**)_<br />
-├── scripts_(**相关指令文件**)_<br />
+├── script_(**相关指令文件**)_<br />
 └── package.json<br />
 :::
 <!-- textlint-enable -->
