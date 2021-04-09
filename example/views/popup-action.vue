@@ -67,8 +67,8 @@
           {name: '操作1', icon: 'o-train' },
           {name: '操作2', icon: 'o-close' },
           {name: '操作3', icon: 'o-help' },
-          {name: '操作4', icon: require('../../packages/assets/img/share/o-message.png') },
-          {name: '操作5', icon: require('../../packages/assets/img/share/o-qq.png') },
+          {name: '操作4', icon: 'https://cdn.133.cn/gtgjwap/Image/holo-ui/share/o-message.png' },
+          {name: '操作5', icon: 'https://cdn.133.cn/gtgjwap/Image/holo-ui/share/o-qq.png' },
         ],
         ad: require('../../packages/assets/ad/vivo.png')
       }

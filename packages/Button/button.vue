@@ -10,7 +10,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'oButton'
+  name: 'OButton'
 })
 export default class Button extends Vue {
   // msg='默认的文字'; // 相当于 data() { return {} }
@@ -58,7 +58,7 @@ export default class Button extends Vue {
 </script>
 
 <style scoped lang="less">
-@import "../style/theme.less";
+@import "../_style/theme.less";
 .button-wrapper {
   // display: inline-block;
   width: 100%;

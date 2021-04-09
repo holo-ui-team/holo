@@ -8,7 +8,9 @@
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 
-@Component
+@Component({
+  name: 'OToast'
+})
 export default class Toast extends Vue {
 
   @Prop({ default: '' }) readonly msg!: string;
@@ -43,7 +45,7 @@ export default class Toast extends Vue {
 </script>
 
 <style lang="less" scoped>
-@import "../style/theme.less";
+@import "../_style/theme.less";
 .toast-wrapper {
   position: fixed; left: 0; right: 0; top: 0; z-index: 1000;
   box-sizing: border-box;

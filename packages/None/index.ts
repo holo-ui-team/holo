@@ -1,8 +1,10 @@
-import { VueConstructor } from 'vue'
+import { PluginFunction } from 'vue/types/umd'
 import component from './index.vue'
 
-const oNone = function(Vue: VueConstructor) {
-  Vue.component('oNone', component)
+const myComponent: PluginFunction<object> = function(Vue) {
+    // @ts-ignore
+  Vue.component(component.options.name, component)
 }
 
-export default oNone
+export default myComponent
+

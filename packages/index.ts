@@ -1,12 +1,12 @@
-import oButton from './Button/index';
-import Toast from './Toast/index'
-import oSwitch from './Switch/index'
+import { ComponentOptions, PluginFunction } from 'vue/types/umd'
+import componentRegister from './_helper/component-register'
 
-// const oButton = require('./button/button.vue');
-// const Toast = require('./toast/index.ts');
+const vueComponents: PluginFunction<Vue>[] = Object.values(componentRegister)
 
-export default {
-  oButton,
-  Toast,
-  oSwitch
-};
+const componentsPluginFunction: PluginFunction<ComponentOptions<Vue>> = function(Vue) {
+  vueComponents.forEach((plugin) => {
+    Vue.use(plugin)
+  })
+}
+
+export default componentsPluginFunction

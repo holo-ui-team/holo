@@ -52,7 +52,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-@import '~@/style/theme.less';
+@import '~@/_style/theme.less';
 
 .popup-box {
   min-width: 351px;

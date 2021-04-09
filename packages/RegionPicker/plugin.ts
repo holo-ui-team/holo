@@ -1,11 +1,10 @@
-// @ts-ignore
-import renderHelper from '@/_helper/render-helper.ts'
-// @ts-ignore
-import {PickerProps} from '@/Picker/type.ts'
+import renderHelper from '@/_helper/render-helper'
+import {PickerProps} from '@/Picker/type'
 import { PluginObject } from 'vue/types/umd'
 import component from '@/Picker/index.vue'
 import Nation from './Data/Nation'
 import China from './Data/China'
+import { RenderHelperVueComponent } from '@/_helper/type'
 
 type Region = {name: string, city ?: Region[], district?: Region[]}
 
@@ -17,7 +16,8 @@ const plugin: PluginObject<PickerProps> = {
       const _picker = renderHelper(component, {
         visible: false,
         options: [],
-      })
+      }) as RenderHelperVueComponent<PickerProps>
+
       const hidePopup = () => {
         if (_picker.props) {
           _picker.props.visible = false

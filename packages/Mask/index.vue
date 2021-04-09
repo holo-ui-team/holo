@@ -14,8 +14,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-const body             = document.body
-const originalOverflow = body.style.overflow
+let body             : HTMLElement
+let originalOverflow : string
 
 export default Vue.extend({
   name: 'OMask',
@@ -31,6 +31,9 @@ export default Vue.extend({
     }
   },
   mounted() {
+    body             = document.body
+    originalOverflow = body.style.overflow
+    
     if (this.visible) this.handleVisible()
   },
   methods: {

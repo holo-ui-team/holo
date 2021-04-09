@@ -1,9 +1,8 @@
-// @ts-ignore
-import renderHelper from '@/_helper/render-helper.ts'
-// @ts-ignore
-import {PickerProps} from '@/Picker/type.ts'
+import renderHelper from '@/_helper/render-helper'
+import {PickerProps} from '@/Picker/type'
 import { PluginObject } from 'vue/types/umd'
 import component from '@/Picker/index.vue'
+import { RenderHelperVueComponent } from '@/_helper/type'
 
 const YEARS  = Array.from(new Array(201), (item, index) => (1900 + index))
 const MONTHS = Array.from(new Array(12), (item, index) => (1 + index))
@@ -13,11 +12,11 @@ const plugin: PluginObject<PickerProps> = {
   install: function(Vue) {
 
     Vue.prototype.$datePicker = function(props: PickerProps) {
-
+      
       const _picker = renderHelper(component, {
         visible: false,
         options: [],
-      })
+      }) as RenderHelperVueComponent<PickerProps>
       const hidePopup = () => {
         if (_picker.props) {
           _picker.props.visible = false
@@ -28,6 +27,7 @@ const plugin: PluginObject<PickerProps> = {
       _picker.props = {
         confirm: (val) => { console.log(val) },
         cancel : () => { hidePopup() },
+        // @ts-ignore
         default: [1990, 1, 1],
 
         ...props,

@@ -10,7 +10,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'oSwitch'
+  name: 'OSwitch'
 })
 export default class Switch extends Vue {
 
@@ -47,7 +47,7 @@ export default class Switch extends Vue {
 </script>
 
 <style lang="less" scoped>
-@import "../style/theme.less";
+@import "../_style/theme.less";
 .switch-wrapper {
   box-sizing: border-box;
   display: inline-block;

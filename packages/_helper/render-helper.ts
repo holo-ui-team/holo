@@ -1,12 +1,9 @@
 import Vue, { Component } from 'vue'
-import { CreateElement, VNodeData } from 'vue/types/umd'
+import { CreateElement } from 'vue/types/umd'
 
-let i = 0
-
-export default function renderHelper(component: Component, requiredOption?: object): VNodeData {
-  i += 1
+export default function renderHelper(component: Component, requiredOption?: object) {
   // @ts-ignore
-  const componentName = component.options.name + i
+  const componentName = component.options.name
   const wrapper = _getWrapper(componentName)
 
   return new Vue({

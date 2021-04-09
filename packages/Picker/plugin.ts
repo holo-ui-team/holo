@@ -1,8 +1,8 @@
-// @ts-ignore
-import renderHelper from '@/_helper/render-helper.ts'
+import renderHelper from '@/_helper/render-helper'
+import { RenderHelperVueComponent } from '@/_helper/type'
 import { PluginObject } from 'vue/types/umd'
-import component from './index.vue'
-import {PickerProps} from './type'
+import component from '@/Picker/index.vue'
+import {PickerProps} from '@/Picker/type'
 
 const plugin: PluginObject<PickerProps> = {
   install: function(Vue) {
@@ -12,7 +12,8 @@ const plugin: PluginObject<PickerProps> = {
       const _picker = renderHelper(component, {
         visible: false,
         options: [],
-      })
+      }) as RenderHelperVueComponent<PickerProps>
+
       const hidePopup = () => {
         if (_picker.props) {
           _picker.props.visible = false

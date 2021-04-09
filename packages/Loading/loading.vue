@@ -14,6 +14,7 @@ import CircleLoading from './components/loading-circle.vue'
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator';
 
 @Component({
+  name: 'OLoading',
   components: {
     PointLoading,
     CircleLoading
@@ -54,7 +55,7 @@ export default class Loading extends Vue {
 </script>
 
 <style lang="less" scoped>
-@import "../style/theme.less";
+@import "../_style/theme.less";
 .loading-wrapper {
   &.lock {
     position: fixed; left: 0; top: 0; bottom: 0; right: 0;

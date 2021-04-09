@@ -26,22 +26,19 @@
 import Vue from 'vue'
 import { PropType } from 'node_modules/vue/types/umd'
 import PopupBox from '@/_helper/popup-box.vue'
+import {ShareImgs} from '@/_helper/cdn-img-helper'
 import Button from '@/Button/button.vue'
 import Icon from '@/Icon/index.vue'
 import {Action} from './type'
 
 const ShareList = {
-  wechat : { icon: _getIconUrl('wechat') , name: '微信'  },
-  moments: { icon: _getIconUrl('moments'), name: '朋友圈' },
-  qq     : { icon: _getIconUrl('qq')     , name: 'QQ'   },
-  qZone  : { icon: _getIconUrl('qzone')  , name: 'QQ空间'},
-  message: { icon: _getIconUrl('message'), name: '短信'  },
-  weibo  : { icon: _getIconUrl('weibo')  , name: '微博'  },
-  wallet : { icon: _getIconUrl('wallet') , name: '钱包'  }
-}
-
-function _getIconUrl(name: string): string {
-  return require('../assets/img/share/o-' + name + '.png')
+  wechat : { icon: ShareImgs.get('wechat') , name: '微信'  },
+  moments: { icon: ShareImgs.get('moments'), name: '朋友圈' },
+  qq     : { icon: ShareImgs.get('qq')     , name: 'QQ'   },
+  qZone  : { icon: ShareImgs.get('qzone')  , name: 'QQ空间'},
+  message: { icon: ShareImgs.get('message'), name: '短信'  },
+  weibo  : { icon: ShareImgs.get('weibo')  , name: '微博'  },
+  wallet : { icon: ShareImgs.get('wallet') , name: '钱包'  }
 }
 
 export default Vue.extend({
@@ -105,8 +102,6 @@ export default Vue.extend({
         result = this.actions
       }
 
-      console.log(111, result)
-
       return result
     }
   },
@@ -156,7 +151,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-@import '~@/style/theme.less';
+@import '~@/_style/theme.less';
 
 .popup-action /deep/ .popup-box {
   background: #F6F6F6;
