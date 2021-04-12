@@ -25,6 +25,5 @@ module.exports = {
       'vuepress-plugin-typescript'
     ],
   ],
+  base : '/holo/'
 }
-
-
