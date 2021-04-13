@@ -1,6 +1,8 @@
 <template>
   <img v-if="currentPattern === 'img'" :src="imgSrc" :width="width" :height="height" :alt="title">
-  <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title"></i>
+  <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title">
+    <slot />
+  </i>
 </template>
 
 <script lang="ts">
