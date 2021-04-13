@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "lib/Index/index.js",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
