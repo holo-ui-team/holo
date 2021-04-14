@@ -1,6 +1,6 @@
 <template>
-  <img v-if="currentPattern === 'img'" :src="imgSrc" :width="width" :height="height" :alt="title">
-  <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title">
+  <img v-if="currentPattern === 'img'" :src="imgSrc" :width="width" :height="height" :alt="title" @click="$emit('click')">
+  <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title" @click="$emit('click')">
     <slot />
   </i>
 </template>
