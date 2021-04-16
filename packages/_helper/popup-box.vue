@@ -1,5 +1,5 @@
 <template>
-  <OMask :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
+  <OMask class="popup-box-mask" :visible="visible" :maskClosable="maskClosable" @cancel="$emit('cancel')">
 
     <div class="popup-box">
       <header class="popup-box-header">
@@ -59,6 +59,12 @@ export default Vue.extend({
   background: #fafafa;
   border-radius: 12px;
   overflow: hidden;
+
+  &-mask {
+    & /deep/ .bg-mask-content {
+      bottom: 12px;
+    }
+  }
 
   &-header {
     background: #F4F4F4;

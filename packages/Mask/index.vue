@@ -77,7 +77,7 @@ export default Vue.extend({
   &-content {
     overflow: hidden;
     z-index: @zIndex;
-    position: fixed; bottom: 12px; left: 50%;
+    position: fixed; left: 50%; bottom: 0;
     transform: translateX(-50%);
   }
 }

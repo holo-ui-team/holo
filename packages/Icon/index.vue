@@ -1,6 +1,8 @@
 <template>
-  <img v-if="currentPattern === 'img'" :src="imgSrc" :width="width" :height="height" :alt="title">
-  <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title"></i>
+  <img v-if="currentPattern === 'img'" :src="imgSrc" :style="imgStyle"  :alt="title" @click="$emit('click')">
+  <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title" @click="$emit('click')">
+    <slot />
+  </i>
 </template>
 
 <script lang="ts">
@@ -25,6 +27,14 @@ export default Vue.extend({
     }
   },
   computed: {
+    imgStyle(): object {
+      return {
+        width    : '100%',
+        height   : 'auto',
+        maxWidth : this.width + 'px',
+        maxHeight: this.height + 'px'
+      }
+    },
     currentPattern(): string {
       return this.url ? this.type : 'default'
     }
