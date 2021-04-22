@@ -49,7 +49,7 @@ export default class ButtonExample extends Vue {
     }
     // ===== 延时两秒后执行关闭loading ====
     setTimeout(() => {
-      // this.$hideLoading();
+      this.$hideLoading();
     }, 2000);
   }
 
