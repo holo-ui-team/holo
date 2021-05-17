@@ -29,10 +29,8 @@ export default Vue.extend({
   computed: {
     imgStyle(): object {
       return {
-        width    : '100%',
-        height   : 'auto',
-        maxWidth : this.width + 'px',
-        maxHeight: this.height + 'px'
+        width    : this.width + 'px',
+        height   : this.height + 'px',
       }
     },
     currentPattern(): string {
@@ -60,9 +58,9 @@ export default Vue.extend({
     handleCss() {
       this.iconClass = 'css'
       this.iconStyle = {
-        backgroundImage: `url(${this.url})`,
         width          : this.width + 'px',
-        height         : this.height + 'px'
+        height         : this.height + 'px',
+        backgroundImage: `url(${this.url})`,
       }
     },
     handleImg() {
@@ -92,5 +90,7 @@ export default Vue.extend({
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  width: 100%;
+  height: 100%; // todo 需要自己设置
 }
 </style>
