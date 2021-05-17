@@ -131,4 +131,19 @@ export default Vue.extend({
   }
 
 }
+
+@media screen and (max-width: 550px) {
+  .popup-box-mask /deep/ .bg-mask-content {
+    width: 100%;
+  }
+  .popup-box {
+    min-width: unset;
+  }
+
+  .popup-box, .popup-box-footer {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+}
 </style>

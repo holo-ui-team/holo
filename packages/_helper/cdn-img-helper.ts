@@ -14,7 +14,7 @@ export const ShareImgs = new Map([
   ['wechat' , cdnUrl + 'share/o-wechat.png' ],
   ['moments', cdnUrl + 'share/o-moments.png'],
   ['qq'     , cdnUrl + 'share/o-qq.png'     ],
-  ['qZone'  , cdnUrl + 'share/o-qZone.png'  ],
+  ['qzone'  , cdnUrl + 'share/o-qzone.png'  ],
   ['message', cdnUrl + 'share/o-message.png'],
   ['weibo'  , cdnUrl + 'share/o-weibo.png'  ],
   ['wallet' , cdnUrl + 'share/o-wallet.png' ],
