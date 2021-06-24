@@ -3,7 +3,7 @@
 
     <main class="popup-action-wrapper">
       <div v-if="isShare" class="popup-action-header">
-        <Icon v-if="ad" class="ad" type="img" :url="ad" :width="351" :height="44"/>
+        <Icon v-if="ad" class="ad" type="img" :url="ad" :style="{width: '351px', height: '44px'}"/>
         <h1 v-else>分享到</h1>
       </div>
 
@@ -11,7 +11,7 @@
         <div v-for="(item, index) in computedActions" :key="index" class="popup-action-item" :data-index="index">
           <template v-if="item.icon" >
             <Icon v-if="isIconDefaultPattern(item.icon)" :name="item.icon" :color="item.iconColor" :data-index="index" class="popup-action-icon"/>
-            <Icon v-else :url="item.icon" :width="iconSideLength" :height="iconSideLength" :data-index="index"/>
+            <Icon v-else :url="item.icon" :style="{width: iconSideLength + 'px', height: iconSideLength + 'px'}" :data-index="index"/>
           </template>
 
           <span class="popup-action-text" :class="{danger: isDanger(item)}" :data-index="index">{{getActionName(item)}}</span>
