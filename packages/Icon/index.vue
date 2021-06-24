@@ -1,5 +1,5 @@
 <template>
-  <img v-if="currentPattern === 'img'" :src="imgSrc" :style="imgStyle"  :alt="title" @click="$emit('click')">
+  <img v-if="currentPattern === 'img'" :src="imgSrc" :style="style" :alt="title" @click="$emit('click')" >
   <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title" @click="$emit('click')">
     <slot />
   </i>
@@ -16,8 +16,7 @@ export default Vue.extend({
     title : { type: String },
     type  : { type: String, default: 'css', validator: (val) => ['img', 'css'].indexOf(val) >= 0 },
     url   : { type: String, default: '' },
-    width : { type: Number, default: 10 },
-    height: { type: Number, default: 10 }
+    style : { type: Object, default: () => ({})}
   },
   data() {
     return {
@@ -27,12 +26,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    imgStyle(): object {
-      return {
-        width    : this.width + 'px',
-        height   : this.height + 'px',
-      }
-    },
     currentPattern(): string {
       return this.url ? this.type : 'default'
     }
@@ -52,15 +45,15 @@ export default Vue.extend({
     handleDefault() {
       this.iconClass = this.name
       this.iconStyle = {
-        color: this.color
+        color: this.color,
+        ...this.style,
       }
     },
     handleCss() {
       this.iconClass = 'css'
       this.iconStyle = {
-        width          : this.width + 'px',
-        height         : this.height + 'px',
         backgroundImage: `url(${this.url})`,
+        ...this.style,
       }
     },
     handleImg() {
@@ -89,8 +82,8 @@ export default Vue.extend({
   display: inline-block;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: 100%;
   width: 100%;
-  height: 100%; // todo 需要自己设置
+  height: 100%;
 }
 </style>
