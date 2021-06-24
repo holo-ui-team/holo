@@ -4,7 +4,7 @@
     <div class="popup" :class="{ 'with-icon': this.icon }">
       <div v-if="icon" class="popup-icon">
         <Icon v-if="isIconDefaultPattern" :name="icon" :color="iconColor" />
-        <Icon v-else :url="icon" :width="54" :height="54"/>
+        <Icon v-else :url="icon" :style="{width: '54px', height: '54px'}"/>
       </div>
 
       <header v-if="title" class="popup-title">

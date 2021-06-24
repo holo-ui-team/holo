@@ -1,7 +1,7 @@
 <template>
   <div class="none-wrapper">
 
-    <Icon type="img" :url="url" :width="sideLength"  :height="sideLength"/>
+    <Icon type="img" :url="url" :style="{width: sideLength + 'px', height: sideLength + 'px'}"/>
 
     <div v-if="text" class="none-text-wrapper">
       <p v-for="(program, index) in texts" :key="index" class="none-text">{{program}}</p>
