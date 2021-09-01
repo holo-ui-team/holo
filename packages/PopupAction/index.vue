@@ -58,7 +58,7 @@ export default Vue.extend({
 
       val.forEach((item) => {
 
-        if (typeof item === 'object' && typeof item.name === undefined) {
+        if (typeof item === 'object' && typeof item.name === 'undefined') {
             result = false
         }
       })
