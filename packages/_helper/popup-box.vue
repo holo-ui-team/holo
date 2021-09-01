@@ -60,12 +60,6 @@ export default Vue.extend({
   border-radius: 12px;
   overflow: hidden;
 
-  &-mask {
-    & /deep/ .bg-mask-content {
-      bottom: 12px;
-    }
-  }
-
   &-header {
     background: #F4F4F4;
     text-align: center;
@@ -133,9 +127,6 @@ export default Vue.extend({
 }
 
 @media screen and (max-width: 550px) {
-  .popup-box-mask /deep/ .bg-mask-content {
-    width: 100%;
-  }
   .popup-box {
     min-width: unset;
   }
