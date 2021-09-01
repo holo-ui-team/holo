@@ -60,6 +60,7 @@
       scrollingElement(): HTMLUListElement {
         const index = this.currentPickerIndex < 0 ? 0 : this.currentPickerIndex
 
+        // @ts-ignore
         return this.$refs.pickerList[index]
       },
     },

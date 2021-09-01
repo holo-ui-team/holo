@@ -144,7 +144,7 @@ export default Vue.extend({
       }
     },
     isIconDefaultPattern(icon: string) {
-      return !this.isShare && icon.includes('o-')
+      return /^o-/.test(icon)
     },
   },
 })

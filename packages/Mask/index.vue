@@ -67,20 +67,20 @@ export default Vue.extend({
 @zIndex: 1000;
 
 .bg-mask {
-  position: fixed;
-  top: 0; bottom: 0; left: 0; right: 0;
-  background: rgba(0, 0, 0, 0.4);
 
   &-wrapper {
-    position: relative;
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: 0;
+
     z-index: @zIndex;
   }
 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
   &-content {
-    overflow: hidden;
-    z-index: @zIndex;
-    position: fixed; left: 50%; bottom: 0;
-    transform: translateX(-50%);
+    padding-bottom: 12px;
+    transform: translateY(-100%);
   }
 }
 
@@ -88,7 +88,7 @@ export default Vue.extend({
   transition: all .3s ease;
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .6s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to {
   transform: translateY(100%);
@@ -99,7 +99,7 @@ export default Vue.extend({
   transition: all .1s ease;
 }
 .fade-leave-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
