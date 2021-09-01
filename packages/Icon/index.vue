@@ -1,5 +1,5 @@
 <template>
-  <img v-if="currentPattern === 'img'" :src="imgSrc" :style="style" :alt="title" @click="$emit('click')" >
+  <img v-if="currentPattern === 'img'" :src="imgSrc" :style="myStyle" :alt="title" @click="$emit('click')" >
   <i v-else class="holo-icon" :class="iconClass" :style="iconStyle" :title="title" @click="$emit('click')">
     <slot />
   </i>
@@ -16,7 +16,7 @@ export default Vue.extend({
     title : { type: String },
     type  : { type: String, default: 'css', validator: (val) => ['img', 'css'].indexOf(val) >= 0 },
     url   : { type: String, default: '' },
-    style : { type: Object, default: () => ({})}
+    myStyle : { type: Object, default: () => ({})}
   },
   data() {
     return {
@@ -46,14 +46,14 @@ export default Vue.extend({
       this.iconClass = this.name
       this.iconStyle = {
         color: this.color,
-        ...this.style,
+        ...this.myStyle,
       }
     },
     handleCss() {
       this.iconClass = 'css'
       this.iconStyle = {
         backgroundImage: `url(${this.url})`,
-        ...this.style,
+        ...this.myStyle,
       }
     },
     handleImg() {
