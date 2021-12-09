@@ -1,14 +1,14 @@
 <template>
   <div>
     <OButton size="small"
-             @click="visible = !visible">点击</OButton>
+             @click="visible = !visible">点击
+    </OButton>
     <OMask :visible="visible"
-           position="bottom"
-           background="rgba(0, 0, 0, .7)"
+           position="middle"
            @cancel="visible = !visible">
-      <div class="box">
-        我是自定义的内容，哈哈哈哈
-      </div>
+
+      <img class="mask-img" src="https://cdn.133.cn/gtgjwap/Image/rushHour/pass-bg@3x.png" alt="图片">
+
     </OMask>
   </div>
 </template>
@@ -35,8 +35,7 @@ export default Vue.extend( {
   width : 100px;
 }
 
-.box {
-  background : white;
-  padding    : 10px;
+.mask-img {
+  width : 300px;
 }
 </style>

@@ -56,9 +56,11 @@ export default Vue.extend({
 
 .popup-box {
   min-width: 351px;
+  max-width: 500px;
   background: #fafafa;
   border-radius: 12px;
   overflow: hidden;
+  margin: 0 auto;
 
   &-header {
     background: #F4F4F4;
