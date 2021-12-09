@@ -1,106 +1,72 @@
 # Icon 图标
+
+图标提供了 **3** 种 使用方式：
+
+1. 使用 holo-ui 提供的字符图标，[查看当前所有图标](icon-list.html#)；
+2. 使用 css background 的方式提供的图片图标；
+3. 使用 img标签 的方式提供的图片图标；
+
 ## 参数
-为了方便开发，“随机”内置了一小部分Icon，如果常用的话，可以让设计小姐姐帮我们整理一下常出现的icon。
+
+### 字符参数
+
+**使用字符参数的好处：我们可以轻松的改变他的`font-size, color等属性`，如同操作文本一样地操作 icon。**
+
+为了方便开发，“随机”内置了一小部分Icon，如果需要新增 icon 请随时联系我们。
 
 | 参数       | 说明    | 类型      | 可选值       | 默认值   |
 |---------- |-------- |---------- |-------------  |-------- |
-| name      | 内置图标的图标名   | string  |   -    |     ''    |
-| color     | 内置图标的色值     | string  |   -    |     ''    |
+| **name**      | **必填，** 内置图标的图标名   | string  |   -    |     'o-check'    |
 | title     | 鼠标移至到图标上显示的title文字    | string| -   | ''   |
+
+### 图片参数
+
+| 参数       | 说明    | 类型      | 可选值       | 默认值   |
+|---------- |-------- |---------- |-------------  |-------- |
 | type      | 图标的标签类型，是Img类型还是css背景图   | string    | ['css', 'img']   |  'css' |
-| url       | 图片地址   | string    | -   |  '' |
-| width     | 图标宽度   | number    | -   |  10 |
-| height    | 图标高度   | number    | -   |  10 |
+| **url**       | **必填，** 图片地址   | string    | -   |  '' |
+| title     | img 标签的 alt 说明    | string| -   | ''   |
 
 ## 用法
 
-图标采用了三种使用方式：
-  1. 通过iconfont引入图标
-  2. 使用css的background引入图片
-  3. 使用img标签引入图片
+### 字符图标
 
-### 通过iconfont引入图标 · name
-  > 为了让大家在使用时及时看到效果，组件内置了默认样式。
+[查看当前所有图标](icon-list.html#)
 
-  默认图标：<o-icon/>
-
-```vue
-  <o-icon />
-  <!-- or -->
-  <oIcon />
-  <!-- or -->
-  <OIcon /> 
-```
-
-  可通过class自定义样式：<o-icon class="customClass"></o-icon>
+**示例：** name 为 o-plus 的 icon <OIcon class="icon" name="o-plus"></OIcon>
 
   ```vue
-    <o-icon class="customClass"></o-icon>
-
-    <style scoped>
-    .customClass {
-      color: red;
-      font-size: 40px;
-      font-weight: bold;
-    }
-    </style>
+name 为 o-plus 的 icon
+<OIcon class="icon" name="o-plus"></OIcon>
   ```
 
-  可设置title（鼠标移到icon上可以看到效果）：<o-icon title="哈咯哈"></o-icon>
+**示例：** 可设置title（鼠标移到icon上可以看到效果）：<o-icon title="哈咯哈"></o-icon>
 
   ```vue
-    <o-icon title="哈咯哈"></o-icon>
+给默认图标设置 title 
+<o-icon title="哈咯哈"></o-icon>
   ```
 
-  **使用iconfont的原因在于，对于单色图标我们可以轻松的改变他的`font-size, color等属性`，如同操作文本一样地操作icon。**（采用iconfont分为单色图标和有色图标（这里由于一些问题，暂时没有加入有色图标）。
+### css 图片图标
 
-  我们需要到iconfont的holo项目文档里查看当前可用的图标，然后复制图标名即可使用。下面列出一些可能常用的图标（我猜的）。
+使用 css background 加载图片内容，`默认 width: 100%; height: 100%;` 使用前请设置合适的宽高。
 
-  <icon-list/>
-
-### 通过css的background引入图片 · css
-
-  当我们没有传入name时，说明我们即将采用css的background形式来加载图标，我们需要传入`url width height`。（也可设置type="css"）
-
-  <div style="margin-top:20px">
-    <o-icon url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+**示例：**  <div style="margin-top:20px">
+    <o-icon url="https://cdn.133.cn/gtgjwap/Image/doubleEleven2021/other/3.png" style="width: 100px;height:100px"></o-icon>
   </div>  
 
 ```vue
-  <!-- 通过background引入图片icon -->
-  <o-icon url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+使用前请通过 class 或者 style 设置具体的宽高：
+<o-icon url="https://cdn.133.cn/gtgjwap/Image/doubleEleven2021/other/3.png" style="width: 100px;height:100px"></o-icon>
 ```
 
-### 通过img标签引入图片 · img
+### img 图片图标
 
-  当我们设置`type="img"`，说明我们即将采用img标签的形式来加载图标，我们需要传入`url width height`。
-
-  <div style="margin-top:20px">
-    <o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" :width="26" :height="20"></o-icon>
+**示例：**   <div style="margin-top:20px">
+    <o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/doubleEleven2021/other/2.png"></o-icon>
   </div>
 
 ```vue
-
-  <!-- 通过配置type为img，设置为img标签引入图片 -->
-  <o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" 
-  :width="26" :height="20"></o-icon>
+使用前请通过 class 或者 style 设置具体的宽高：
+<o-icon type="img" url="https://cdn.133.cn/gtgjwap/Image/tmcShanglv/icons/train@2x.png" ></o-icon>
 ```
-
-
-## 其他
-
-现在暂时加入的内置图标如下，详情请进入iconfont的项目查看！
-
-iconfont地址如下，需要加入组织的记得给我一下账号名。
-
-[icon-font地址](https://www.iconfont.cn/ )
-
-![icon.png](https://i.loli.net/2021/03/24/DyjA5iZRTzHXGuq.png)
-
-<style scoped>
-  .customClass {
-    color: red;
-    font-size: 40px;
-    font-weight: bold;
-  }
-</style>
