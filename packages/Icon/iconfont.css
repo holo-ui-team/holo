@@ -1,8 +1,8 @@
 @font-face {
     font-family: "holo-icon"; /* Project id 2351936 */
-    src: url('//at.alicdn.com/t/font_2351936_xb4wspksh2.woff2?t=1638952038439') format('woff2'),
-    url('//at.alicdn.com/t/font_2351936_xb4wspksh2.woff?t=1638952038439') format('woff'),
-    url('//at.alicdn.com/t/font_2351936_xb4wspksh2.ttf?t=1638952038439') format('truetype');
+    src: url('//at.alicdn.com/t/font_2351936_7s5l6mfkw2n.woff2?t=1639120681415') format('woff2'),
+    url('//at.alicdn.com/t/font_2351936_7s5l6mfkw2n.woff?t=1639120681415') format('woff'),
+    url('//at.alicdn.com/t/font_2351936_7s5l6mfkw2n.ttf?t=1639120681415') format('truetype');
 }
 
 .holo-icon {
@@ -11,6 +11,10 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.o-back:before {
+    content: "\e62b";
 }
 
 .o-picture:before {
@@ -49,7 +53,7 @@
     content: "\e609";
 }
 
-.o-tiaozhuanjiantou:before {
+.o-jump:before {
     content: "\e60a";
 }
 
