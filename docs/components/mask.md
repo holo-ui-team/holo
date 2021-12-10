@@ -8,7 +8,7 @@
 |---------- |-------- |---------- |-------------  |-------- |
 |**visible**        | **必填，** 弹窗是否显示  |  boolean  | [true, false] | false  |
 |maskClosable       | 点击黑色背景/幕布是否可以关闭  |  boolean  | [true, false] |  true |
-|position           | 弹窗的位置  |  string  | ['bottom', 'middle'] |  'bottom' |
+|position           | 弹窗的位置  |  string  | ['top', bottom', 'middle'] |  'bottom' |
 |background         | 黑色幕布的颜色  |  string  | '' |  'rbga(0, 0, 0, .6)' |
 
 ## 事件
