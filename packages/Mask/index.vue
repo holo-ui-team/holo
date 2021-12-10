@@ -37,9 +37,9 @@ export default Vue.extend( {
       type   : String,
       default: 'bottom',
       validator ( val ) {
-        return [ 'bottom', 'middle' ].includes( val )
+        return [ 'bottom', 'middle', 'top' ].includes( val )
       },
-    }
+    },
   },
   mounted () {
     body             = document.body
@@ -90,6 +90,12 @@ export default Vue.extend( {
   background : rgba(0, 0, 0, 0.6);
 
   &-content {
+
+    &.top {
+      width     : 100%;
+      position  : fixed;
+      top       : 0%;
+    }
 
     &.bottom {
       padding-bottom : 12px;
