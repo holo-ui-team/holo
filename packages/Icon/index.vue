@@ -2,12 +2,12 @@
 
   <img v-if="pattern === 'img'"
        :src="imgSrc" :alt="title"
-       @click="$emit('click')">
+       @click="$emit('click', $event)">
 
   <i v-else
      class="holo-icon" :class="iconClass" :style="iconStyle"
      :title="title"
-     @click="$emit('click')">
+     @click="$emit('click', $event)">
     <slot/>
   </i>
 
