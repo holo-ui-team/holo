@@ -2,11 +2,17 @@
 
   <img v-if="pattern === 'img'"
        :src="imgSrc" :alt="title"
+       @animationend="$emit('animationend', $event)"
+       @animationstart="$emit('animationstart', $event)"
+       @animationcancel="$emit('animationcancel', $event)"
        @click="$emit('click', $event)">
 
   <i v-else
      class="holo-icon" :class="iconClass" :style="iconStyle"
      :title="title"
+     @animationend="$emit('animationend', $event)"
+     @animationstart="$emit('animationstart', $event)"
+     @animationcancel="$emit('animationcancel', $event)"
      @click="$emit('click', $event)">
     <slot/>
   </i>
