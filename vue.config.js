@@ -1,5 +1,7 @@
 const path = require('path');
 const getEntry = require('./build/getEntry.js');
+const isProduction = process.env.NODE_ENV === 'production'
+
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -11,9 +13,9 @@ module.exports = {
   devServer: {
     port: 8080 // 有需要的筒子们自己修改端口号
   },
-  outputDir: process.env.NODE_ENV === 'production' ? resolve('lib') : resolve('dist'),
+  outputDir: 'lib',
   configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
+    if (isProduction) {
       return {
         entry: getEntry(),
         output: {
@@ -39,7 +41,7 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set('@', resolve('packages'))
 
-    if (process.env.NODE_ENV === 'production') {
+    if (isProduction) {
       config.optimization.delete('splitChunks') // 删除splitChunks，在打包组件的时候，并不希望抽离每个组件的公共js出来，而是每个独立打包，于是删除这个配置
       config.plugins.delete('copy') // 删除copy：不要复制public文件到打包目录；
       config.plugins.delete('preload') // 删除preload以及prefetch，因为删除了html插件，所以这两个也没用；
