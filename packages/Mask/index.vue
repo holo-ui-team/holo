@@ -98,7 +98,6 @@ export default Vue.extend( {
     }
 
     &.bottom {
-      padding-bottom : 12px;
       transform      : translateY(-100%);
       margin         : 0 auto;
     }

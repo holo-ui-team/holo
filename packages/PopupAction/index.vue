@@ -1,103 +1,120 @@
 <template>
-  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" :footerVisible="true" @cancel="handleCancel" class="popup-action">
+  <PopupBox :title="sharable ? '分享到' : ''"
+            :visible.sync="visible"
+            :maskClosable="maskClosable"
+            :footerVisible="true"
+            @cancel="handleCancel" class="popup-action">
 
     <main class="popup-action-wrapper">
-      <div v-if="isShare" class="popup-action-header">
-        <Icon v-if="ad" class="ad" type="img" :url="ad" :style="{width: '351px', height: '44px'}"/>
-        <h1 v-else>分享到</h1>
-      </div>
 
-      <div class="popup-action-list" :class="actionClasses" @click="handleConfirm">
-        <div v-for="(item, index) in computedActions" :key="index" class="popup-action-item" :data-index="index">
-          <template v-if="item.icon" >
-            <Icon v-if="isIconDefaultPattern(item.icon)" :name="item.icon" :color="item.iconColor" :data-index="index" class="popup-action-icon"/>
-            <Icon v-else :url="item.icon" :style="{width: iconSideLength + 'px', height: iconSideLength + 'px'}" :data-index="index"/>
+      <Icon v-if="ad" class="ad" type="img" :url="ad" :style="{width: '100%'}" />
+
+      <div class="popup-action-list" :class="actionClasses"
+           @click="handleConfirm">
+
+        <div v-for="(item, index) in computedActions" :key="index"
+             class="popup-action-item" :data-index="index">
+          <template v-if="item.icon">
+            <Icon v-if="isIconDefaultPattern(item.icon)"
+                  :name="item.icon"
+                  :color="item.iconColor"
+                  :data-index="index"
+                  class="popup-action-icon" />
+            <Icon v-else :url="item.icon"
+                  :style="{width: iconSideLength + 'px', height: iconSideLength + 'px'}"
+                  :data-index="index" />
           </template>
 
-          <span class="popup-action-text" :class="{danger: isDanger(item)}" :data-index="index">{{getActionName(item)}}</span>
+          <span class="popup-action-text" :class="{danger: isDanger(item)}" :data-index="index">{{ getActionName( item ) }}</span>
         </div>
       </div>
+
     </main>
 
   </PopupBox>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { PropType } from 'node_modules/vue/types/umd'
-import PopupBox from '@/_helper/popup-box.vue'
-import {ShareImgs} from '@/_helper/cdn-img-helper'
-import Button from '@/Button/button.vue'
-import Icon from '@/Icon/index.vue'
-import {Action} from './type'
+import Vue           from 'vue'
+import { PropType }  from 'node_modules/vue/types/umd'
+import PopupBox      from '@/_helper/popup-box.vue'
+import { ShareImgs } from '@/_helper/cdn-img-helper'
+import Icon          from '@/Icon/index.vue'
+import { Action }    from './type'
 
 const ShareList = {
-  wechat : { icon: ShareImgs.get('wechat') , name: '微信'  },
-  moments: { icon: ShareImgs.get('moments'), name: '朋友圈' },
-  qq     : { icon: ShareImgs.get('qq')     , name: 'QQ'   },
-  qZone  : { icon: ShareImgs.get('qzone')  , name: 'QQ空间'},
-  message: { icon: ShareImgs.get('message'), name: '短信'  },
-  weibo  : { icon: ShareImgs.get('weibo')  , name: '微博'  },
-  wallet : { icon: ShareImgs.get('wallet') , name: '钱包'  }
+  wechat : { icon: ShareImgs.get( 'wechat' ), name: '微信' },
+  moments: { icon: ShareImgs.get( 'moments' ), name: '朋友圈' },
+  qq     : { icon: ShareImgs.get( 'qq' ), name: 'QQ' },
+  qZone  : { icon: ShareImgs.get( 'qzone' ), name: 'QQ空间' },
+  message: { icon: ShareImgs.get( 'message' ), name: '短信' },
+  weibo  : { icon: ShareImgs.get( 'weibo' ), name: '微博' },
+  wallet : { icon: ShareImgs.get( 'wallet' ), name: '钱包' }
 }
 
-export default Vue.extend({
+export default Vue.extend( {
   name      : 'OPopupAction',
   components: {
-    PopupBox, Button, Icon
+    PopupBox, Icon
   },
-  props: {
-    visible            : { type: Boolean, required: true },
-    maskClosable       : { type: Boolean, default: true },
-    ad                 : { type: String, },
-    type               : { type: String, validator: (val: string) => ['share'].includes(val) },
-    cancel             : { type: Function },
-    confirm            : { type: Function },
-    actions            : { type: Array as PropType<Action[]>, required: true, validator: (val: Action[]) => {
-      let result = true
+  props     : {
+    visible     : { type: Boolean, required: true },
+    maskClosable: { type: Boolean, default: true },
+    ad          : { type: String, },
+    type        : { type: String, validator: ( val: string ) => [ 'share' ].includes( val ) },
+    cancel      : { type: Function },
+    confirm     : { type: Function },
+    actions     : {
+      type: Array as PropType<Action[]>, required: true, validator: ( val: Action[] ) => {
+        let result = true
 
-      val.forEach((item) => {
+        val.forEach( ( item ) => {
 
-        if (typeof item === 'object' && typeof item.name === 'undefined') {
+          if ( typeof item === 'object' && typeof item.name === 'undefined' ) {
             result = false
-        }
-      })
+          }
+        } )
 
-      return result
-    } },
+        return result
+      }
+    },
   },
-  computed: {
-    isShare(): boolean {
+  computed  : {
+    sharable (): boolean {
       return this.type === 'share'
     },
-    iconSideLength(): number {
-      return this.isShare ? 48 : 24
+    iconSideLength (): number {
+      return this.sharable ? 48 : 24
     },
-    actionClasses(): string[] {
+    actionClasses (): string[] {
       const result: string[] = []
 
-      if (this.type) {
-        result.push('share')
+      if ( this.type ) {
+        result.push( 'share' )
+
+        if (this.computedActions.length < 4) {
+          result.push('around')
+        }
       } else {
-        result.push('default')
+        result.push( 'default' )
         const action = this.actions && this.actions[0]
 
-        if (typeof action === 'object' && action.icon) {
-          result.push('with-icon')
+        if ( typeof action === 'object' && action.icon ) {
+          result.push( 'with-icon' )
         }
       }
 
       return result
     },
-    computedActions(): Action[] {
+    computedActions (): Action[] {
       let result: Action[] = []
 
-      if (this.type === 'share') {
-        result = this.actions.map((item) => {
-          if (typeof item === 'string') {
+      if ( this.type === 'share' ) {
+        result = this.actions.map( ( item ) => {
+          if ( typeof item === 'string' ) {
             return ShareList[item]
           }
-        })
+        } )
       } else {
         result = this.actions
       }
@@ -105,109 +122,121 @@ export default Vue.extend({
       return result
     }
   },
-  methods: {
-    isDanger(action: Action) {
+  methods   : {
+    isDanger ( action: Action ) {
       let result = false
-      if (typeof action === 'object') {
+      if ( typeof action === 'object' ) {
         result = !!action.danger
       }
 
       return result
     },
-    getActionName(action: Action) {
-      if (typeof action === 'object') {
+    getActionName ( action: Action ) {
+      if ( typeof action === 'object' ) {
         return action.name.toString()
       }
 
       return action.toString()
     },
-    handleConfirm(e: MouseEvent) {
+    handleConfirm ( e: MouseEvent ) {
       const target      = e.target as HTMLDivElement
-      const targetIndex = Number(target.getAttribute('data-index'))
+      const targetIndex = Number( target.getAttribute( 'data-index' ) )
 
-      if (targetIndex === NaN) return
+      if ( targetIndex === NaN ) return
 
       const targetItem = this.actions[targetIndex]
-      if (this.confirm) {
-        this.confirm(targetItem)
+      if ( this.confirm ) {
+        this.confirm( targetItem )
       } else {
-        this.$emit('confirm', targetItem)
+        this.$emit( 'confirm', targetItem )
       }
 
       this.handleCancel()
     },
-    handleCancel() {
-      if (this.cancel) {
+    handleCancel () {
+      if ( this.cancel ) {
         this.cancel()
       } else {
-        this.$emit('cancel')
+        this.$emit( 'cancel' )
       }
     },
-    isIconDefaultPattern(icon: string) {
-      return /^o-/.test(icon)
+    isIconDefaultPattern ( icon: string ) {
+      return /^o-/.test( icon )
     },
   },
-})
+} )
 </script>
 
 <style lang="less" scoped>
 @import '~@/_style/theme.less';
 
-.popup-action /deep/ .popup-box {
-  background: #F6F6F6;
-}
-
 .popup-action {
 
   &-header {
-    text-align: center;
+    text-align : center;
 
     h1 {
-      padding: 12px 20px; margin: 0;
-      font-size: 16px; line-height: 22px;
+      padding     : 12px 20px;
+      margin      : 0;
+      font-size   : 16px;
+      line-height : 22px;
     }
-
-    .ad { margin-bottom: 20px; }
 
   }
 
   &-list {
-    width: 351px; box-sizing: border-box;
+    box-sizing : border-box;
 
     &.share {
-      padding: 0 14px;
-      display: flex; flex-wrap: wrap; align-items: center;
+      margin-top  : 21px;
+      padding     : 0 23px;
+      display     : flex;
+      flex-wrap   : wrap;
+      align-items : center;
+
+      &.around {
+        justify-content: space-around;
+      }
+
 
       .popup-action-item {
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        margin: 0 9px;
-        width: 62px; box-sizing: border-box;
-        margin-bottom: 16px;
-        
+        display         : flex;
+        flex-direction  : column;
+        justify-content : center;
+        align-items     : center;
+        margin          : 0 10px 20px;
+        width           : 62px;
+        box-sizing      : border-box;
+
         .popup-action-text {
-          color: @color; text-align: center;
-          font-size: 16px; line-height: 22px;
-          margin-top: 6px;
+          color       : @color;
+          text-align  : center;
+          font-size   : 14px;
+          line-height : 14px;
+          margin-top  : 8px;
         }
       }
 
     }
 
     &.default {
-      text-align: center;
+      text-align : center;
 
       .popup-action-item + .popup-action-item {
-        border-top: 1px solid @borderColor;
+        border-top : 1px solid @borderColor;
       }
- 
-      .popup-action-item {
-        padding: 19px 0;
-       
-        .popup-action-text {
-          font-size: 18px; line-height: 18px;
-          color: @color;
 
-          &.danger { color: @red; }
+      .popup-action-item {
+        padding : 19px 0;
+
+        .popup-action-text {
+          font-size   : 16px;
+          line-height : 16px;
+          color       : @color;
+
+          &.danger {
+            color : @red;
+          }
         }
 
       }
@@ -217,12 +246,17 @@ export default Vue.extend({
     &.with-icon {
 
       .popup-action-item {
-        display: flex; align-items: center;
-        padding-left: 16px;
+        display      : flex;
+        align-items  : center;
+        padding-left : 16px;
 
-        .popup-action-text { margin-left: 20px; }
+        .popup-action-text {
+          margin-left : 20px;
+        }
 
-        .popup-action-icon { font-size: 24px; }
+        .popup-action-icon {
+          font-size : 24px;
+        }
 
       }
 
