@@ -1,58 +1,61 @@
 const fs   = require('fs')
 const path = require('path')
 
-module.exports = getEntry
+const packagesPath = path.resolve( __dirname, '../', 'packages' )
 
-function getEntry() {
-  const packagesDir     = path.resolve(__dirname, '../', 'packages')
-  const foldersAndFiles = fs.readdirSync(packagesDir, { withFileTypes: true })
-  const entry           = {}
+module.exports = function getEntry () {
+  const packages = fs.readdirSync( packagesPath, { withFileTypes: true } )
+  const entry    = {}
 
-  foldersAndFiles.forEach((item) => {
+  packages.forEach( ( item ) => {
 
-    if (_isComponent(item)) {
+    const { name } = item
+    if ( isComponent( item ) ) {
 
-      const componentDir       = path.resolve(packagesDir, item.name)
-      const componentFileNames = fs.readdirSync(componentDir)
+      entry[name] = getComponentEntryPath( name )
 
-      entry[item.name] = _handleComponentEntryPath(componentDir, componentFileNames)
+    } else if ( isIndex( item ) ) {
 
-    } else if (_isIndexEntry(item)) {
-
-      // todo 这里如何改为相对路径？
-      const currentPath = path.join(packagesDir, item.name)
-
-      entry.Index = currentPath.split(path.sep).join('/')
-
+      entry.Index = getIndexEntryPath( name )
     }
 
-  })
+  } )
 
   return entry
-  
+
 }
 
-function _handleComponentEntryPath(dir, filenames) {
-  let result = ''
-  
-  if (filenames.includes('index.ts')) {
-    result = path.resolve(dir, 'index.ts')
+function getIndexEntryPath ( name ) {
+  const indexPath = path.join( packagesPath, name )
 
-  } else if (filenames.includes('plugin.ts')) {
-    result = path.resolve(dir, 'plugin.ts')
+  return indexPath.split( path.sep ).join( '/' )
+}
+
+function getComponentEntryPath ( name ) {
+
+  const targetPath = path.resolve( packagesPath, name )
+  const files      = fs.readdirSync( targetPath )
+
+  let result = ''
+
+  if ( files.includes( 'index.ts' ) ) {
+    result = path.resolve( targetPath, 'index.ts' )
+
+  } else if ( files.includes( 'plugin.ts' ) ) {
+    result = path.resolve( targetPath, 'plugin.ts' )
 
   } else {
-    throw new Error('请按照约定构建组件')
+    throw new Error( '请按照约定构建组件' )
   }
 
   return result
 
 }
 
-function _isComponent(item) {
-  return item.isDirectory() && /^[A-Z]{1}/.test(item.name)
+function isComponent ( item ) {
+  return item.isDirectory() && /^[A-Z]{1}/.test( item.name )
 }
 
-function _isIndexEntry(item) {
-  return item.isFile() && item.name.includes('index.ts')
+function isIndex ( item ) {
+  return item.isFile() && item.name.includes( 'index.ts' )
 }

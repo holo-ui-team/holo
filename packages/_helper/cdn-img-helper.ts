@@ -11,11 +11,11 @@ export const NoneImgs = new Map([
 ])
 
 export const ShareImgs = new Map([
-  ['wechat' , cdnUrl + 'share/o-wechat.png' ],
-  ['moments', cdnUrl + 'share/o-moments.png'],
-  ['qq'     , cdnUrl + 'share/o-qq.png'     ],
-  ['qzone'  , cdnUrl + 'share/o-qzone.png'  ],
-  ['message', cdnUrl + 'share/o-message.png'],
-  ['weibo'  , cdnUrl + 'share/o-weibo.png'  ],
-  ['wallet' , cdnUrl + 'share/o-wallet.png' ],
+  ['wechat' , cdnUrl + 'share/v2/o-wechat.svg' ],
+  ['moments', cdnUrl + 'share/v2/o-moments.svg'],
+  ['qq'     , cdnUrl + 'share/v2/o-qq.svg'     ],
+  ['qzone'  , cdnUrl + 'share/v2/o-qzone.svg'  ],
+  ['message', cdnUrl + 'share/v2/o-message.svg'],
+  ['weibo'  , cdnUrl + 'share/v2/o-weibo.svg'  ],
+  ['wallet' , cdnUrl + 'share/v2/o-wallet.svg' ],
 ])

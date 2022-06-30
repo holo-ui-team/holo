@@ -7,7 +7,9 @@
            position="middle"
            @cancel="visible = !visible">
 
-      <img class="mask-img" src="https://cdn.133.cn/gtgjwap/Image/rushHour/pass-bg@3x.png" alt="图片">
+     <main style="background-color: white;text-align: center;">
+        <img class="mask-img" src="https://cdn.133.cn/gtgjwap/Image/rushHour/pass-bg@3x.png" alt="图片">
+      </main>
 
     </OMask>
   </div>
