@@ -1,14 +1,36 @@
 <template>
-  <PopupBox :visible.sync="visible" :maskClosable="maskClosable" @cancel="handleCancel" :actionVisible="true" @confirm="handleConfirm">
+  <PopupBox
+      :actionVisible="true"
+      :maskClosable="maskClosable"
+      :visible.sync="visible"
+      @cancel="handleCancel"
+      @confirm="handleConfirm"
+  >
 
-    <div class="picker-wrapper" ref="pickerWrapper" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
+    <div
+        ref="pickerWrapper"
+        class="picker-wrapper"
+        @touchend="onTouchEnd"
+        @touchmove="onTouchMove"
+        @touchstart="onTouchStart"
+    >
 
-      <div class="picker-ul-wrapper" :class="{ multi: pickerCount >= 3 }">
-        <ul class="picker-list" v-for="(option, index) in options" :key="index" ref="pickerList">
-          <li class="picker-item ellipsis" v-for="(item, index) in option" :key="index">{{getOptionName(item)}}</li>
+      <div
+          :class="{ multi: pickerCount >= 3 }"
+          class="picker-ul-wrapper">
+        <ul
+            v-for="(option, index) in options"
+            :key="index"
+            ref="pickerList"
+            class="picker-list">
+          <li
+              v-for="(item, index) in option"
+              :key="index"
+              class="picker-item ellipsis">{{ getOptionName( item ) }}
+          </li>
         </ul>
       </div>
-      
+
       <main class="picker-result"></main>
     </div>
 
@@ -55,13 +77,16 @@
 
     computed: {
       pickerCount(): number {
-        return this.options.length 
+        return this.options.length
       },
       scrollingElement(): HTMLUListElement {
         const index = this.currentPickerIndex < 0 ? 0 : this.currentPickerIndex
 
         // @ts-ignore
         return this.$refs.pickerList[index]
+      },
+      currentOptions(): Option[] {
+        return this.options[this.currentPickerIndex]
       },
     },
 
@@ -192,24 +217,20 @@
         const maxValue    = maxScrollHeights[this.currentPickerIndex]
         let selectedIndex = -1
 
-        if (newValue <= -maxValue) {
-          newValue      = -maxValue
-          selectedIndex = this.options[this.currentPickerIndex].length - 1
+        if (flag) {
+          if (newValue % minHeight !== 0) {
+            newValue = Math.round(newValue / minHeight) * minHeight
+          }
 
+          selectedIndex = Math.abs( Math.round(newValue / minHeight) )
+        }
+
+        if (Math.abs(newValue) > maxValue) {
+          newValue      = -maxValue
+          selectedIndex = this.currentOptions.length - 1
         } else if (newValue >= 0) {
           newValue      = 0
           selectedIndex = 0
-
-        } else {
-
-          if (flag) {
-            if (newValue % minHeight !== 0) {
-              newValue = Math.round(newValue / minHeight) * minHeight
-            }
-
-            selectedIndex = Math.abs( Math.round(newValue / minHeight) )
-          }
-          
         }
 
         if (flag) this.setSelectedIndex(selectedIndex)
@@ -224,22 +245,12 @@
         this.translateY(newValue)
       },
       getOptionIndex(option: Option) {
-        let result = -1
-        const options = this.options[this.currentPickerIndex]
 
-        if (typeof option === 'object') {
-          for (let i = 0; i < options.length; i++) {
-            const item = options[i];
-            
-            if (typeof item === 'object' && item.name === option.name) {
-              result = i
-            }
-          }
-        } else {
-          result = options.indexOf(option)
-        }
-
-        return result
+        return typeof option === 'object' ?
+               this.currentOptions.findIndex( item => (
+                                              typeof item === 'object'
+                                          ) && item.name === option.name ) :
+               this.currentOptions.indexOf( option )
       },
       setSelectedIndex(currentValue: number) {
         this.selectedIndexes.forEach((value, index) => {
@@ -314,7 +325,7 @@
 </script>
 
 <style lang="less" scoped>
-@import '~@/_style/common.less';
+@import "~@/_style/common.less";
 
 .picker {
   &-wrapper {
@@ -326,7 +337,6 @@
 
   &-ul-wrapper {
     display: flex; justify-content: center;
-    padding: 12px 0;
 
     &.multi {
       .picker-item {
@@ -352,6 +362,7 @@
     white-space: nowrap;
     text-align: center; font-weight: bold;
     list-style: none; user-select: none;
+    height: 40px;
 
     &:first-child {
       margin-top: 120px;
@@ -359,8 +370,12 @@
   }
 
   &-result {
-    position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, .5) 130px, #EBEBEB 132px, transparent 133px, transparent 171px, #EBEBEB 172px, rgba(255, 255, 255, .5) 172px, rgba(255, 255, 255, .9));
+    position         : absolute;
+    width            : 100%;
+    height           : 100%;
+    top              : 0;
+    left             : 0;
+    background-image : linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, .5) 119px, #EBEBEB 120px, transparent 121px, transparent 160px, #EBEBEB 161px, rgba(255, 255, 255, .5) 162px, rgba(255, 255, 255, .9));
   }
 }
 </style>

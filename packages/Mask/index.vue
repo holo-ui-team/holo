@@ -25,7 +25,7 @@
 import Vue from 'vue'
 
 let body: HTMLElement
-let originalOverflow: string
+let originalOverflow: string, originalHeight: string
 
 export default Vue.extend( {
   name : 'OMask',
@@ -44,13 +44,21 @@ export default Vue.extend( {
   mounted () {
     body             = document.body
     originalOverflow = body.style.overflow
+    originalHeight   = body.style.height
 
     if ( this.visible ) this.handleVisible()
   },
   methods: {
     handleVisible () {
       if ( body ) {
-        body.style.overflow = this.visible ? 'hidden' : originalOverflow
+
+        if ( this.visible ) {
+          body.style.overflow = 'hidden'
+          body.style.setProperty('height', '100%', 'important');
+        } else {
+          body.style.height   = originalHeight
+          body.style.overflow = originalOverflow
+        }
 
         // if ( !/(iPhone|iPad|iPod|iOS|ANDROID)/i.test( navigator.userAgent ) ) {
         //   body.style.marginRight = this.visible ? 17 + 'px' : ''
