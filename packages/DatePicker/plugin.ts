@@ -25,13 +25,19 @@ const plugin: PluginObject<PickerProps> = {
       }
 
       _picker.props = {
-        confirm: (val) => { console.log(val) },
-        cancel : () => { hidePopup() },
         // @ts-ignore
         default: [1990, 1, 1],
-
         ...props,
-        
+        confirm: (val) => {
+          console.log(val)
+          props.confirm && props.confirm(val)
+        },
+        cancel : () => {
+          hidePopup()
+          props.cancel && props.cancel()
+        },
+
+
         visible: true,
         auto   : false,
         options: [ YEARS, MONTHS, DAYS ],

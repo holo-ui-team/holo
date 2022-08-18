@@ -22,9 +22,15 @@ const plugin: PluginObject<PopupOptionProps> = {
       }
     }
       _popupOption.props = {
-        confirm: () => {},
-        cancel: () => { hidePopup() },
         ...props,
+        confirm: (val) => {
+          console.log(val)
+          props.confirm && props.confirm(val)
+        },
+        cancel : () => {
+          hidePopup()
+          props.cancel && props.cancel()
+        },
         visible: true,
       }
     }
