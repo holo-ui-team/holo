@@ -10,9 +10,9 @@
     <div
         ref="pickerWrapper"
         class="picker-wrapper"
-        @touchend="onTouchEnd"
-        @touchmove="onTouchMove"
-        @touchstart="onTouchStart"
+        @touchend.prevent="onTouchEnd"
+        @touchmove.prevent="onTouchMove"
+        @touchstart.prevent="onTouchStart"
     >
 
       <div
