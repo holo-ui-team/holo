@@ -13,20 +13,23 @@
         @touchend.prevent="onTouchEnd"
         @touchmove.prevent="onTouchMove"
         @touchstart.prevent="onTouchStart"
+        @touchcancel.prevent="onTouchEnd"
     >
 
       <div
           :class="{ multi: pickerCount >= 3 }"
           class="picker-ul-wrapper">
         <ul
-            v-for="(option, index) in options"
-            :key="index"
+            v-for="(option, ulIndex) in options"
+            :key="ulIndex"
             ref="pickerList"
             class="picker-list">
           <li
               v-for="(item, index) in option"
               :key="index"
-              class="picker-item ellipsis">{{ getOptionName( item ) }}
+              :class="{bold: selectedIndexes[ulIndex] === index}"
+              class="picker-item ellipsis"
+          >{{ getOptionName( item ) }}
           </li>
         </ul>
       </div>
@@ -38,33 +41,35 @@
 </template>
 
 <script lang="ts">
-  import { PropType } from 'node_modules/vue/types/umd'
-  import Vue from 'vue'
-  import PopupBox from '../_helper/popup-box.vue'
-  import {Option} from './type'
+import { PropType } from 'node_modules/vue/types/umd'
+import Vue          from 'vue'
+import PopupBox     from '../_helper/popup-box.vue'
+import { Option }   from './type'
 
-  let   wrapperWidth    : number
-  let   maxScrollHeights: number[]
-  const minHeight = 40
+let wrapperWidth: number
+let wrapperX: number
+let maxScrollHeights: number[]
+const minHeight = 40
 
-  export default Vue.extend({
-    name: 'OPicker',
+export default Vue.extend( {
+  name: 'OPicker',
 
-    components: { PopupBox },
+  components: { PopupBox },
 
-    props: {
-      visible      : { type: Boolean, required: true },
-      maskClosable : { type: Boolean, default: true },
-      options      : { type: Array as PropType<Array<Array<Option>>>, required: true, validator: (val: Array<Option[]>) => {
+  props: {
+    visible        : { type: Boolean, required: true },
+    maskClosable   : { type: Boolean, default: true },
+    options        : {
+      type: Array as PropType<Array<Array<Option>>>, required: true, validator: ( val: Array<Option[]> ) => {
         let result = true
 
-        val.forEach((list) => {
-          list.forEach((item) => {
-            if (typeof item === 'object' && typeof item.name === 'undefined') {
+        val.forEach( ( list ) => {
+          list.forEach( ( item ) => {
+            if ( typeof item === 'object' && typeof item.name === 'undefined' ) {
               result = false
             }
-          })
-        })
+          } )
+        } )
 
         return result
       } },
@@ -143,8 +148,11 @@
           })
       },
       setWrapperWidth() {
-        const wrapperElement = (this.$refs.pickerWrapper) as HTMLDivElement
-        wrapperWidth = wrapperElement.getBoundingClientRect().width
+        const wrapperElement = (
+            this.$refs.pickerWrapper
+        ) as HTMLDivElement
+        wrapperWidth         = wrapperElement.getBoundingClientRect().width
+        wrapperX             = wrapperElement.getBoundingClientRect().x
       },
       setMaxScrollHeight() {
         maxScrollHeights = [] as number[]
@@ -165,7 +173,7 @@
         this.setScrollingElementIndex(e.touches[0].clientX)
       },
       onTouchMove(e: TouchEvent) {
-        this.endY   = e.touches[0].clientY
+        this.endY = e.touches[0].clientY
         this.move()
         this.startY = e.touches[0].clientY
       },
@@ -255,35 +263,24 @@
       setSelectedIndex(currentValue: number) {
         this.selectedIndexes.forEach((value, index) => {
           if (this.currentPickerIndex === index) {
-
-            this.selectedIndexes[index] = currentValue
+            this.$set( this.selectedIndexes, index, currentValue )
           } else if (this.currentPickerIndex < index) {
-
-            this.selectedIndexes[index] = this.auto ? 0 : value
+            this.$set( this.selectedIndexes, index, this.auto ? 0 : value )
           }
         })
         
         this.handleChange()
       },
       setScrollingElementIndex(clientX: number) {
-        if (this.pickerCount < 1) return
+        if ( this.pickerCount < 1 ) throw new Error( 'pickerCount must be greater than 0' )
 
-        if (this.pickerCount === 1) {
-          this.currentPickerIndex = 0
-        } else {
-          const width      = wrapperWidth / this.pickerCount
-          const widthArray = Array.from(new Array(this.pickerCount), (item, index) => (index + 1) * width)
-
-          for (let i = 0; i < widthArray.length; i++) {
-            const len = widthArray[i]
-            
-            if (clientX <= len) {
-              this.currentPickerIndex = i
-              break
-            }
-          }
-        }
-
+        this.currentPickerIndex = this.pickerCount === 1 ?
+                                  0 :
+                                  Math.floor( (
+                                                  clientX - wrapperX
+                                              ) / (
+                                              wrapperWidth / this.pickerCount
+                                              ) )
       },
       getLastTransformValue() {
         const regexResult = (/-?[.\d]+(?=px)/.exec(this.scrollingElement.style.transform))
@@ -327,12 +324,18 @@
 <style lang="less" scoped>
 @import "~@/_style/common.less";
 
+.bold {
+  font-weight : bold;
+}
+
 .picker {
   &-wrapper {
-    position: relative;
-    height: 306px;
-    overflow: hidden;
-    background: white;
+    position   : relative;
+    height     : 306px;
+    overflow   : hidden;
+    background : white;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   &-ul-wrapper {
@@ -355,27 +358,37 @@
   }
 
   &-item {
-    font-size: 16px; line-height: 22px;
-    box-sizing: border-box;
-    padding: 8px 32px 10px;
-    width: 100%;
-    white-space: nowrap;
-    text-align: center; font-weight: bold;
-    list-style: none; user-select: none;
-    height: 40px;
+    font-size   : 16px;
+    line-height : 40px;
+    box-sizing  : border-box;
+    padding     : 0 32px 0;
+    width       : 100%;
+    white-space : nowrap;
+    text-align  : center;
+    list-style  : none;
+    user-select : none;
+    height      : 40px;
 
     &:first-child {
-      margin-top: 120px;
+      margin-top : 120px;
     }
   }
 
   &-result {
-    position         : absolute;
-    width            : 100%;
-    height           : 100%;
-    top              : 0;
-    left             : 0;
-    background-image : linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, .5) 119px, #EBEBEB 120px, transparent 121px, transparent 160px, #EBEBEB 161px, rgba(255, 255, 255, .5) 162px, rgba(255, 255, 255, .9));
+    position : absolute;
+    padding  : 0 20px 0 20px;
+    width    : 100%;
+    height   : 100%;
+    top      : 0;
+    left     : 0;
+
+    &::after {
+      content          : "";
+      display          : block;
+      width            : 100%;
+      height           : 100%;
+      background-image : linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, .5) 118px, #F3F3F3 119.5px, transparent 120px, transparent 160px, #F3F3F3 161.5px, rgba(255, 255, 255, .5) 162px, rgba(255, 255, 255, .9));
+    }
   }
 }
 </style>
