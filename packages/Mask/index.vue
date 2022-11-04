@@ -3,14 +3,15 @@
   <transition name="fade">
     <div v-show="visible" class="bg-mask-wrapper">
 
-      <div class="bg-mask"
-           :style="{backgroundColor: background}"
-           @click="handleCancel"></div>
-      <div class="bg-mask-content" :class="[position]">
+      <div
+          :style="{backgroundColor: background}"
+          class="bg-mask"
+          @click="handleCancel"></div>
+      <div :class="[position]" class="bg-mask-content">
 
         <transition name="slide-fade">
           <main v-show="visible">
-            <slot/>
+            <slot />
           </main>
         </transition>
 
@@ -24,8 +25,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-let body: HTMLElement
-let originalOverflow: string, originalHeight: string
+let html: HTMLElement
+let originalOverflow: string
 
 export default Vue.extend( {
   name : 'OMask',
@@ -42,22 +43,19 @@ export default Vue.extend( {
     },
   },
   mounted () {
-    body             = document.body
-    originalOverflow = body.style.overflow
-    originalHeight   = body.style.height
+    html             = document.documentElement
+    originalOverflow = html.style.overflow
 
     if ( this.visible ) this.handleVisible()
   },
   methods: {
     handleVisible () {
-      if ( body ) {
+      if ( html ) {
 
         if ( this.visible ) {
-          body.style.overflow = 'hidden'
-          body.style.setProperty('height', '100%', 'important');
+          html.style.overflow = 'hidden'
         } else {
-          body.style.height   = originalHeight
-          body.style.overflow = originalOverflow
+          html.style.overflow = originalOverflow
         }
 
         // if ( !/(iPhone|iPad|iPod|iOS|ANDROID)/i.test( navigator.userAgent ) ) {
@@ -94,20 +92,20 @@ export default Vue.extend( {
     z-index  : @zIndex;
   }
 
-  height     : 100%;
+  height           : 100%;
   background-color : rgba(0, 0, 0, 0.6);
 
   &-content {
 
     &.top {
-      width     : 100%;
-      position  : fixed;
-      top       : 0%;
+      width    : 100%;
+      position : fixed;
+      top      : 0%;
     }
 
     &.bottom {
-      transform      : translateY(-100%);
-      margin         : 0 auto;
+      transform : translateY(-100%);
+      margin    : 0 auto;
     }
 
     &.middle {
