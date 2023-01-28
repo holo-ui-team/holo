@@ -87,7 +87,6 @@ export default Vue.extend( {
       scrollingElement(): HTMLUListElement {
         const index = this.currentPickerIndex < 0 ? 0 : this.currentPickerIndex
 
-        // @ts-ignore
         return this.$refs.pickerList[index]
       },
       currentOptions(): Option[] {
@@ -144,7 +143,7 @@ export default Vue.extend( {
             const currentOption = this.options[picketIndex]
             const maxIndex      = currentOption.length - 1
 
-            return currentOption[Math.min(index, maxIndex)]
+            return currentOption.length ? currentOption[Math.min(index, maxIndex)] : null
           })
       },
       setWrapperWidth() {
