@@ -1,8 +1,7 @@
-import renderHelper                           from '@/_helper/render-helper'
-import { DatePickerProps }                    from '@/Picker/type'
+import combineHelper       from '@/_helper/combine-helper'
+import { DatePickerProps } from '@/Picker/type'
 import { PluginObject }                       from 'vue/types/umd'
 import component                              from '@/Picker/index.vue'
-import { RenderHelperVueComponent }           from '@/_helper/type'
 import { formatDate, getDateArray, PropDate } from '@/_helper/date-helper'
 
 const YEARS  = Array.from( new Array( 201 ), ( item, index ) => ( 1900 + index + '年' ) )
@@ -14,10 +13,10 @@ const plugin: PluginObject<DatePickerProps> = {
 
     Vue.prototype.$datePicker = function ( props: DatePickerProps ) {
 
-      const _picker = renderHelper( component, {
+      const _picker = combineHelper<DatePickerProps>( component, {
         visible: false,
         options: [],
-      } ) as RenderHelperVueComponent<DatePickerProps>
+      } )
 
       const hidePopup = () => {
         if ( _picker.props ) {

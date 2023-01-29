@@ -1,6 +1,5 @@
-import renderHelper from '@/_helper/render-helper'
-import { RenderHelperVueComponent } from '@/_helper/type'
-import { PluginObject } from 'vue/types/umd'
+import combineHelper         from '@/_helper/combine-helper'
+import { PluginObject }      from 'vue/types/umd'
 import component from '@/PopupAction/index.vue'
 import {PopupActionProps} from '@/PopupAction/type'
 
@@ -9,10 +8,10 @@ const plugin: PluginObject<PopupActionProps> = {
 
     Vue.prototype.$popupAction = function(props: PopupActionProps) {
     
-      const _popupAction = renderHelper(component, {
+      const _popupAction = combineHelper<PopupActionProps>(component, {
         visible: false,
         actions: [],
-      }) as RenderHelperVueComponent<PopupActionProps>
+      })
 
       const hidePopup = () => {
         if (_popupAction.props) {

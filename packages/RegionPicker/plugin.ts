@@ -1,15 +1,13 @@
-import renderHelper                 from '@/_helper/render-helper'
-import { PickerProps }              from '@/Picker/type'
-import { PluginObject }             from 'vue/types/umd'
-import component                    from '@/Picker/index.vue'
-import Nation                       from './Data/Nation'
-import China                        from './Data/China'
-import { RenderHelperVueComponent } from '@/_helper/type'
+import combineHelper    from '@/_helper/combine-helper'
+import { PickerProps }  from '@/Picker/type'
+import { PluginObject } from 'vue/types/umd'
+import picker           from '@/Picker/index.vue'
+import Nation           from './Data/Nation'
+import China            from './Data/China'
 
 type RegionPickerProps = PickerProps & {
   type: 'china' | 'nation'
   title?: string
-  maskClosable?: boolean
 }
 
 const plugin: PluginObject<RegionPickerProps> = {
@@ -17,51 +15,42 @@ const plugin: PluginObject<RegionPickerProps> = {
 
     Vue.prototype.$regionPicker = function ( props: RegionPickerProps ) {
 
-      if ( !props.type )
-        props.type = 'china'
-
-      const _picker = renderHelper( component, {
+      const _pickerType = props.type || 'china'
+      const _picker     = combineHelper<RegionPickerProps>( picker, {
         visible: false,
-        options: [],
-      } ) as RenderHelperVueComponent<RegionPickerProps>
+        options: _getInitialData( _pickerType ),
+        type   : _pickerType,
+        confirm: ( val ) => {
+          props.confirm && props.confirm( val )
+        },
+      } )
 
-      const hidePopup = () => {
+      this.$set( _picker.props, 'visible', true )
+      this.$set( _picker.props, 'cancel', () => {
         if ( _picker.props ) {
           _picker.props.visible = false
           _picker.$el.remove()
         }
-      }
+        props.cancel && props.cancel()
+      } )
+      this.$set( _picker.props, 'change', ( { index, value, allSelected } ) => {
+        console.log( index, value, allSelected, _picker, 888 )
+        if ( _picker.props.type === 'china' ) {
 
-      _picker.props = {
-        ...props,
-        confirm: ( val ) => {
-          console.log( val )
-          props.confirm && props.confirm( val )
-        },
-        cancel : () => {
-          hidePopup()
-          props.cancel && props.cancel()
-        },
-
-        visible: true,
-        options: _getInitialData( props.type ),
-        change : ( { index, value, allSelected } ) => {
-          if ( props.type === 'china' ) {
-
-            if ( !value && Number( index ) <= 2 ) {
-              _picker.$set( _picker.props.options, Number( index ) + 1, [] )
-            } else if ( index === 0 ) {
-              const cities    = _getCityByProvince( value )
-              const districts = cities.length ? _getDistrictByCity( value, cities[0] ) : []
-              _picker.$set( _picker.props.options, 1, cities )
-              _picker.$set( _picker.props.options, 2, districts )
-            } else if ( index === 1 ) {
-              const districts = _getDistrictByCity( allSelected[0], value )
-              _picker.$set( _picker.props.options, 2, districts )
-            }
+          if ( !value && Number( index ) <= 2 ) {
+            this.$set( _picker.props.options, Number( index ) + 1, [] )
+          } else if ( index === 0 ) {
+            const cities    = _getCityByProvince( value )
+            const districts = cities.length ? _getDistrictByCity( value, cities[0] ) : []
+            this.$set( _picker.props.options, 1, cities )
+            this.$set( _picker.props.options, 2, districts )
+          } else if ( index === 1 ) {
+            const districts = _getDistrictByCity( allSelected[0], value )
+            this.$set( _picker.props.options, 2, districts )
           }
-        },
-      }
+        }
+      } )
+
     }
 
   },
