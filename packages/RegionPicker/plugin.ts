@@ -17,7 +17,7 @@ const plugin: PluginObject<RegionPickerProps> = {
 
       const _pickerType = props.type || 'china'
       const _picker     = combineHelper<RegionPickerProps>( picker, {
-        visible: false,
+        visible: true,
         options: _getInitialData( _pickerType ),
         type   : _pickerType,
         confirm: ( val ) => {
@@ -25,7 +25,6 @@ const plugin: PluginObject<RegionPickerProps> = {
         },
       } )
 
-      this.$set( _picker.props, 'visible', true )
       this.$set( _picker.props, 'cancel', () => {
         if ( _picker.props ) {
           _picker.props.visible = false
@@ -33,8 +32,7 @@ const plugin: PluginObject<RegionPickerProps> = {
         }
         props.cancel && props.cancel()
       } )
-      this.$set( _picker.props, 'change', ( { index, value, allSelected } ) => {
-        console.log( index, value, allSelected, _picker, 888 )
+      this.$set( _picker.props, 'change', ( { index, value, selected } ) => {
         if ( _picker.props.type === 'china' ) {
 
           if ( !value && Number( index ) <= 2 ) {
@@ -45,7 +43,7 @@ const plugin: PluginObject<RegionPickerProps> = {
             this.$set( _picker.props.options, 1, cities )
             this.$set( _picker.props.options, 2, districts )
           } else if ( index === 1 ) {
-            const districts = _getDistrictByCity( allSelected[0], value )
+            const districts = _getDistrictByCity( selected[0], value )
             this.$set( _picker.props.options, 2, districts )
           }
         }

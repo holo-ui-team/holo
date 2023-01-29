@@ -59,7 +59,8 @@ export default Vue.extend( {
   props: {
     visible        : { type: Boolean, required: true },
     maskClosable   : { type: Boolean, default: true },
-    options        : {
+    auto   : { type: Boolean, default: true }, // 默认几个选项是相关联的，如果前一个选项更新了，后面的选项会重置为该列的第一个选项
+    options: {
       type: Array as PropType<Array<Array<Option>>>, required: true, validator: ( val: Array<Option[]> ) => {
         let result = true
 
@@ -72,13 +73,13 @@ export default Vue.extend( {
         } )
 
         return result
-      } },
-      default      : { type: Array as PropType<Option[]> },
-      confirm      : { type: Function },
-      cancel       : { type: Function },
-      change       : { type: Function },
-      auto         : { type: Boolean, default: true } // 默认几个选项是相关联的，如果前一个选项更新了，后面的选项会重置为该列的第一个选项
+      },
     },
+    default: { type: Array as PropType<Option[]> },
+    confirm: { type: Function },
+    cancel : { type: Function },
+    change : { type: Function },
+  },
 
     computed: {
       pickerCount(): number {
@@ -90,232 +91,233 @@ export default Vue.extend( {
         return this.$refs.pickerList[index]
       },
       currentOptions(): Option[] {
-        return this.options[this.currentPickerIndex]
+        return this.options[this.currentPickerIndex] || []
       },
     },
 
     data() {
       return {
-        isFirst           : true,
         currentPickerIndex: -1,
         startY            : -1,
         endY              : -1,
         selectedIndexes   : [] as number[],
       }
     },
+  methods: {
+    handleConfirm () {
+      const selected = this.getSelected()
+      this.handleCancel()
 
-    methods: {
-      handleConfirm() {
-        const selected = this.getSelected()
-        this.handleCancel()
-
-        if (this.confirm) {
-          this.confirm(selected)
-        } else {
-          this.$emit('confirm', selected)
-        }
-      },
-      handleCancel() {
-        if (this.cancel) {
-          this.cancel()
-        } else {
-          this.$emit('cancel')
-        }
-      },
-      handleChange() {
-        const selected = this.getSelected()
-        
-        const result = {
-          index      : this.currentPickerIndex,
-          value      : selected[this.currentPickerIndex],
-          allSelected: selected 
-        }
-
-        if (this.change) {
-          this.change(result)
-        } else {
-          this.$emit('change', result)
-        }
-      },
-      getSelected() {
-        return this.selectedIndexes.map(
-          (index, picketIndex) => {
-            const currentOption = this.options[picketIndex]
-            const maxIndex      = currentOption.length - 1
-
-            return currentOption.length ? currentOption[Math.min(index, maxIndex)] : null
-          })
-      },
-      setWrapperWidth() {
-        const wrapperElement = (
-            this.$refs.pickerWrapper
-        ) as HTMLDivElement
-        wrapperWidth         = wrapperElement.getBoundingClientRect().width
-        wrapperX             = wrapperElement.getBoundingClientRect().x
-      },
-      setMaxScrollHeight() {
-        maxScrollHeights = [] as number[]
-
-        this.options.forEach((option) => {
-          maxScrollHeights.push((option.length - 1) * minHeight)
-        })
-      },
-      getOptionName(option: Option) {
-        if (typeof option === 'object') {
-          return option.name.toString()
-        }
-
-        return option.toString()
-      },
-      onTouchStart(e: TouchEvent) {
-        this.startY = e.touches[0].clientY
-        this.setScrollingElementIndex(e.touches[0].clientX)
-      },
-      onTouchMove(e: TouchEvent) {
-        this.endY = e.touches[0].clientY
-        this.move()
-        this.startY = e.touches[0].clientY
-      },
-      onTouchEnd(e: TouchEvent) {
-        this.endY = e.changedTouches[0].clientY
-
-        this.move(true)
-        this.clear()
-
-        if (this.auto && this.pickerCount > 1) {
-          const nextPickerIndex = this.currentPickerIndex + 1
-
-          if (nextPickerIndex <= this.pickerCount - 1) {
-            this.setDefault(this.getSelected())
-          }
-        }
-      },
-      reset() {
-        this.isFirst = true
-
-        this.clear()        
-        this.initSelectedIndexes()
-        this.setDefault(this.getSelected())
-      },
-      clear() {
-        this.currentPickerIndex = -1
-        this.startY             = -1
-        this.endY               = -1
-      },
-      setDefault(value ?: Option[]) {
-        const defaultOptions  = value || this.default
-        if (!defaultOptions) return
-
-        defaultOptions.forEach((option, index) => {
-          this.currentPickerIndex = index
-          const defaultIndex = this.getOptionIndex(option)
-          const transformValue = this.checkTransformValue( -(defaultIndex) * minHeight, true  )
-
-          this.translateY(transformValue)
-        })
-      },
-      initSelectedIndexes() {
-        this.selectedIndexes = new Array(this.pickerCount).fill(0)
-      },
-      translateY(value: number) {
-        this.scrollingElement.style.transform = `translateY(${value}px)`
-      },
-      checkTransformValue(newValue: number, flag?: boolean) {
-        const maxValue    = maxScrollHeights[this.currentPickerIndex]
-        let selectedIndex = -1
-
-        if (flag) {
-          if (newValue % minHeight !== 0) {
-            newValue = Math.round(newValue / minHeight) * minHeight
-          }
-
-          selectedIndex = Math.abs( Math.round(newValue / minHeight) )
-        }
-
-        if (Math.abs(newValue) > maxValue) {
-          newValue      = -maxValue
-          selectedIndex = this.currentOptions.length - 1
-        } else if (newValue >= 0) {
-          newValue      = 0
-          selectedIndex = 0
-        }
-
-        if (flag) this.setSelectedIndex(selectedIndex)
-
-        return newValue
-      },
-      move(flag?: boolean) {
-        const result      = this.startY - this.endY
-        const lastValue   = this.getLastTransformValue()
-        const newValue    = this.checkTransformValue( lastValue - result, flag )
-
-        this.translateY(newValue)
-      },
-      getOptionIndex(option: Option) {
-
-        return typeof option === 'object' ?
-               this.currentOptions.findIndex( item => (
-                                              typeof item === 'object'
-                                          ) && item.name === option.name ) :
-               this.currentOptions.indexOf( option )
-      },
-      setSelectedIndex(currentValue: number) {
-        this.selectedIndexes.forEach((value, index) => {
-          if (this.currentPickerIndex === index) {
-            this.$set( this.selectedIndexes, index, currentValue )
-          } else if (this.currentPickerIndex < index) {
-            this.$set( this.selectedIndexes, index, this.auto ? 0 : value )
-          }
-        })
-        
-        this.handleChange()
-      },
-      setScrollingElementIndex(clientX: number) {
-        if ( this.pickerCount < 1 ) throw new Error( 'pickerCount must be greater than 0' )
-
-        this.currentPickerIndex = this.pickerCount === 1 ?
-                                  0 :
-                                  Math.floor( (
-                                                  clientX - wrapperX
-                                              ) / (
-                                              wrapperWidth / this.pickerCount
-                                              ) )
-      },
-      getLastTransformValue() {
-        const regexResult = (/-?[.\d]+(?=px)/.exec(this.scrollingElement.style.transform))
-
-        if (regexResult) {
-          return parseFloat(regexResult[0])
-        } else {
-          return 0
-        }
-      },
-      init() {
-        this.setWrapperWidth()
-        this.setMaxScrollHeight()
+      if ( this.confirm ) {
+        this.confirm( selected )
+      } else {
+        this.$emit( 'confirm', selected )
       }
     },
+    handleCancel () {
+      if ( this.cancel ) {
+        this.cancel()
+      } else {
+        this.$emit( 'cancel' )
+      }
+    },
+    handleChange () {
+      const selected = this.getSelected()
 
+      const result = {
+        index      : this.currentPickerIndex,
+        value      : selected[this.currentPickerIndex],
+        selected,
+      }
+
+      if ( this.change ) {
+        this.change( result )
+      } else {
+        this.$emit( 'change', result )
+      }
+    },
+    getSelected () : Option[] {
+      return this.selectedIndexes.map(
+          ( val, ulIndex ) => {
+            const ul       = this.options[ulIndex]
+            const maxIndex = ul.length - 1
+
+            return ul.length ? ul[Math.min( val, maxIndex )] : ''
+          } )
+    },
+    setWrapperWidth () {
+      const wrapperElement = (
+          this.$refs.pickerWrapper
+      ) as HTMLDivElement
+      wrapperWidth         = wrapperElement.getBoundingClientRect().width
+      wrapperX             = wrapperElement.getBoundingClientRect().x
+    },
+    setMaxScrollHeight () {
+      maxScrollHeights = [] as number[]
+
+      this.options.forEach( ( option ) => {
+        maxScrollHeights.push( (
+                                   option.length - 1
+                               ) * minHeight )
+      } )
+    },
+    getOptionName ( option: Option ) {
+      if ( typeof option === 'object' ) {
+        return option.name.toString()
+      }
+
+      return option.toString()
+    },
+    onTouchStart ( e: TouchEvent ) {
+      this.startY = e.touches[0].clientY
+      this.setScrollingElementIndex( e.touches[0].clientX )
+    },
+    onTouchMove ( e: TouchEvent ) {
+      this.endY = e.touches[0].clientY
+      this.move()
+      this.startY = e.touches[0].clientY
+    },
+    onTouchEnd ( e: TouchEvent ) {
+      this.endY = e.changedTouches[0].clientY
+
+      this.move( true )
+      this.clear()
+
+      if ( this.auto && this.pickerCount > 1 ) {
+        const nextPickerIndex = this.currentPickerIndex + 1
+
+        if ( nextPickerIndex <= this.pickerCount - 1 ) {
+          this.initOptions( this.getSelected() )
+        }
+      }
+    },
+    clear () {
+      this.currentPickerIndex = -1
+      this.startY             = -1
+      this.endY               = -1
+    },
+    initOptions ( value ?: Option[] ) {
+      const defaultOptions = value || this.default
+      if ( !defaultOptions ) return
+
+      defaultOptions.forEach( ( option, index ) => {
+        this.currentPickerIndex = index
+        const defaultIndex      = this.getOptionIndex( option )
+        const transformValue    = this.checkTransformValue( -(
+            defaultIndex
+        ) * minHeight, true )
+
+        this.translateY( transformValue )
+      } )
+    },
+    initSelectedIndexes () {
+      this.selectedIndexes = new Array( this.pickerCount ).fill( 0 )
+    },
+    translateY ( value: number ) {
+      this.scrollingElement.style.transform = `translateY(${ value }px)`
+    },
+    checkTransformValue ( newValue: number, flag?: boolean ) {
+      const maxValue    = maxScrollHeights[this.currentPickerIndex]
+      let selectedIndex = -1
+
+      if ( flag ) {
+        if ( newValue % minHeight !== 0 ) {
+          newValue = Math.round( newValue / minHeight ) * minHeight
+        }
+
+        selectedIndex = Math.abs( Math.round( newValue / minHeight ) )
+      }
+
+      if ( Math.abs( newValue ) > maxValue ) {
+        newValue      = -maxValue
+        selectedIndex = this.currentOptions.length - 1
+      } else if ( newValue >= 0 ) {
+        newValue      = 0
+        selectedIndex = 0
+      }
+
+      if ( flag ) this.setSelectedIndex( selectedIndex )
+
+      return newValue
+    },
+    move ( flag?: boolean ) {
+      const result    = this.startY - this.endY
+      const lastValue = this.getLastTransformValue()
+      const newValue  = this.checkTransformValue( lastValue - result, flag )
+
+      this.translateY( newValue )
+    },
+    getOptionIndex ( option: Option ) {
+
+      return typeof option === 'object' ?
+             this.currentOptions.findIndex( item => (
+                                                        typeof item === 'object'
+                                                    ) && item.name === option.name ) :
+             this.currentOptions.indexOf( option )
+    },
+    setSelectedIndex ( currentValue: number ) {
+      this.selectedIndexes.forEach( ( value, index ) => {
+        if ( this.currentPickerIndex === index ) {
+          this.$set( this.selectedIndexes, index, currentValue )
+        } else if ( this.currentPickerIndex < index ) {
+          this.$set( this.selectedIndexes, index, this.auto ? 0 : value )
+        }
+      } )
+
+      this.handleChange()
+    },
+    setScrollingElementIndex ( clientX: number ) {
+      if ( this.pickerCount < 1 ) throw new Error( 'pickerCount must be greater than 0' )
+
+      this.currentPickerIndex = this.pickerCount === 1 ?
+                                0 :
+                                Math.floor( (
+                                                clientX - wrapperX
+                                            ) / (
+                                            wrapperWidth / this.pickerCount
+                                            ) )
+    },
+    getLastTransformValue () {
+      const regexResult = (
+          /-?[.\d]+(?=px)/.exec( this.scrollingElement.style.transform )
+      )
+
+      if ( regexResult ) {
+        return parseFloat( regexResult[0] )
+      } else {
+        return 0
+      }
+    },
+    initStyle () {
+      this.setWrapperWidth()
+      this.setMaxScrollHeight()
+    },
+    initData () {
+      this.initSelectedIndexes()
+      this.initOptions()
+    },
+  },
     watch: {
-      visible(newValue, oldValue) {
-        if (newValue && newValue !== oldValue) {
-          this.$nextTick(() => {
-            this.init()
-
-            if (this.isFirst) {
-              this.isFirst = false
-              this.initSelectedIndexes()
-              this.setDefault()
-            }
-          })
+      visible: {
+        immediate: true,
+        handler(newVal, oldVal) {
+          if (newVal && newVal !== oldVal) {
+            this.$nextTick(() => {
+              this.initStyle()
+              this.initData()
+            })
+          }
         }
       },
       options: {
-        deep: true,
-        handler() {
-          this.init()
-        }
-      }
+        deep     : true,
+        immediate: true,
+        handler () {
+          this.$nextTick( () => {
+            this.initStyle()
+          } )
+        },
+      },
     },
   })
 </script>

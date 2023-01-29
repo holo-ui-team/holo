@@ -1,15 +1,14 @@
-import Vue, { Component }    from 'vue'
+import Vue                   from 'vue'
 import { CreateElement }     from 'vue/types/umd'
 import getEl                 from '@/_helper/get-el'
 import { CombinedComponent } from '@/_helper/type'
 
-export default function combineHelper<T> ( component: Component, props?: T ) : CombinedComponent<T>  {
-  // @ts-ignore
+export default function combineHelper<T> ( component, props?: T ): CombinedComponent<T> {
   const componentName = component.options.name
   const wrapper       = getEl( componentName )
 
   return new Vue( {
-    el: wrapper,
+    el  : wrapper,
     data: {
       props,
     },

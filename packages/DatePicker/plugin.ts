@@ -43,8 +43,8 @@ const plugin: PluginObject<DatePickerProps> = {
 
         visible: true,
         options: getOptions( baseProps ),
-        change : ( { allSelected } ) => {
-          const { years, months, days } = resetOptions( allSelected.map( ( item ) => parseInt( item )), { min: baseProps.min, max: baseProps.max } )
+        change : ( { selected } ) => {
+          const { years, months, days } = resetOptions( selected.map( ( item ) => parseInt( item )), { min: baseProps.min, max: baseProps.max } )
           _picker.$set( _picker.props.options, 0, years )
           _picker.$set( _picker.props.options, 1, months )
           _picker.$set( _picker.props.options, 2, days )
