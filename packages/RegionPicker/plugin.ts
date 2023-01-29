@@ -6,17 +6,6 @@ import Nation                       from './Data/Nation'
 import China                        from './Data/China'
 import { RenderHelperVueComponent } from '@/_helper/type'
 
-type Name = {
-  name: string
-}
-type City = {
-  name: string
-  district: Name[]
-}
-type Province = {
-                  city: City[]
-                } & Name
-
 type RegionPickerProps = PickerProps & {
   type: 'china' | 'nation'
   title?: string
@@ -55,19 +44,19 @@ const plugin: PluginObject<RegionPickerProps> = {
         },
 
         visible: true,
-        options: _getRegionData( props.type ),
-        change : ( { index, value } ) => {
+        options: _getInitialData( props.type ),
+        change : ( { index, value, allSelected } ) => {
           if ( props.type === 'china' ) {
 
-            if ( !value ) {
+            if ( !value && Number( index ) <= 2 ) {
               _picker.$set( _picker.props.options, Number( index ) + 1, [] )
             } else if ( index === 0 ) {
               const cities    = _getCityByProvince( value )
-              const districts = cities.length ? _getDistrictByCity( cities[0] ) : []
+              const districts = cities.length ? _getDistrictByCity( value, cities[0] ) : []
               _picker.$set( _picker.props.options, 1, cities )
               _picker.$set( _picker.props.options, 2, districts )
             } else if ( index === 1 ) {
-              const districts = _getDistrictByCity( value )
+              const districts = _getDistrictByCity( allSelected[0], value )
               _picker.$set( _picker.props.options, 2, districts )
             }
           }
@@ -80,15 +69,24 @@ const plugin: PluginObject<RegionPickerProps> = {
 
 export default plugin
 
-function _getRegionData ( type: string ) {
-  return type === 'nation' ? [ Nation ] : [ China.province, China.province[0].city, China.province[0].city[0].district ]
+function _getInitialData ( type: string ) {
+  if ( type === 'china' ) {
+    const provinces = Object.keys( China )
+    const cities    = _getCityByProvince( provinces[0] )
+    const districts = _getDistrictByCity( provinces[0], cities[0] )
+
+    return [ provinces, cities, districts ]
+
+  } else {
+    return [ Nation ]
+  }
 }
 
-function _getCityByProvince ( province: Province ): City[] {
-  return province.city || []
+function _getCityByProvince ( province: string ): string[] {
+  return Object.keys( China[province] )
 }
 
-function _getDistrictByCity ( city: City ): Name[] {
-  return city.district || []
+function _getDistrictByCity ( province: string, city: string ): string[] {
+  return China[province][city]
 }
 
