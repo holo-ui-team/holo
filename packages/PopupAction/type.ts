@@ -8,7 +8,7 @@ export type Action = {
 
 export type PopupActionProps = {
   visible             : boolean
-  type                : string
+  type               ?: string
   maskClosable       ?: boolean
   actions             : Action[]
   confirm            ?: Function

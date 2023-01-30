@@ -1,77 +1,79 @@
-import renderHelper from '@/_helper/render-helper'
-import {PickerProps} from '@/Picker/type'
+import combineHelper    from '@/_helper/combine-helper'
+import { PickerProps }  from '@/Picker/type'
 import { PluginObject } from 'vue/types/umd'
-import component from '@/Picker/index.vue'
-import Nation from './Data/Nation'
-import China from './Data/China'
-import { RenderHelperVueComponent } from '@/_helper/type'
+import picker           from '@/Picker/index.vue'
+import Nation           from './Data/Nation'
+import China            from './Data/China'
 
-type Region = {name: string, city ?: Region[], district?: Region[]}
+type RegionPickerProps = PickerProps & {
+  type: 'china' | 'nation'
+  title?: string
+}
 
-const plugin: PluginObject<PickerProps> = {
-  install: function(Vue) {
+const plugin: PluginObject<RegionPickerProps> = {
+  install: function ( Vue ) {
 
-    Vue.prototype.$regionPicker = function(props: PickerProps) {
+    Vue.prototype.$regionPicker = function ( props: RegionPickerProps ) {
 
-      const _picker = renderHelper(component, {
-        visible: false,
-        options: [],
-      }) as RenderHelperVueComponent<PickerProps>
+      const _pickerType = props.type || 'china'
+      const _picker     = combineHelper<RegionPickerProps>( picker, {
+        visible: true,
+        options: _getInitialData( _pickerType ),
+        type   : _pickerType,
+        confirm: ( val ) => {
+          props.confirm && props.confirm( val )
+        },
+      } )
 
-      const hidePopup = () => {
-        if (_picker.props) {
+      this.$set( _picker.props, 'cancel', () => {
+        if ( _picker.props ) {
           _picker.props.visible = false
           _picker.$el.remove()
         }
-      }
+        props.cancel && props.cancel()
+      } )
+      this.$set( _picker.props, 'change', ( { index, value, selected } ) => {
+        if ( _picker.props.type === 'china' ) {
 
-      _picker.props = {
-        confirm: (val) => { console.log(val) },
-        cancel : () => { hidePopup() },
-
-        ...props,
-        
-        visible: true,
-        options: _getRegionData(props.type || 'china'),
-        change: ({index, value}) => {
-          if (props.type !== 'nation') {
-
-            if (index === 0) {
-              const citys     = _getCityByProvince(value) as Region[]
-              const districts = _getDistrictByCity(citys[0])
-              _picker.$set(_picker.props.options, 1, citys)
-              _picker.$set(_picker.props.options, 2, districts)
-            } else if (index === 1) {
-              const districts = _getDistrictByCity(value)
-              _picker.$set(_picker.props.options, 2, districts)
-            }
+          if ( !value && Number( index ) <= 2 ) {
+            this.$set( _picker.props.options, Number( index ) + 1, [] )
+          } else if ( index === 0 ) {
+            const cities    = _getCityByProvince( value )
+            const districts = cities.length ? _getDistrictByCity( value, cities[0] ) : []
+            this.$set( _picker.props.options, 1, cities )
+            this.$set( _picker.props.options, 2, districts )
+          } else if ( index === 1 ) {
+            const districts = _getDistrictByCity( selected[0], value )
+            this.$set( _picker.props.options, 2, districts )
           }
-        },
-      }
+        }
+      } )
+
     }
 
-  }
+  },
 }
 
 export default plugin
 
-function _getRegionData(type: string) {
-  let result: Region[][]
+function _getInitialData ( type: string ) {
+  if ( type === 'china' ) {
+    const provinces = Object.keys( China )
+    const cities    = _getCityByProvince( provinces[0] )
+    const districts = _getDistrictByCity( provinces[0], cities[0] )
 
-  if (type === 'nation') {
-    result = [Nation]
+    return [ provinces, cities, districts ]
+
   } else {
-    result = [China.province, China.province[0].city, China.province[0].city[0].district]
+    return [ Nation ]
   }
-
-  return result
 }
 
-function _getCityByProvince(province: Region) {
-  return province.city
+function _getCityByProvince ( province: string ): string[] {
+  return Object.keys( China[province] )
 }
 
-function _getDistrictByCity(city: Region) {
-  return city.district
+function _getDistrictByCity ( province: string, city: string ): string[] {
+  return China[province][city]
 }
 

@@ -1,6 +1,5 @@
-import renderHelper from '@/_helper/render-helper'
-import { RenderHelperVueComponent } from '@/_helper/type'
-import { PluginObject } from 'vue/types/umd'
+import combineHelper         from '@/_helper/combine-helper'
+import { PluginObject }      from 'vue/types/umd'
 import component from '@/Picker/index.vue'
 import {PickerProps} from '@/Picker/type'
 
@@ -9,10 +8,10 @@ const plugin: PluginObject<PickerProps> = {
 
     
     Vue.prototype.$picker = function(props: PickerProps) {
-      const _picker = renderHelper(component, {
+      const _picker = combineHelper<PickerProps>(component, {
         visible: false,
         options: [],
-      }) as RenderHelperVueComponent<PickerProps>
+      })
 
       const hidePopup = () => {
         if (_picker.props) {
@@ -22,9 +21,15 @@ const plugin: PluginObject<PickerProps> = {
       }
 
       _picker.props = {
-        confirm: () => {},
-        cancel: () => { hidePopup() },
         ...props,
+        confirm: (val) => {
+          console.log(val)
+          props.confirm && props.confirm(val)
+        },
+        cancel : () => {
+          hidePopup()
+          props.cancel && props.cancel()
+        },
         visible: true,
       }
     }

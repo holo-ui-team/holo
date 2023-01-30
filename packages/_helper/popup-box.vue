@@ -103,7 +103,7 @@ export default Vue.extend({
       .text-button {        
         display: inline-block;
         padding: 12px 20px;
-        font-size: 16px; line-height: 22px;
+        font-size: 14px; line-height: 24px;
         cursor: default; user-select: none;
 
         &.cancel {
@@ -112,7 +112,6 @@ export default Vue.extend({
 
         &.confirm {
           color: @themeColor;
-          font-weight: bold;
         }
       }
     }
