@@ -16,7 +16,7 @@
     danger?: boolean
   } | string
 
-  type ShareAction = ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet']
+  type ShareAction = ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']
 ```
 
 ## 事件
@@ -35,7 +35,7 @@
 ### 分享
 
 1. 另外`actions`可包含以下三种情形`type Action = { name  : string, icon  ?: string, ad    ?: string, danger?: boolean } | string`
-2. 分享支持一下参数：`['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet']`, 展示顺序与以上顺序相同
+2. 分享支持一下参数：`['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs'']`, 展示顺序与以上顺序相同
 
 <popup-action-demo :currentDemo="0" />
 
@@ -44,7 +44,7 @@
 由于分享用的比较频繁，所以专门封装了`this.$share`的方法
 ```js
   this.$share({
-    actions: ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet']
+    actions: ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']
   })
 ```
 

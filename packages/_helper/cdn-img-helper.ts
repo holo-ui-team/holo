@@ -18,4 +18,5 @@ export const ShareImgs = new Map([
   ['message', cdnUrl + 'share/v2/o-message.svg'],
   ['weibo'  , cdnUrl + 'share/v2/o-weibo.svg'  ],
   ['wallet' , cdnUrl + 'share/v2/o-wallet.svg' ],
+  ['xhs'    , cdnUrl + 'share/o-xhs.png' ],
 ])

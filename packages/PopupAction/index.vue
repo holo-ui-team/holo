@@ -49,7 +49,8 @@ const ShareList = {
   qZone  : { icon: ShareImgs.get( 'qzone' ), name: 'QQ空间' },
   message: { icon: ShareImgs.get( 'message' ), name: '短信' },
   weibo  : { icon: ShareImgs.get( 'weibo' ), name: '微博' },
-  wallet : { icon: ShareImgs.get( 'wallet' ), name: '钱包' }
+  wallet : { icon: ShareImgs.get( 'wallet' ), name: '钱包' },
+  xhs    : { icon: ShareImgs.get( 'xhs' ), name: '小红书' },
 }
 
 export default Vue.extend( {

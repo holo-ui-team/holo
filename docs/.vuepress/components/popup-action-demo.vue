@@ -3,7 +3,7 @@
     <section v-if="currentDemo === 0">
       分享：
 
-      <OButton size="small" @click="handlePopupAction({type: 'share', actions: [ 'wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', ]})">点击</OButton>
+      <OButton size="small" @click="handlePopupAction({type: 'share', actions: [ 'wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']})">点击</OButton>
     </section>
     <section v-if="currentDemo === 1">
       分享:（有广告）
