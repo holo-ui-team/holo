@@ -4,6 +4,7 @@
              @click="visible = !visible">点击</OButton>
     <OMask :visible="visible"
            position="bottom"
+           ani="fade"
            background="rgba(0, 0, 0, .7)"
            @cancel="visible = !visible">
       <div class="box">
@@ -18,7 +19,7 @@ import Vue     from 'vue'
 import OButton from '@/Button/button.vue'
 import OMask   from '@/Mask/index.vue'
 
-export default Vue.extend( {
+export default ( {
   components: {
     OButton, OMask
   },

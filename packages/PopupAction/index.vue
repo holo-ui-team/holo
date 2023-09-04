@@ -12,7 +12,7 @@
       <div class="popup-action-list" :class="actionClasses"
            @click="handleConfirm">
 
-        <div v-for="(item, index) in computedActions" :key="index"
+        <div v-for="(item, index) in actions" :key="index"
              class="popup-action-item" :data-index="index">
           <template v-if="item.icon">
             <Icon v-if="isIconDefaultPattern(item.icon)"
@@ -38,20 +38,9 @@
 import Vue           from 'vue'
 import { PropType }  from 'node_modules/vue/types/umd'
 import PopupBox      from '@/_helper/popup-box.vue'
-import { ShareImgs } from '@/_helper/cdn-img-helper'
-import Icon          from '@/Icon/index.vue'
-import { Action }    from './type'
+import Icon                  from '@/Icon/index.vue'
+import { Action  } from './type'
 
-const ShareList = {
-  wechat : { icon: ShareImgs.get( 'wechat' ), name: '微信' },
-  moments: { icon: ShareImgs.get( 'moments' ), name: '朋友圈' },
-  qq     : { icon: ShareImgs.get( 'qq' ), name: 'QQ' },
-  qZone  : { icon: ShareImgs.get( 'qzone' ), name: 'QQ空间' },
-  message: { icon: ShareImgs.get( 'message' ), name: '短信' },
-  weibo  : { icon: ShareImgs.get( 'weibo' ), name: '微博' },
-  wallet : { icon: ShareImgs.get( 'wallet' ), name: '钱包' },
-  xhs    : { icon: ShareImgs.get( 'xhs' ), name: '小红书' },
-}
 
 export default Vue.extend( {
   name      : 'OPopupAction',
@@ -93,7 +82,7 @@ export default Vue.extend( {
       if ( this.type ) {
         result.push( 'share' )
 
-        if (this.computedActions.length < 4) {
+        if (this.actions.length < 4) {
           result.push('around')
         }
       } else {
@@ -107,21 +96,6 @@ export default Vue.extend( {
 
       return result
     },
-    computedActions (): Action[] {
-      let result: Action[] = []
-
-      if ( this.type === 'share' ) {
-        result = this.actions.map( ( item ) => {
-          if ( typeof item === 'string' ) {
-            return ShareList[item]
-          }
-        } )
-      } else {
-        result = this.actions
-      }
-
-      return result
-    }
   },
   methods   : {
     isDanger ( action: Action ) {
@@ -133,17 +107,13 @@ export default Vue.extend( {
       return result
     },
     getActionName ( action: Action ) {
-      if ( typeof action === 'object' ) {
-        return action.name.toString()
-      }
-
-      return action.toString()
+      return action.name
     },
     handleConfirm ( e: MouseEvent ) {
       const target      = e.target as HTMLDivElement
       const targetIndex = Number( target.getAttribute( 'data-index' ) )
 
-      if ( targetIndex === NaN ) return
+      if ( isNaN(targetIndex) ) return
 
       const targetItem = this.actions[targetIndex]
       if ( this.confirm ) {

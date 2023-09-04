@@ -5,6 +5,11 @@
 
       <OButton size="small" @click="handlePopupAction({type: 'share', actions: [ 'wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']})">点击</OButton>
     </section>
+    <section v-if="currentDemo === 5">
+      分享：（自定义内容）
+
+      <OButton size="small" @click="handlePopupAction({type: 'share', actions: [ 'xhs', { name: '抖音', icon: 'https://cdn.133.cn/ticket/h5/gtgj/img/holoUi/tiktok.png' }]})">点击</OButton>
+    </section>
     <section v-if="currentDemo === 1">
       分享:（有广告）
 
@@ -48,14 +53,14 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import OButton from '@/Button/button.vue'
-  // @ts-ignore
-  import $popupAction from '@/PopupAction/plugin.ts'
+  import Vue                  from 'vue'
+  import OButton              from '@/Button/button.vue'
+  import $popupAction         from '@/PopupAction/plugin.ts'
+  import { PopupActionProps } from '../../../packages/PopupAction/type'
   
   Vue.use($popupAction)
 
-  export default Vue.extend({
+  export default ({
     name: 'PopupActionDemo',
     components: {
       OButton
@@ -65,11 +70,8 @@
         type: Number,
       },
     },
-    mounted () {
-    },
     methods: {
-      handlePopupAction(props: object) {
-        // @ts-ignore
+      handlePopupAction(props: PopupActionProps) {
         this.$popupAction({
           actions: [ '操作1', '操作2', '操作3', '操作4', '操作5', ],
           ...props,

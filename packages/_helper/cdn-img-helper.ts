@@ -10,7 +10,7 @@ export const NoneImgs = new Map([
   ['trip'      , cdnUrl + 'none/o-trip.png'      ],
 ])
 
-export const ShareImgs = new Map([
+export const ShareImgs: Map<string, string> = new Map([
   ['wechat' , cdnUrl + 'share/v2/o-wechat.svg' ],
   ['moments', cdnUrl + 'share/v2/o-moments.svg'],
   ['qq'     , cdnUrl + 'share/v2/o-qq.svg'     ],
