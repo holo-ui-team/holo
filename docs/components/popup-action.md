@@ -10,6 +10,7 @@
 
 ```ts
   type Action = {
+    id    ?: string,
     name  : string,
     icon  ?: string,
     ad    ?: string,
