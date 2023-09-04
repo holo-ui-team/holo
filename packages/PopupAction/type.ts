@@ -1,14 +1,15 @@
 
 export type Action = {
+  id   ?: string
   name  : string,
   icon  ?: string,
   ad    ?: string,
   danger?: boolean
-} | string
+}
 
 export type PopupActionProps = {
   visible             : boolean
-  type               ?: string
+  type               ?: 'share'
   maskClosable       ?: boolean
   actions             : Action[]
   confirm            ?: Function

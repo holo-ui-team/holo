@@ -9,7 +9,7 @@
           @click="handleCancel"></div>
       <div :class="[position]" class="bg-mask-content">
 
-        <transition name="slide-fade">
+        <transition :name="ani">
           <main v-show="visible">
             <slot />
           </main>
@@ -39,6 +39,13 @@ export default Vue.extend( {
       default: 'bottom',
       validator ( val ) {
         return [ 'bottom', 'middle', 'top' ].includes( val )
+      },
+    },
+    ani         : {
+      type   : String,
+      default: 'slide-fade',
+      validator ( val ) {
+        return [ 'slide-fade', 'fade' ].includes( val )
       },
     },
   },

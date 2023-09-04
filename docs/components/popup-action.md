@@ -1,12 +1,12 @@
 # PopupAction 动作弹出框
 ## 参数
 
-| 参数       | 说明    | 类型      | 可选值       | 默认值   |
-|---------- |-------- |---------- |-------------  |-------- |
-|**【必填】visible**     | 弹窗是否显示  |  boolean  | [true, false] | false  |
-|**【必填】actions**     | 选项  |  `Array<Action> | Array<ShareAction>`  | - |  [] |
-|type     | 类型  | string | ['share'] |  '' |
-|maskClosable       | 点击黑色背景是否可以关闭  |  boolean  | [true, false] |  true |
+| 参数              | 说明           | 类型               | 可选值       | 默认值   |
+|-----------------|--------------|------------------|-------------  |-------|
+| **【必填】visible** | 弹窗是否显示       | boolean          | [true, false] | false |
+| **【必填】actions** | 选项           | `Array<Action>`   | `Array<ShareAction>`  | -     |  [] |
+| type            | 类型           | string           | ['share'] | ''    |
+| maskClosable    | 点击黑色背景是否可以关闭 | boolean          | [true, false] | true  |
 
 ```ts
   type Action = {
@@ -16,7 +16,7 @@
     danger?: boolean
   } | string
 
-  type ShareAction = ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet']
+  type ShareAction = ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']
 ```
 
 ## 事件
@@ -34,8 +34,8 @@
 
 ### 分享
 
-1. 另外`actions`可包含以下三种情形`type Action = { name  : string, icon  ?: string, ad    ?: string, danger?: boolean } | string`
-2. 分享支持一下参数：`['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet']`, 展示顺序与以上顺序相同
+1. 另外`actions`可包含以下三种情形`type Action = { id ?: string, name  : string, icon  ?: string, ad    ?: string, danger?: boolean } | string`
+2. 分享支持一下参数：`['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']`, 展示顺序与以上顺序相同
 
 <popup-action-demo :currentDemo="0" />
 
@@ -44,7 +44,7 @@
 由于分享用的比较频繁，所以专门封装了`this.$share`的方法
 ```js
   this.$share({
-    actions: ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet']
+    actions: ['wechat', 'moments', 'qq', 'qZone', 'message', 'weibo', 'wallet', 'xhs']
   })
 ```
 
@@ -76,6 +76,23 @@
     })
 </script>
 ```
+
+### 分享 - 自定义内容
+
+<br />
+
+<popup-action-demo :currentDemo="5" />
+
+```js
+  this.$share({
+    actions: [ 
+      'xhs', 
+      { id: 'tiktok', name: '抖音', icon: 'https://cdn.133.cn/ticket/h5/gtgj/img/holoUi/tiktok.png' }, 
+    ]
+  })
+```
+
+<br />
 
 ### 分享 - 有广告
 
