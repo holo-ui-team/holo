@@ -23,7 +23,10 @@ module.exports = {
           libraryTarget: 'commonjs2', // 使用 commonjs2 或者配置其他模式 umd 之类的
           libraryExport: 'default',
           library: '[name]',
-        }
+        },
+        externals: {
+          vue: 'vue',
+        },
       }
     } else {
       // 为开发环境修改配置...
@@ -51,6 +54,11 @@ module.exports = {
       config.entryPoints.delete('app') // 删除自动加上的入口：app
     } else {
       config.module.rule('md').test(/\.md$/).use('html-loader').loader('html-loader').end().use('markdown-loader').loader('markdown-loader');
+    }
+  },
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: isProduction
     }
   }
 };
