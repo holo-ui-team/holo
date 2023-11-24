@@ -1,6 +1,6 @@
 {
   "name": "holo-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "main": "lib/Index/index.js",
   "license": "MIT",
@@ -48,6 +48,7 @@
     "sinon-chai": "^3.5.0",
     "ts-loader": "7.0.0",
     "typescript": "~3.9.3",
+    "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
     "vue-template-compiler": "^2.6.11",
     "vuepress": "^1.8.2",
     "vuepress-plugin-typescript": "^0.3.1",
